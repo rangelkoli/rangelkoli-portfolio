@@ -9,7 +9,7 @@ interface AnimatedHeaderProps {
   onReelToggle?: () => void;
 }
 
-const AnimatedHeader = ({ showReel, onReelToggle }: AnimatedHeaderProps) => {
+const AnimatedHeader = ({ onReelToggle }: AnimatedHeaderProps) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const headings = [
     "Web Developer",

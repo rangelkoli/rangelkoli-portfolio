@@ -24,25 +24,6 @@ const educationData = [
   },
 ];
 
-// Skills data
-const skillsData = [
-  { id: 1, name: "React" },
-  { id: 2, name: "Next.js" },
-  { id: 3, name: "TypeScript" },
-  { id: 4, name: "JavaScript" },
-  { id: 5, name: "Node.js" },
-  { id: 6, name: "TailwindCSS" },
-  { id: 7, name: "MongoDB" },
-  { id: 8, name: "GraphQL" },
-  { id: 9, name: "AWS" },
-  { id: 10, name: "Docker" },
-  { id: 11, name: "Git" },
-  { id: 12, name: "Redux" },
-  { id: 13, name: "HTML5" },
-  { id: 14, name: "CSS3" },
-  { id: 15, name: "Python" },
-];
-
 const AboutSection = () => {
   const controls = useAnimation();
   const ref = useRef(null);
@@ -95,24 +76,24 @@ const AboutSection = () => {
 
             <div className='prose prose-lg prose-invert'>
               <p className='mb-5 text-gray-300 text-lg leading-relaxed'>
-                Hello! I'm a passionate software developer with a keen interest
-                in building elegant, user-friendly web applications. My journey
-                in technology began during my undergraduate studies, and I've
-                been hooked ever since.
+                Hello! I&apos;m a passionate software developer with a keen
+                interest in building elegant, user-friendly web applications. My
+                journey in technology began during my undergraduate studies, and
+                I&apos;ve been hooked ever since.
               </p>
 
               <p className='mb-5 text-gray-300 text-lg leading-relaxed'>
                 I specialize in frontend development with React and Next.js, but
-                I'm also experienced with backend technologies. My approach
+                I&apos;m also experienced with backend technologies. My approach
                 combines clean code principles with creative problem-solving to
                 deliver exceptional user experiences.
               </p>
 
               <p className='mb-6 text-gray-300 text-lg leading-relaxed'>
-                When I'm not coding, you'll find me exploring new hiking trails,
-                experimenting with photography, or contributing to open-source
-                projects. I'm always eager to learn new technologies and
-                techniques to expand my skillset.
+                When I&apos;m not coding, you&apos;ll find me exploring new
+                hiking trails, experimenting with photography, or contributing
+                to open-source projects. I&apos;m always eager to learn new
+                technologies and techniques to expand my skillset.
               </p>
             </div>
 

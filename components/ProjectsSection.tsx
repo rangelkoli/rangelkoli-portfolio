@@ -23,7 +23,7 @@ const ProjectsSection = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [progress, setProgress] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  console.log(currentImageIndex);
   // Track the last time we updated for smooth animation
   const lastUpdateTimeRef = useRef(Date.now());
   // Track if we're manually changing tabs
