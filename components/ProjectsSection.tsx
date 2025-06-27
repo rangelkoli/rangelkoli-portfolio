@@ -12,29 +12,37 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollSyncedCarousel() {
   useEffect(() => {
-    let swiper: any;
+    let swiper: unknown;
 
-    const trigger = ScrollTrigger.create({
+    ScrollTrigger.create({
       trigger: ".carousel-wrapper",
       start: "top top",
       end: "+=2000",
       scrub: 1.5,
       onUpdate: (self) => {
         if (!swiper) {
-          swiper = (document.querySelector(".swiper") as any)?.swiper;
+          swiper = (document.querySelector(".swiper") as { swiper?: unknown })
+            ?.swiper;
         }
 
-        if (swiper) {
+        if (
+          swiper &&
+          typeof swiper === "object" &&
+          swiper !== null &&
+          "wrapperEl" in swiper &&
+          "width" in swiper
+        ) {
+          const s = swiper as { wrapperEl: HTMLElement; width: number };
           const progress = self.progress;
           if (progress === 0) {
-            gsap.to(swiper.wrapperEl, {
+            gsap.to(s.wrapperEl, {
               transform: `translate3d(0px, 0, 0)`,
               duration: 0.5,
               ease: "power2.out",
             });
           } else {
-            const movement = -progress * (swiper.width * 0.8);
-            gsap.to(swiper.wrapperEl, {
+            const movement = -progress * (s.width * 0.8);
+            gsap.to(s.wrapperEl, {
               transform: `translate3d(${movement}px, 0, 0)`,
               duration: 0.3,
               ease: "power2.out",

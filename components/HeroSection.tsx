@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import localFont from "next/font/local";
-import Image from "next/image";
-import headersvg from "@/public/assets/header.svg";
+
 import { animate, createScope } from "animejs";
 
 const myFont = localFont({
@@ -12,7 +11,7 @@ const LAYERS = 4;
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const scope = useRef<any>(null);
+  const scope = useRef<ReturnType<typeof createScope> | null>(null);
 
   useEffect(() => {
     scope.current = createScope({ root: sectionRef }).add(() => {
@@ -58,7 +57,11 @@ const HeroSection = () => {
       return () => window.removeEventListener("scroll", throttledScroll);
     });
 
-    return () => scope.current && scope.current.revert();
+    return () => {
+      if (scope.current) {
+        scope.current.revert();
+      }
+    };
   }, []);
 
   return (

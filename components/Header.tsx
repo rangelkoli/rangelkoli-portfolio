@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiMenu, FiX, FiMoon, FiSun } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -33,15 +33,6 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [scrolled]);
-
-  const toggleDarkMode = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("darkMode", newDarkMode.toString());
-      document.documentElement.classList.toggle("dark", newDarkMode);
-    }
-  };
 
   // Handle smooth scrolling for anchor links
   const handleAnchorClick = (
@@ -146,4 +137,3 @@ const Header = () => {
 };
 
 export default Header;
-
