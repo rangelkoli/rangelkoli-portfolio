@@ -7,7 +7,6 @@ import { FiMenu, FiX } from "react-icons/fi";
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -17,7 +16,6 @@ const Header = () => {
         localStorage.getItem("darkMode") === "true" ||
         (!localStorage.getItem("darkMode") &&
           window.matchMedia("(prefers-color-scheme: dark)").matches);
-      setDarkMode(isDark);
       document.documentElement.classList.toggle("dark", isDark);
     }
 
