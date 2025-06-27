@@ -1,18 +1,18 @@
-'use client';
-import React, { useEffect, useRef } from 'react';
-import { skills } from '../data/skills';
-import gsap from './gsap'; // Import the configured gsap instance
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './SkillsSection.css';
+"use client";
+import React, { useEffect, useRef } from "react";
+import { skills } from "../data/skills";
+import gsap from "./gsap"; // Import the configured gsap instance
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "./SkillsSection.css";
 
 const SkillsSection = () => {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    const skillCards = section.querySelectorAll('.skill-card');
+    const skillCards = section.querySelectorAll(".skill-card");
 
     gsap.fromTo(
       skillCards,
@@ -27,11 +27,11 @@ const SkillsSection = () => {
         scale: 1,
         duration: 0.5,
         stagger: 0.1,
-        ease: 'power3.out',
+        ease: "power3.out",
         scrollTrigger: {
           trigger: section,
-          start: 'top 80%', // Start animation when 80% of the section is in view
-          toggleActions: 'play none none none',
+          start: "top 80%", // Start animation when 80% of the section is in view
+          toggleActions: "play none none none",
         },
       }
     );
