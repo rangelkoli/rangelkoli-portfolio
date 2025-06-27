@@ -43,7 +43,15 @@ const DiniSurfaceMesh: React.FC<{
   colorScheme: string;
   rotationSpeed?: number;
   castShadow?: boolean;
-}> = ({ a, b, colorScheme, rotationSpeed = 0.005, castShadow = false }) => {
+  isBackground?: boolean;
+}> = ({
+  a,
+  b,
+  colorScheme,
+  rotationSpeed = 0.005,
+  castShadow = false,
+  isBackground = false,
+}) => {
   const meshRef = useRef<THREE.Mesh>(null);
   // Time reference for more complex rotation patterns
   const timeRef = useRef({ offset: Math.random() * Math.PI * 2 });
@@ -66,9 +74,10 @@ const DiniSurfaceMesh: React.FC<{
 
       target.set(x, y, z);
     };
-    // Create with higher resolution for smoother surface
-    return new ParametricGeometry(diniFunction, 120, 120);
-  }, [a, b]);
+    // Use lower resolution for background mode to improve performance
+    const resolution = isBackground ? 60 : 120;
+    return new ParametricGeometry(diniFunction, resolution, resolution);
+  }, [a, b, isBackground]);
 
   // Enhanced materials with more visual interest
   const materials = useMemo(
@@ -348,6 +357,7 @@ const DiniSurface: React.FC<{
           colorScheme={colorScheme}
           rotationSpeed={rotationSpeed}
           castShadow={true}
+          isBackground={isBackground}
         />
 
         {/* Floor to receive shadows when in non-background mode */}
