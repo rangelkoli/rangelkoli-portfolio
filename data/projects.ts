@@ -14,7 +14,10 @@ export const projects: Project[] = [
     title: "JudgifySU",
     description: "This project streamlines the process of assigning judges to research posters, collecting and displaying poster scores, and generating a final ranking. ",
     image: [
+        "/assets/project-oculus-logo.jpg",
+        "/assets/project-oculus-logo.jpg",
         "/assets/project-oculus-logo.jpg"
+
 
     ],
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS, Flask", ""],
