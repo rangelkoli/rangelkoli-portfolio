@@ -1,12 +1,14 @@
+"use client";
 
-import Header from "@/components/Header";
-import Projects from "@/components/Projects";
+import React from "react";
+import AllProjects from "@/components/AllProjects";
+import { projects } from "@/data/projects";
 
 const ProjectsPage = () => {
   return (
-    <div>
-      <Header />
-      <Projects />
+    <div className='container mx-auto px-4 py-16'>
+      <h1 className='text-4xl font-bold text-center mb-12'>All Projects</h1>
+      <AllProjects />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import ProjectsSection from "@/components/ProjectsSection";
+import FeaturedProjects from "@/components/FeaturedProjects";
 import SkillsSection from "@/components/SkillsSection";
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
     <main className='p-0 m-0 min-h-screen'>
       <HeroSection />
       <Header />
-      <ProjectsSection />
+      <FeaturedProjects />
 
       <SkillsSection />
     </main>
