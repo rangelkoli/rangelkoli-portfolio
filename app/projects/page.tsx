@@ -2,7 +2,6 @@
 
 import React from "react";
 import AllProjects from "@/components/AllProjects";
-import { projects } from "@/data/projects";
 
 const ProjectsPage = () => {
   return (
