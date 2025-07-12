@@ -1,198 +1,294 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 import Image from "next/image";
+import gsap from "./gsap"; // Using the project's configured GSAP instance
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ProfileImage from "./profile.jpg"; // Adjust the import path as necessary
+gsap.registerPlugin(ScrollTrigger);
+import localFont from "next/font/local";
 
-// Sample education data - replace with your own information
-const educationData = [
-  {
-    id: 1,
-    degree: "Master of Science in Computer Science",
-    institution: "Syracuse University",
-    location: "Syracuse, NY",
-    duration: "2023 - 2025",
-    description: "Specialized in Artificial Intelligence and Machine Learning",
-  },
-  {
-    id: 2,
-    degree: "Bachelor of Engineering in Information Technology",
-    institution: "St.Frances Institute of Technology",
-    location: "Mumbai, India",
-    duration: "2019 - 2023",
-    description:
-      "Graduated with honors. Research focus on web technologies and distributed systems.",
-  },
-];
-
+const bueno_regular = localFont({
+  src: "./bueno-regular.otf", // Ensure the path is correct relative to your project structure
+  display: "swap",
+});
 const AboutSection = () => {
+  const sectionRef = useRef(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef(null);
   const controls = useAnimation();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  const isInView = useInView(textRef, { once: true, amount: 0.5 });
 
-  // Start animations when section comes into view
-  if (isInView) {
-    controls.start("visible");
-  }
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const image = imageRef.current;
+
+    if (section && image) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 75%", // Adjusted start position to trigger earlier
+          // Adjusted start position to trigger earlier
+          end: "bottom bottom",
+          scrub: 1,
+          markers: false,
+        },
+      });
+
+      tl.to(image, {
+        x: "-50%", // Move to the left of the screen
+        y: "100%",
+        width: "35vw",
+        height: "45vh",
+        borderRadius: "20px",
+        scale: 1.2,
+        opacity: 1,
+        ease: "power2.inOut",
+        duration: 1.5,
+        rotate: 0,
+      });
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+
+      transition: {
+        delay: i * 0.2,
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+      },
+    }),
+  };
 
   return (
     <section
       id='about'
-      className='py-28 bg-gradient-to-b from-gray-900 to-gray-950 text-white relative'
+      ref={sectionRef}
+      className='h-screen w-screen relative overflow-hidden bg-background'
     >
-      {/* Background Decorative Elements */}
-      <div className='absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none'>
-        <div className='absolute -top-40 -left-40 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl'></div>
-        <div className='absolute top-1/2 -right-40 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl'></div>
-      </div>
-
-      <div className='container mx-auto px-4 relative z-10'>
-        <motion.div
-          ref={ref}
-          initial='hidden'
-          animate={controls}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2,
-                duration: 0.6,
-              },
-            },
-          }}
-          className='flex flex-col lg:flex-row gap-16 items-center'
-        >
-          {/* Bio Section */}
+      <div className='relative w-full h-full flex flex-col justify-between'>
+        <div className='relative w-full h-1/2 flex items-center justify-center'>
           <motion.div
-            className='lg:w-1/2'
-            variants={{
-              hidden: { opacity: 0, x: -30 },
-              visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+            ref={imageRef}
+            className='absolute w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px] rounded-lg overflow-hidden shadow-lg'
+            initial={{
+              x: "60%",
+              y: "-40%",
+              scale: 0.5,
+              opacity: 0.5,
+              rotate: 5,
             }}
           >
-            <h2 className='text-5xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 leading-tight'>
-              About Me
-            </h2>
-
-            <div className='prose prose-lg prose-invert'>
-              <p className='mb-5 text-gray-300 text-lg leading-relaxed'>
-                Hello! I&apos;m a passionate software developer with a keen
-                interest in building elegant, user-friendly web applications. My
-                journey in technology began during my undergraduate studies, and
-                I&apos;ve been hooked ever since.
-              </p>
-
-              <p className='mb-5 text-gray-300 text-lg leading-relaxed'>
-                I specialize in frontend development with React and Next.js, but
-                I&apos;m also experienced with backend technologies. My approach
-                combines clean code principles with creative problem-solving to
-                deliver exceptional user experiences.
-              </p>
-
-              <p className='mb-6 text-gray-300 text-lg leading-relaxed'>
-                When I&apos;m not coding, you&apos;ll find me exploring new
-                hiking trails, experimenting with photography, or contributing
-                to open-source projects. I&apos;m always eager to learn new
-                technologies and techniques to expand my skillset.
-              </p>
-            </div>
-
-            <div className='flex flex-wrap gap-5 mt-10'>
-              <a
-                href='#contact'
-                className='bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 px-8 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:translate-y-[-2px] transform'
-              >
-                Get In Touch
-              </a>
-              <a
-                href='/resume.pdf'
-                target='_blank'
-                className='bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-8 rounded-lg transition-all duration-300 border border-gray-700 hover:border-gray-600 hover:shadow-lg hover:translate-y-[-2px] transform'
-              >
-                Download Resume
-              </a>
-            </div>
+            <Image
+              src={ProfileImage}
+              alt='Background image'
+              fill
+              style={{ objectFit: "cover" }}
+            />
           </motion.div>
-
-          {/* Profile Image */}
           <motion.div
-            className='lg:w-1/2 flex justify-center'
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.6, delay: 0.2 },
-              },
-            }}
+            ref={textRef}
+            initial='hidden'
+            animate={isInView ? "visible" : "hidden"}
+            className='relative z-10 max-w-6xl p-4 sm:p-8 text-center'
           >
-            <div className='relative w-72 h-72 md:w-96 md:h-96 overflow-hidden rounded-2xl border-4 border-gray-800 shadow-[0_0_25px_rgba(59,130,246,0.2)] group'>
-              {/* Replace with your own image */}
-              <Image
-                src='/profile-image.jpg'
-                alt='Profile'
-                fill
-                style={{ objectFit: "cover" }}
-                className='group-hover:scale-105 transition-transform duration-700 ease-in-out'
-              />
-              <div className='absolute inset-0 bg-gradient-to-t from-blue-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700'></div>
-            </div>
+            {[
+              "Hi, I'm Rangel Koli.",
+              "I don't just build websites. I architect experiences.",
+            ].map((line, index) => (
+              <motion.h2
+                key={index}
+                custom={index}
+                variants={textVariants}
+                className={`uppercase text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-loose text-black font-bold ${bueno_regular.className}`}
+                style={{ lineHeight: "1.0" }}
+              >
+                {line
+                  .split(/(Rangel Koli|websites|architect experiences)/i)
+                  .map((segment, segmentIndex) => (
+                    <motion.span
+                      key={segmentIndex}
+                      style={{
+                        backgroundColor: [
+                          "Rangel Koli",
+                          "websites",
+                          "architect experiences",
+                        ].includes(segment.trim())
+                          ? "#6b46c1"
+                          : "transparent",
+                        color: [
+                          "Rangel Koli",
+                          "websites",
+                          "architect experiences",
+                        ].includes(segment.trim())
+                          ? "#ffffff"
+                          : "inherit",
+                        padding: [
+                          "Rangel Koli",
+                          "websites",
+                          "architect experiences",
+                        ].includes(segment.trim())
+                          ? "0 4px"
+                          : "0",
+                      }}
+                    >
+                      {segment}
+                    </motion.span>
+                  ))}
+              </motion.h2>
+            ))}
           </motion.div>
-        </motion.div>
-
-        {/* Education Section */}
-        <motion.div
-          className='mt-32'
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.6, delay: 0.4 },
-            },
-          }}
+        </div>
+        <div className='relative w-full h-2/3 flex items-center justify-center'>
+          <div className='relative z-10 max-w-2xl px-4 pb-4 -mt-5 sm:p-8 text-center ml-auto'>
+            <motion.div
+              ref={textRef}
+              initial='hidden'
+              animate={isInView ? "visible" : "hidden"}
+              className='relative z-10 max-w-6xl p-4 sm:p-8 text-center'
+            >
+              {[
+                "I thrive on the challenge of translating complex problems into elegant, user-friendly digital solutions.",
+                "When I'm not coding, you can find me on the soccer field, where I channel the same passion and teamwork that I bring to my projects.",
+              ].map((line, index) => (
+                <motion.h2
+                  key={index}
+                  custom={index}
+                  variants={textVariants}
+                  className={`uppercase text-xl text-justify sm:text-4xl md:text-3xl lg:text-5xl leading-loose text-black font-bold ${bueno_regular.className}`}
+                  style={{ lineHeight: "1.0" }}
+                >
+                  {line
+                    .split(
+                      /(challenge|complex problems|elegant|user-friendly|digital solutions|coding|soccer field|passion|teamwork|projects)/i
+                    )
+                    .map((segment, segmentIndex) => (
+                      <motion.span
+                        key={segmentIndex}
+                        style={{
+                          backgroundColor: [
+                            "challenge",
+                            "complex problems",
+                            "elegant",
+                            "user-friendly",
+                            "digital solutions",
+                            "coding",
+                            "soccer field",
+                            "passion",
+                            "teamwork",
+                            "projects",
+                          ].includes(segment.trim())
+                            ? "#6b46c1"
+                            : "transparent",
+                          color: [
+                            "challenge",
+                            "complex problems",
+                            "elegant",
+                            "user-friendly",
+                            "digital solutions",
+                            "coding",
+                            "soccer field",
+                            "passion",
+                            "teamwork",
+                            "projects",
+                          ].includes(segment.trim())
+                            ? "#ffffff"
+                            : "inherit",
+                          padding: [
+                            "challenge",
+                            "complex problems",
+                            "elegant",
+                            "user-friendly",
+                            "digital solutions",
+                            "coding",
+                            "soccer field",
+                            "passion",
+                            "teamwork",
+                            "projects",
+                          ].includes(segment.trim())
+                            ? "0 4px"
+                            : "0",
+                        }}
+                      >
+                        {segment}
+                      </motion.span>
+                    ))}
+                </motion.h2>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+        <motion.h2
+          custom={2}
+          variants={textVariants}
+          className={`uppercase text-xl text-center sm:text-4xl md:text-3xl lg:text-5xl leading-loose text-black font-bold mt-8 ${bueno_regular.className}`}
+          style={{ lineHeight: "1.0" }}
         >
-          <h2 className='text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500'>
-            Education
-          </h2>
-
-          <div className='grid md:grid-cols-2 gap-8'>
-            {educationData.map((item) => (
-              <motion.div
-                key={item.id}
-                className='bg-gray-800/80 p-8 rounded-xl border border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:translate-y-[-5px] transform backdrop-blur-sm'
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5 },
-                  },
+          {"Let's build websites together"
+            .split(/(build|websites|together)/i)
+            .map((segment, segmentIndex) => (
+              <motion.span
+                key={segmentIndex}
+                style={{
+                  backgroundColor: ["build", "websites", "together"].includes(
+                    segment.trim()
+                  )
+                    ? "#6b46c1"
+                    : "transparent",
+                  color: ["build", "websites", "together"].includes(
+                    segment.trim()
+                  )
+                    ? "#ffffff"
+                    : "inherit",
+                  padding: ["build", "websites", "together"].includes(
+                    segment.trim()
+                  )
+                    ? "0 4px"
+                    : "0",
+                }}
+                whileHover={{
+                  scale: ["build", "websites", "together"].includes(
+                    segment.trim()
+                  )
+                    ? 1.05
+                    : 1,
+                  transition: { duration: 0.2 },
+                }}
+                animate={{
+                  y: ["build", "websites", "together"].includes(segment.trim())
+                    ? [0, -2, 0]
+                    : 0,
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: segmentIndex * 0.2,
                 }}
               >
-                <h3 className='text-2xl font-bold text-white mb-3 hover:text-blue-400 transition-colors'>
-                  {item.degree}
-                </h3>
-                <h4 className='text-xl font-medium text-blue-400 mb-4'>
-                  {item.institution}
-                </h4>
-
-                <div className='flex items-center gap-2 text-sm text-gray-400 mb-5 px-4 py-1.5 rounded-full bg-gray-900/50 w-fit'>
-                  <span>{item.location}</span>
-                  <span>•</span>
-                  <span className='font-medium'>{item.duration}</span>
-                </div>
-
-                <p className='text-gray-300 leading-relaxed'>
-                  {item.description}
-                </p>
-              </motion.div>
+                {segment}
+              </motion.span>
             ))}
-          </div>
-        </motion.div>
+        </motion.h2>
       </div>
     </section>
   );
 };
 
 export default AboutSection;
+
+("I'm Rangel Koli, and I don't just build websites. I architect experiences. I thrive on the challenge of translating complex problems into elegant, user-friendly digital solutions. When I'm not coding, you can find me on the soccer field, where I channel the same passion and teamwork that I bring to my projects. Let's create something amazing together.");

@@ -40,8 +40,9 @@ export const projects: Project[] = [
     title: "FindX",
     description: "A productivity application for managing tasks, projects, and deadlines with team collaboration.",
     image: [
-        "/assets/projects/judgify.jpg",
-        "/assets/projects/judgify2.jpg",
+        "/projects/findx/photo-1.jpg",
+        "/projects/findx/photo-2.jpg",
+        "/projects/findx/photo-3.jpg"
     ],    technologies: ["React", "Firebase", "Material UI", "Redux"],
     github: "https://github.com/yourusername/taskmanager",
   },

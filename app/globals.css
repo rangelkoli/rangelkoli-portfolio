@@ -351,7 +351,7 @@ nav ul li:hover {
         hsl(330, 100%, 70%),
         hsl(360, 100%, 70%)
       );
-  background: linear-gradient(40deg in hsl longer hue, hsl(0, 100%, 70%), hsl(360, 100%, 70%));
+  background: linear-gradient(40deg in hsl longer hue, hsl(0, 100%, 70%), hsl(0, 100%, 70%));
   z-index: -1;
   clip-path: polygon(90% 0, 100% 50%, 90% 99%, 0% 100%, 8% 50%, 0% 0%);
 }
@@ -392,3 +392,10 @@ nav:after {
   color: #0000;
 }
 
+.prose {
+  color: var(--foreground);
+}
+
+.prose-invert {
+  color: var(--background);
+}

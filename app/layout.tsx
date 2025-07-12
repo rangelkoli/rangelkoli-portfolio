@@ -7,6 +7,11 @@ import { usePathname } from "next/navigation";
 import "./globals.css";
 import Preloader from "../components/Preloader";
 import Transition from "../components/Transition";
+import localFont from "next/font/local";
+
+const bueno_regular = localFont({
+  src: "../components/bueno-regular.otf",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,7 +41,7 @@ export default function RootLayout({
 
   return (
     <html lang='en'>
-      <body className={`${geistSans.variable} ${geistMono.variable} bg-white `}>
+      <body className={`${bueno_regular.className} bg-white`}>
         {showPreloader && <Preloader />}
         <AnimatePresence mode='wait'>
           <Transition key={pathname}>{children}</Transition>

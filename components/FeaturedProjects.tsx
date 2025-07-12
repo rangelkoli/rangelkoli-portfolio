@@ -47,13 +47,14 @@ const FeaturedProjects = () => {
         },
       });
 
+      // Gradual color change from header to featured projects
       gsap.to(section, {
-        backgroundColor: "#fff5ee",
+        backgroundColor: "#f0f8ff", // AliceBlue
         ease: "none",
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: `+=${projects.length * 200}vh`,
+          end: "bottom top",
           scrub: true,
         },
       });
@@ -361,7 +362,6 @@ const FeaturedProjects = () => {
                     transform: "translate(-50%, -50%)",
                     zIndex: 5,
                     pointerEvents: "none",
-                    boxShadow: pos.boxShadow,
                     borderRadius: pos.borderRadius,
                     overflow: pos.overflow,
                     transition: "all 0.3s cubic-bezier(.4,2,.6,1)",
@@ -372,8 +372,11 @@ const FeaturedProjects = () => {
                     alt={project.title}
                     width={pos.width}
                     height={pos.height}
-                    className='object-cover'
-                    style={{ width: "100%", height: "100%" }}
+                    className='object-contain'
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
                   />
                 </div>
               );

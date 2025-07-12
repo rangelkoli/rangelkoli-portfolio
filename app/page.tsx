@@ -1,17 +1,39 @@
 "use client";
+import AboutSection from "@/components/AboutSection";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import SkillsSection from "@/components/SkillsSection";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+
+const MobileSection = dynamic(() => import("@/components/MobileSection"), {
+  ssr: false,
+});
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <main className='p-0 m-0 min-h-screen'>
-      <HeroSection />
       <Header />
+      {!isMobile && <HeroSection />}
+      {isMobile && <MobileSection />}
       <FeaturedProjects />
-
-      <SkillsSection />
+      <AboutSection />
     </main>
   );
 }

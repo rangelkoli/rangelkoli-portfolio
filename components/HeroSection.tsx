@@ -112,7 +112,6 @@ const HeroSection = () => {
           </h1>
         ))}
 
-        {/* Glow positioned between the two text elements */}
         <div
           className='absolute w-[400px] h-[200px] md:w-[700px] md:h-[350px] bg-[#a78bfa66] rounded-full blur-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
           style={{ zIndex: 0 }}
