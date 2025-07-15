@@ -199,7 +199,7 @@ const FeaturedProjects = () => {
       <div className='sticky top-0 z-50 bg-transparent px-6'>
         <h1
           ref={titleRef}
-          className='text-6xl font-extrabold uppercase tracking-wider text-center text-[#8082f8] z-50 '
+          className='text-6xl font-extrabold uppercase tracking-wider text-center text-[#8082f8] z-48'
         >
           Featured Projects
         </h1>
@@ -207,7 +207,7 @@ const FeaturedProjects = () => {
       {/* Main Content Section */}
       <section
         ref={sectionRef}
-        className='w-full min-h-screen flex items-center justify-center relative overflow-hidden left-0 top-0'
+        className='w-full min-h-screen flex items-center justify-center relative overflow-hidden left-0 top-0 z-49'
         style={{ backgroundColor: "#fff5ee" }}
       >
         {/* Images around the text, absolutely positioned */}

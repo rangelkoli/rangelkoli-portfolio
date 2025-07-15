@@ -29,8 +29,9 @@ export const projects: Project[] = [
     title: "WalkSafe",
     description: "WalkSafe, your ultimate companion for ensuring the safety of your loved ones while navigating through the city. WalkSafe is a comprehensive mobile applicationbuilt with React Native, designed to provide real-time tracking, route optimization, and safety alerts to keep you and your family secure at all times.",
     image: [
-        "/assets/projects/judgify.jpg",
-        "/assets/projects/judgify2.jpg",
+        "/projects/walksafe/2.jpg",
+        "/projects/walksafe/3.jpg",
+        "/projects/walksafe/1.gif"
     ],    technologies: ["React", "Node.js", "MongoDB", "Express", "Redux"],
     github: "https://github.com/yourusername/ecommerce",
 
@@ -38,7 +39,7 @@ export const projects: Project[] = [
   },
   {
     title: "FindX",
-    description: "A productivity application for managing tasks, projects, and deadlines with team collaboration.",
+    description: "FindX is a comprehensive web-based platform that leverages machine learning and facial recognition technology to help locate missing persons. The system provides a dual interface for both citizens and police authorities to collaborate in finding missing individuals.",
     image: [
         "/projects/findx/photo-1.jpg",
         "/projects/findx/photo-2.jpg",
