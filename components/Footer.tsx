@@ -67,9 +67,9 @@ const Footer = () => {
                 </Link>
               </div>
               <p className='text-xl text-gray-600 leading-relaxed mb-8 max-w-2xl uppercase tracking-wide font-medium'>
-                FULL-STACK DEVELOPER PASSIONATE ABOUT CREATING DIGITAL
-                EXPERIENCES THAT MAKE A DIFFERENCE. TURNING IDEAS INTO REALITY
-                THROUGH CODE, ONE PROJECT AT A TIME.
+                BUILDING MODERN WEB EXPERIENCES WITH CREATIVITY AND PRECISION.
+                DEDICATED TO TRANSFORMING CHALLENGES INTO ELEGANT, IMPACTFUL
+                SOLUTIONS—ONE LINE OF CODE AT A TIME.
               </p>
             </div>
 

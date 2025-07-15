@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
-import { Geist, Geist_Mono } from "next/font/google";
 import { usePathname } from "next/navigation";
 import "./globals.css";
 import Preloader from "../components/Preloader";

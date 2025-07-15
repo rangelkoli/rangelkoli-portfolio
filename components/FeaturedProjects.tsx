@@ -48,12 +48,6 @@ const FeaturedProjects = () => {
           end: `+=${projects.length * 1000}vh`,
           pin: true,
           scrub: true,
-          onUpdate: (self) => {
-            const newIndex = Math.min(
-              Math.floor(self.progress * projects.length),
-              projects.length - 1
-            );
-          },
         },
       });
 
