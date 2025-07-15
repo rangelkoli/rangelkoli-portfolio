@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import SkillsSection from "@/components/SkillsSection";
+import Footer from "@/components/Footer";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
@@ -33,7 +34,9 @@ export default function Home() {
       {!isMobile && <HeroSection />}
       {isMobile && <MobileSection />}
       <FeaturedProjects />
+
       <AboutSection />
+      <Footer />
     </main>
   );
 }

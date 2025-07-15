@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FeaturedProjects = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const projectRefs = useRef<Array<HTMLDivElement | null>>([]);
   // For each project, store an array of refs for its images
   const imageRefs = useRef<Array<Array<HTMLDivElement | null>>>([]);
@@ -16,6 +17,7 @@ const FeaturedProjects = () => {
 
   useEffect(() => {
     const section = sectionRef.current;
+    const title = titleRef.current;
     if (!section || projects.length === 0) return;
 
     // Use gsap.context for better cleanup and scope management
@@ -24,6 +26,22 @@ const FeaturedProjects = () => {
       gsap.globalTimeline.clear();
 
       gsap.set(section, { backgroundColor: "#fff5ee" });
+
+      // Animate title size on scroll
+      if (title) {
+        gsap.to(title, {
+          fontSize: "2rem", // Smaller size (from 6xl to 4xl)
+          paddingTop: "1rem",
+          paddingBottom: "0rem",
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 20%",
+            end: "+=200",
+            scrub: 1,
+          },
+        });
+      }
 
       const masterTl = gsap.timeline({
         scrollTrigger: {
@@ -49,7 +67,7 @@ const FeaturedProjects = () => {
 
       // Gradual color change from header to featured projects
       gsap.to(section, {
-        backgroundColor: "#f0f8ff", // AliceBlue
+        backgroundColor: "#fff5ee", // AliceBlue
         ease: "none",
         scrollTrigger: {
           trigger: section,
@@ -176,234 +194,247 @@ const FeaturedProjects = () => {
   }
 
   return (
-    <section
-      ref={sectionRef}
-      className='w-full min-h-screen flex items-center justify-center relative overflow-hidden left-0 top-0'
-      style={{ backgroundColor: "#fff5ee" }}
-    >
-      {/* Images around the text, absolutely positioned */}
-      {projects.map((project, pIdx) => {
-        // Layout: 1 image right center, 2 images left (top and bottom)
-        // Use larger images
-        // Unique image positions for each project
-        const imagePositionsSets = [
-          // Project 1
-          [
-            {
-              left: "calc(75vw)",
-              top: "50vh",
-              width: 400,
-              height: 300,
-              boxShadow:
-                "0 12px 48px 0 rgba(0,0,0,0.25), 0 2px 8px 0 rgba(0,0,0,0.18)",
-            },
-            {
-              left: "calc(25vw)",
-              top: "22vh",
-              width: 320,
-              height: 200,
-              boxShadow:
-                "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
-            },
-            {
-              left: "calc(25vw)",
-              top: "78vh",
-              width: 320,
-              height: 200,
-              boxShadow:
-                "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
-            },
-          ],
-          // Project 2
-          [
-            {
-              left: "calc(50vw + 180px)",
-              top: "20vh",
-              width: 340,
-              height: 220,
-              boxShadow:
-                "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
-            },
-            {
-              left: "calc(80vw)",
-              top: "70vh",
-              width: 400,
-              height: 300,
-              boxShadow:
-                "0 12px 48px 0 rgba(0,0,0,0.25), 0 2px 8px 0 rgba(0,0,0,0.18)",
-            },
-            {
-              left: "calc(20vw)",
-              top: "60vh",
-              width: 320,
-              height: 200,
-              boxShadow:
-                "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
-            },
-          ],
-          // Project 3
-          [
-            {
-              left: "calc(70vw)",
-              top: "30vh",
-              width: 380,
-              height: 260,
-              boxShadow:
-                "0 12px 48px 0 rgba(0,0,0,0.25), 0 2px 8px 0 rgba(0,0,0,0.18)",
-            },
-            {
-              left: "calc(30vw)",
-              top: "80vh",
-              width: 340,
-              height: 220,
-              boxShadow:
-                "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
-            },
-            {
-              left: "calc(20vw)",
-              top: "30vh",
-              width: 320,
-              height: 200,
-              boxShadow:
-                "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
-            },
-          ],
-        ];
-        const imagePositions =
-          imagePositionsSets[pIdx % imagePositionsSets.length];
-        // Responsive adjustments for mobile/tablet
-        const getResponsivePos = (pos: {
-          left: string;
-          top: string;
-          width: number;
-          height: number;
-          boxShadow: string;
-          borderRadius?: string;
-          overflow?: string;
-          idx?: number;
-        }) => {
-          if (typeof window !== "undefined") {
-            const isMobile = window.innerWidth < 640;
-            const isTablet =
-              window.innerWidth >= 640 && window.innerWidth < 1024;
-            if (isMobile) {
-              // Only two images: one above, one below text
-              if (pos.idx === 0) {
+    <section className='relative'>
+      {/* Sticky Title */}
+      <div className='sticky top-0 z-50 bg-transparent px-6'>
+        <h1
+          ref={titleRef}
+          className='text-6xl font-extrabold uppercase tracking-wider text-center text-[#8082f8] z-50 '
+        >
+          Featured Projects
+        </h1>
+      </div>
+      {/* Main Content Section */}
+      <section
+        ref={sectionRef}
+        className='w-full min-h-screen flex items-center justify-center relative overflow-hidden left-0 top-0'
+        style={{ backgroundColor: "#fff5ee" }}
+      >
+        {/* Images around the text, absolutely positioned */}
+        {projects.map((project, pIdx) => {
+          // Layout: 1 image right center, 2 images left (top and bottom)
+          // Use larger images
+          // Unique image positions for each project
+          const imagePositionsSets = [
+            // Project 1
+            [
+              {
+                left: "calc(75vw)",
+                top: "50vh",
+                width: 400,
+                height: 300,
+                boxShadow:
+                  "0 12px 48px 0 rgba(0,0,0,0.25), 0 2px 8px 0 rgba(0,0,0,0.18)",
+              },
+              {
+                left: "calc(25vw)",
+                top: "22vh",
+                width: 320,
+                height: 200,
+                boxShadow:
+                  "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
+              },
+              {
+                left: "calc(25vw)",
+                top: "78vh",
+                width: 320,
+                height: 200,
+                boxShadow:
+                  "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
+              },
+            ],
+            // Project 2
+            [
+              {
+                left: "calc(50vw + 180px)",
+                top: "20vh",
+                width: 340,
+                height: 220,
+                boxShadow:
+                  "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
+              },
+              {
+                left: "calc(80vw)",
+                top: "70vh",
+                width: 400,
+                height: 300,
+                boxShadow:
+                  "0 12px 48px 0 rgba(0,0,0,0.25), 0 2px 8px 0 rgba(0,0,0,0.18)",
+              },
+              {
+                left: "calc(20vw)",
+                top: "60vh",
+                width: 320,
+                height: 200,
+                boxShadow:
+                  "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
+              },
+            ],
+            // Project 3
+            [
+              {
+                left: "calc(70vw)",
+                top: "30vh",
+                width: 380,
+                height: 260,
+                boxShadow:
+                  "0 12px 48px 0 rgba(0,0,0,0.25), 0 2px 8px 0 rgba(0,0,0,0.18)",
+              },
+              {
+                left: "calc(30vw)",
+                top: "80vh",
+                width: 340,
+                height: 220,
+                boxShadow:
+                  "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
+              },
+              {
+                left: "calc(20vw)",
+                top: "30vh",
+                width: 320,
+                height: 200,
+                boxShadow:
+                  "0 12px 48px 0 rgba(0,0,0,0.22), 0 2px 8px 0 rgba(0,0,0,0.15)",
+              },
+            ],
+          ];
+          const imagePositions =
+            imagePositionsSets[pIdx % imagePositionsSets.length];
+          // Responsive adjustments for mobile/tablet
+          const getResponsivePos = (pos: {
+            left: string;
+            top: string;
+            width: number;
+            height: number;
+            boxShadow: string;
+            borderRadius?: string;
+            overflow?: string;
+            idx?: number;
+          }) => {
+            if (typeof window !== "undefined") {
+              const isMobile = window.innerWidth < 640;
+              const isTablet =
+                window.innerWidth >= 640 && window.innerWidth < 1024;
+              if (isMobile) {
+                // Only two images: one above, one below text
+                if (pos.idx === 0) {
+                  return {
+                    left: "50vw",
+                    top: "22vh",
+                    width: 110,
+                    height: 80,
+                    boxShadow: pos.boxShadow,
+                    borderRadius: "1.2rem",
+                    overflow: "hidden",
+                  };
+                } else if (pos.idx === 1) {
+                  return {
+                    left: "50vw",
+                    top: "78vh",
+                    width: 110,
+                    height: 80,
+                    boxShadow: pos.boxShadow,
+                    borderRadius: "1.2rem",
+                    overflow: "hidden",
+                  };
+                } else {
+                  // Hide any additional images
+                  return {
+                    left: "-9999px",
+                    top: "-9999px",
+                    width: 0,
+                    height: 0,
+                    boxShadow: "none",
+                    borderRadius: "1.2rem",
+                    overflow: "hidden",
+                  };
+                }
+              } else if (isTablet) {
+                // Slightly smaller and closer to center
                 return {
-                  left: "50vw",
-                  top: "22vh",
-                  width: 110,
-                  height: 80,
+                  left: pos.left.replace(/vw/g, "vw").replace(/vh/g, "vh"),
+                  top: pos.top.replace(/vw/g, "vw").replace(/vh/g, "vh"),
+                  width: Math.round(pos.width * 0.7),
+                  height: Math.round(pos.height * 0.7),
                   boxShadow: pos.boxShadow,
-                  borderRadius: "1.2rem",
-                  overflow: "hidden",
-                };
-              } else if (pos.idx === 1) {
-                return {
-                  left: "50vw",
-                  top: "78vh",
-                  width: 110,
-                  height: 80,
-                  boxShadow: pos.boxShadow,
-                  borderRadius: "1.2rem",
-                  overflow: "hidden",
-                };
-              } else {
-                // Hide any additional images
-                return {
-                  left: "-9999px",
-                  top: "-9999px",
-                  width: 0,
-                  height: 0,
-                  boxShadow: "none",
                   borderRadius: "1.2rem",
                   overflow: "hidden",
                 };
               }
-            } else if (isTablet) {
-              // Slightly smaller and closer to center
-              return {
-                left: pos.left.replace(/vw/g, "vw").replace(/vh/g, "vh"),
-                top: pos.top.replace(/vw/g, "vw").replace(/vh/g, "vh"),
-                width: Math.round(pos.width * 0.7),
-                height: Math.round(pos.height * 0.7),
-                boxShadow: pos.boxShadow,
-                borderRadius: "1.2rem",
-                overflow: "hidden",
-              };
             }
-          }
-          // Desktop default
-          return pos;
-        };
-        return (
-          <React.Fragment key={pIdx}>
-            {project.image.slice(0, 3).map((imgSrc, imgIdx) => {
-              // Add idx for responsive
-              const pos = getResponsivePos({
-                ...imagePositions[imgIdx],
-                idx: imgIdx,
-              });
-              // Hide images with width 0 (for mobile extra images)
-              if (pos.width === 0 || pos.height === 0) return null;
-              return (
-                <div
-                  key={imgIdx}
-                  ref={(el) => {
-                    if (!imageRefs.current[pIdx]) imageRefs.current[pIdx] = [];
-                    imageRefs.current[pIdx][imgIdx] = el;
-                  }}
-                  className='fixed md:absolute'
-                  style={{
-                    left: pos.left,
-                    top: pos.top,
-                    width: pos.width,
-                    height: pos.height,
-                    transform: "translate(-50%, -50%)",
-                    zIndex: 5,
-                    pointerEvents: "none",
-                    borderRadius: pos.borderRadius,
-                    overflow: pos.overflow,
-                    transition: "all 0.3s cubic-bezier(.4,2,.6,1)",
-                  }}
-                >
-                  <Image
-                    src={imgSrc}
-                    alt={project.title}
-                    width={pos.width}
-                    height={pos.height}
-                    className='object-contain'
-                    style={{
-                      width: "100%",
-                      height: "100%",
+            // Desktop default
+            return pos;
+          };
+          return (
+            <React.Fragment key={pIdx}>
+              {project.image.slice(0, 3).map((imgSrc, imgIdx) => {
+                // Add idx for responsive
+                const pos = getResponsivePos({
+                  ...imagePositions[imgIdx],
+                  idx: imgIdx,
+                });
+                // Hide images with width 0 (for mobile extra images)
+                if (pos.width === 0 || pos.height === 0) return null;
+                return (
+                  <div
+                    key={imgIdx}
+                    ref={(el) => {
+                      if (!imageRefs.current[pIdx])
+                        imageRefs.current[pIdx] = [];
+                      imageRefs.current[pIdx][imgIdx] = el;
                     }}
-                  />
+                    className='fixed md:absolute'
+                    style={{
+                      left: pos.left,
+                      top: pos.top,
+                      width: pos.width,
+                      height: pos.height,
+                      transform: "translate(-50%, -50%)",
+                      zIndex: 5,
+                      pointerEvents: "none",
+                      borderRadius: pos.borderRadius,
+                      overflow: pos.overflow,
+                      transition: "all 0.3s cubic-bezier(.4,2,.6,1)",
+                    }}
+                  >
+                    <Image
+                      src={imgSrc}
+                      alt={project.title}
+                      width={pos.width}
+                      height={pos.height}
+                      className='object-contain'
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    />
+                  </div>
+                );
+              })}
+              {/* Centered text content, justified */}
+              <div
+                key={pIdx + "-text"}
+                ref={(el) => {
+                  projectRefs.current[pIdx] = el;
+                }}
+                className='absolute left-1/2 top-1/2 w-full max-w-2xl px-6 flex flex-col items-center justify-center'
+                style={{
+                  transform: "translate(-50%, -50%)",
+                  zIndex: 20,
+                  pointerEvents: "auto",
+                }}
+              >
+                <h2 className='text-5xl font-extrabold uppercase tracking-wider mb-4 text-black drop-shadow-lg text-center'>
+                  {project.title}
+                </h2>
+                <div className='text-xl font-bold uppercase tracking-wider leading-loose text-black text-justify'>
+                  {project.description}
                 </div>
-              );
-            })}
-            {/* Centered text content, justified */}
-            <div
-              key={pIdx + "-text"}
-              ref={(el) => {
-                projectRefs.current[pIdx] = el;
-              }}
-              className='absolute left-1/2 top-1/2 w-full max-w-2xl px-6 flex flex-col items-center justify-center'
-              style={{
-                transform: "translate(-50%, -50%)",
-                zIndex: 20,
-                pointerEvents: "auto",
-              }}
-            >
-              <h2 className='text-5xl font-extrabold uppercase tracking-wider mb-4 text-black drop-shadow-lg text-center'>
-                {project.title}
-              </h2>
-              <div className='text-xl font-bold uppercase tracking-wider leading-loose text-black text-justify'>
-                {project.description}
               </div>
-            </div>
-          </React.Fragment>
-        );
-      })}
+            </React.Fragment>
+          );
+        })}
+      </section>
     </section>
   );
 };

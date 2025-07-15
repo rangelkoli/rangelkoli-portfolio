@@ -70,7 +70,7 @@ const HeroSection = () => {
     <section
       id='home'
       ref={sectionRef}
-      className={`h-[60vh] flex flex-col items-center justify-center relative ${myFont.className}`}
+      className={`h-[70vh] mb-48 flex flex-col items-center justify-center relative ${myFont.className}`}
     >
       <div className='absolute w-[400px] h-[200px] md:w-[700px] md:h-[350px] bg-[#a78bfa66] rounded-full blur-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-6' />
 
