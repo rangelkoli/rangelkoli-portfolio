@@ -9,8 +9,6 @@ import {
   FiMail,
   FiTwitter,
   FiInstagram,
-  FiArrowUp,
-  FiHeart,
 } from "react-icons/fi";
 
 const bueno_regular = localFont({
@@ -18,8 +16,6 @@ const bueno_regular = localFont({
 });
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   const socialLinks = [
     {
       name: "GitHub",
@@ -51,14 +47,6 @@ const Footer = () => {
       href: "mailto:rangelkoli@gmail.com", // Update with your email
       color: "hover:text-red-500",
     },
-  ];
-
-  const quickLinks = [
-    { name: "Home", href: "/" },
-    { name: "Projects", href: "/projects" },
-    { name: "About", href: "/#about" },
-    { name: "Skills", href: "/#skills" },
-    { name: "Contact", href: "/contact" },
   ];
 
   return (

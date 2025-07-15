@@ -13,8 +13,6 @@ const FeaturedProjects = () => {
   // For each project, store an array of refs for its images
   const imageRefs = useRef<Array<Array<HTMLDivElement | null>>>([]);
 
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0); // State for current project index
-
   useEffect(() => {
     const section = sectionRef.current;
     const title = titleRef.current;
@@ -55,12 +53,6 @@ const FeaturedProjects = () => {
               Math.floor(self.progress * projects.length),
               projects.length - 1
             );
-            setCurrentProjectIndex((prevIndex) => {
-              if (newIndex !== prevIndex) {
-                return newIndex;
-              }
-              return prevIndex;
-            });
           },
         },
       });
