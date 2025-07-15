@@ -196,10 +196,10 @@ const FeaturedProjects = () => {
   return (
     <section className='relative'>
       {/* Sticky Title */}
-      <div className='sticky top-0 z-50 bg-transparent px-6'>
+      <div className='sticky top-0 z-59 bg-transparent px-6 max-w-2xl mx-auto'>
         <h1
           ref={titleRef}
-          className='text-6xl font-extrabold uppercase tracking-wider text-center text-[#8082f8] z-48'
+          className='text-6xl font-extrabold uppercase tracking-wider text-center text-[#8082f8] z-59'
         >
           Featured Projects
         </h1>

@@ -9,6 +9,11 @@ const buenoRegular = localFont({
   display: "swap",
 });
 
+const jadynMaria = localFont({
+  src: "./JadynMaria.otf",
+  display: "swap",
+});
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -77,7 +82,9 @@ const Header = () => {
           {/* Logo - Left Side */}
           <div className='flex items-center'>
             <Link href='/' className='group flex items-center space-x-2'>
-              <span className='text-2xl md:text-3xl lg:text-4xl font-bold text-black transform transition-transform duration-200 group-hover:scale-105'>
+              <span
+                className={`text-2xl md:text-3xl lg:text-4xl font-bold text-black transform transition-transform duration-200 group-hover:scale-105 ${jadynMaria.className}`}
+              >
                 Rangel
               </span>
             </Link>

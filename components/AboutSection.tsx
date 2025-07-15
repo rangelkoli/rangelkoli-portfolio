@@ -82,20 +82,28 @@ const AboutSection = () => {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-
       transition: {
-        delay: i * 0.2,
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
+        delay: i * 0.3,
+        duration: 0.8,
+        ease: "easeOut",
       },
     }),
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   return (
     <section className='relative'>
       {/* Sticky Title */}
-      <div className='sticky top-0 z-50 bg-transparent px-6'>
+      <div className='sticky top-0 z-50 bg-transparent px-6 max-w-2xl mx-auto'>
         <h1
           ref={titleRef}
           className='text-6xl font-extrabold uppercase tracking-wider text-center text-[#8082f8] z-50'
@@ -134,6 +142,7 @@ const AboutSection = () => {
               ref={textRef}
               initial='hidden'
               animate={isInView ? "visible" : "hidden"}
+              variants={containerVariants}
               className='relative z-10 max-w-6xl p-4 sm:p-8 text-center'
             >
               {[
@@ -189,6 +198,7 @@ const AboutSection = () => {
                 ref={textRef}
                 initial='hidden'
                 animate={isInView ? "visible" : "hidden"}
+                variants={containerVariants}
                 className='relative z-10 max-w-6xl p-4 sm:p-8 text-center'
               >
                 {[
@@ -197,7 +207,7 @@ const AboutSection = () => {
                 ].map((line, index) => (
                   <motion.h2
                     key={index}
-                    custom={index}
+                    custom={index + 2} // Offset the delay to continue after the first section
                     variants={textVariants}
                     className={`uppercase text-xl text-justify sm:text-4xl md:text-3xl lg:text-5xl leading-loose text-black font-bold ${bueno_regular.className}`}
                     style={{ lineHeight: "1.0" }}
