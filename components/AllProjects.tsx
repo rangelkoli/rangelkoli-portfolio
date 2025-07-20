@@ -85,7 +85,7 @@ const AllProjects: React.FC = () => {
               <div className="flex-1 p-6 sm:p-8 lg:p-12 flex flex-col justify-between order-2 lg:order-1">
                 <div>
                   <motion.h3 
-                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4"
+                    className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 sm:mb-6"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
@@ -94,7 +94,7 @@ const AllProjects: React.FC = () => {
                   </motion.h3>
                   
                   <motion.p 
-                    className="text-base sm:text-lg text-gray-600 leading-relaxed mb-4 sm:mb-6"
+                    className="text-lg sm:text-xl lg:text-2xl text-gray-700 leading-relaxed mb-5 sm:mb-8 text-justify"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3, duration: 0.5 }}
@@ -103,19 +103,19 @@ const AllProjects: React.FC = () => {
                   </motion.p>
 
                   <motion.div 
-                    className="mb-6 sm:mb-8"
+                    className="mb-7 sm:mb-10"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4, duration: 0.5 }}
                   >
-                    <h4 className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 sm:mb-3 uppercase tracking-wide">
+                    <h4 className="text-base sm:text-lg lg:text-xl font-bold text-gray-800 mb-3 sm:mb-4 uppercase tracking-wide">
                       Tech Stack
                     </h4>
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
                       {project.technologies.filter(tech => tech.trim()).map((tech, techIndex) => (
                         <motion.span
                           key={techIndex}
-                          className="px-2 sm:px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs sm:text-sm font-medium rounded-full"
+                          className="px-4 sm:px-5 py-2 bg-blue-100 text-blue-800 text-base sm:text-lg font-semibold rounded-full shadow-sm"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.5 + techIndex * 0.1, duration: 0.3 }}
