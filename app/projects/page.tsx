@@ -3,13 +3,11 @@
 import React from "react";
 import AllProjects from "@/components/AllProjects";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import { motion } from "framer-motion";
 
 const ProjectsPage = () => {
   return (
     <div className="min-h-screen bg-seashell">
-      <Header />
       <div className='container mx-auto px-4 py-8 sm:py-12 lg:py-16'>
         <motion.div
           initial={{ opacity: 0, y: 30 }}

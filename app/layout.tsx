@@ -6,7 +6,9 @@ import { usePathname } from "next/navigation";
 import "./globals.css";
 import Preloader from "../components/Preloader";
 import Transition from "../components/Transition";
+import Header from "../components/Header";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 
 const bueno_regular = localFont({
   src: "../components/bueno-regular.otf",
@@ -31,7 +33,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${bueno_regular.className} bg-white`}>
+        <Analytics />
         {showPreloader && <Preloader />}
+        <Header />
         <AnimatePresence mode='wait'>
           <Transition key={pathname}>{children}</Transition>
         </AnimatePresence>
