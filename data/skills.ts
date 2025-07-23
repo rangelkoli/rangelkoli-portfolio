@@ -11,6 +11,5 @@ export const skills = [
   "MongoDB",
   "Firebase",
   "Docker",
-  "Three.js",
-  "Framer Motion",
+
 ];

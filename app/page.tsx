@@ -5,6 +5,7 @@ import FeaturedProjects from "@/components/FeaturedProjects";
 import Footer from "@/components/Footer";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import SkillsSection from "@/components/SkillsSection";
 
 const MobileSection = dynamic(() => import("@/components/MobileSection"), {
   ssr: false,
@@ -32,6 +33,7 @@ export default function Home() {
       {isMobile && <MobileSection />}
       <FeaturedProjects />
 
+      <SkillsSection />
       <AboutSection />
       <Footer />
     </main>
