@@ -70,7 +70,7 @@ const HeroSection = () => {
     <section
       id='home'
       ref={sectionRef}
-      className={`h-[70vh] mb-48 flex flex-col items-center justify-center relative ${myFont.className}`}
+      className={`md:flex h-[70vh] mb-48 flex-col items-center justify-center relative ${myFont.className}`}
     >
       <div className='absolute w-[400px] h-[200px] md:w-[700px] md:h-[350px] bg-[#a78bfa66] rounded-full blur-3xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-6' />
 
@@ -79,7 +79,7 @@ const HeroSection = () => {
         {[...Array(LAYERS)].map((_, index) => (
           <h1
             key={index}
-            className={`absolute uppercase text-[250px] outline-[#8082f8] font-bold ${
+            className={`absolute uppercase text-[clamp(2rem,25vw,250px)] md:text-[250px] outline-[#8082f8] font-bold ${
               index === 0 ? "text-white border-[#8082f8] " : "text-[#8082f8] "
             } text-center mb-4 transition-transform duration-300 ease-out ${
               myFont.className
@@ -123,7 +123,7 @@ const HeroSection = () => {
             {[...Array(LAYERS)].map((_, index) => (
               <h1
                 key={index}
-                className={`absolute uppercase text-[150px] outline-[#8082f8] font
+                className={`absolute uppercase text-[clamp(2rem,25vw,250px)] md:text-[150px] outline-[#8082f8] font
         bold ${
           index === 0 ? "text-white border-[#8082f8] " : "text-[#8082f8] "
         } text-center mb-4 transition-transform duration-300 ease-out ${
@@ -161,7 +161,7 @@ const HeroSection = () => {
 
         {/* SVG overlay */}
         <svg
-          className='absolute'
+          className='hidden md:block absolute'
           viewBox='0 0 100 30'
           preserveAspectRatio='none'
           style={{
@@ -187,7 +187,7 @@ const HeroSection = () => {
         </svg>
 
         <svg
-          className='absolute'
+          className='hidden md:block absolute'
           viewBox='0 0 100 30'
           preserveAspectRatio='none'
           style={{

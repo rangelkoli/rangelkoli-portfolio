@@ -65,35 +65,35 @@ const SkillsSection = () => {
 
   return (
     <section ref={sectionRef} className="w-full py-16 flex flex-col items-center">
-      <div className='sticky top-0 z-50 bg-transparent px-6 max-w-2xl mx-auto'>
+      <div className='sticky top-0 z-50 bg-transparent px-4 sm:px-6 max-w-2xl mx-auto'>
         <h1
           ref={titleRef}
-          className='text-6xl font-extrabold uppercase tracking-wider text-center text-[#8082f8] z-50'
+          className='text-4xl sm:text-6xl font-extrabold uppercase tracking-wider text-center text-[#8082f8] z-50'
         >
           Skills
         </h1>
       </div>
       {/* Languages Row */}
-      <div className="flex flex-row items-center justify-center w-full max-w-6xl mt-16 gap-6 px-4">
-        <div className="flex-shrink-0 border border-white rounded-md h-32 flex items-center justify-center min-w-[260px] bg-transparent">
-          <span className="text-3xl font-extrabold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center">
+      <div className="flex flex-col sm:flex-row items-center justify-center w-full max-w-6xl mt-12 gap-4 sm:gap-6 px-2 sm:px-4">
+        <div className="w-full sm:w-auto border border-white rounded-md h-24 sm:h-32 flex items-center justify-center min-w-[160px] sm:min-w-[260px] bg-transparent mb-2 sm:mb-0">
+          <span className="text-2xl sm:text-3xl font-extrabold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center">
             Languages
           </span>
         </div>
-        <div className="flex flex-1 flex-row gap-6 overflow-x-auto">
+        <div className="flex flex-row sm:flex-1 gap-4 sm:gap-6 overflow-x-auto w-full">
           {languages.map((lang) => (
             <div
               key={lang.name}
-              className="border border-white rounded-md h-32 min-w-[180px] flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:shadow-2xl hover:-translate-y-1 bg-transparent group"
+              className="border border-white rounded-md h-24 sm:h-32 min-w-[120px] sm:min-w-[180px] flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:shadow-2xl hover:-translate-y-1 bg-transparent group"
               style={{ backgroundColor: "transparent" }}
             >
               <img
                 src={lang.icon}
                 alt={lang.name + " icon"}
-                className="w-12 h-12 mb-2 object-contain transition-transform duration-200 group-hover:scale-110"
+                className="w-8 h-8 sm:w-12 sm:h-12 mb-1 sm:mb-2 object-contain transition-transform duration-200 group-hover:scale-110"
                 loading="lazy"
               />
-              <span className="text-xl font-semibold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center select-none">
+              <span className="text-base sm:text-xl font-semibold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center select-none">
                 {lang.name}
               </span>
             </div>
@@ -101,28 +101,28 @@ const SkillsSection = () => {
         </div>
       </div>
       {/* Frameworks Row */}
-      <div className="flex flex-row items-center justify-center w-full max-w-6xl mt-10 gap-6 px-4">
-        <div className="flex-shrink-0 border border-white rounded-md h-32 flex items-center justify-center min-w-[260px] bg-transparent">
-          <span className="text-3xl font-extrabold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center">
+      <div className="flex flex-col sm:flex-row items-center justify-center w-full max-w-6xl mt-8 sm:mt-10 gap-4 sm:gap-6 px-2 sm:px-4">
+        <div className="w-full sm:w-auto border border-white rounded-md h-24 sm:h-32 flex items-center justify-center min-w-[160px] sm:min-w-[260px] bg-transparent mb-2 sm:mb-0">
+          <span className="text-2xl sm:text-3xl font-extrabold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center">
             Frameworks
           </span>
         </div>
-        <div className="flex flex-1 flex-row gap-6 overflow-x-auto">
+        <div className="flex flex-row sm:flex-1 gap-4 sm:gap-6 overflow-x-auto w-full">
           {frameworks.map((skill) => (
             <div
               key={skill}
-              className="border border-white rounded-md h-32 min-w-[180px] flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:shadow-2xl hover:-translate-y-1 bg-transparent group"
+              className="border border-white rounded-md h-24 sm:h-32 min-w-[120px] sm:min-w-[180px] flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:shadow-2xl hover:-translate-y-1 bg-transparent group"
               style={{ backgroundColor: "transparent" }}
             >
               {iconMap[skill] && (
                 <img
                   src={iconMap[skill]}
                   alt={skill + " icon"}
-                  className="w-12 h-12 mb-2 object-contain transition-transform duration-200 group-hover:scale-110"
+                  className="w-8 h-8 sm:w-12 sm:h-12 mb-1 sm:mb-2 object-contain transition-transform duration-200 group-hover:scale-110"
                   loading="lazy"
                 />
               )}
-              <span className="text-xl font-semibold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center select-none">
+              <span className="text-base sm:text-xl font-semibold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center select-none">
                 {skill}
               </span>
             </div>
@@ -130,26 +130,26 @@ const SkillsSection = () => {
         </div>
       </div>
       {/* Databases Row */}
-      <div className="flex flex-row items-center justify-center w-full max-w-6xl mt-10 gap-6 px-4">
-        <div className="flex-shrink-0 border border-white rounded-md h-32 flex items-center justify-center min-w-[260px] bg-transparent">
-          <span className="text-3xl font-extrabold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center">
+      <div className="flex flex-col sm:flex-row items-center justify-center w-full max-w-6xl mt-8 sm:mt-10 gap-4 sm:gap-6 px-2 sm:px-4">
+        <div className="w-full sm:w-auto border border-white rounded-md h-24 sm:h-32 flex items-center justify-center min-w-[160px] sm:min-w-[260px] bg-transparent mb-2 sm:mb-0">
+          <span className="text-2xl sm:text-3xl font-extrabold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center">
             Databases
           </span>
         </div>
-        <div className="flex flex-1 flex-row gap-6 overflow-x-auto">
+        <div className="flex flex-row sm:flex-1 gap-4 sm:gap-6 overflow-x-auto w-full">
           {databases.map((db) => (
             <div
               key={db.name}
-              className="border border-white rounded-md h-32 min-w-[180px] flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:shadow-2xl hover:-translate-y-1 bg-transparent group"
+              className="border border-white rounded-md h-24 sm:h-32 min-w-[120px] sm:min-w-[180px] flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:shadow-2xl hover:-translate-y-1 bg-transparent group"
               style={{ backgroundColor: "transparent" }}
             >
               <img
                 src={db.icon}
                 alt={db.name + " icon"}
-                className="w-12 h-12 mb-2 object-contain transition-transform duration-200 group-hover:scale-110"
+                className="w-8 h-8 sm:w-12 sm:h-12 mb-1 sm:mb-2 object-contain transition-transform duration-200 group-hover:scale-110"
                 loading="lazy"
               />
-              <span className="text-xl font-semibold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center select-none">
+              <span className="text-base sm:text-xl font-semibold tracking-wide bg-gradient-to-r from-[#6b46c1] to-[#8082f8] bg-clip-text text-transparent text-center select-none">
                 {db.name}
               </span>
             </div>

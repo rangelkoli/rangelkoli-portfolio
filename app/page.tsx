@@ -29,10 +29,8 @@ export default function Home() {
 
   return (
     <main className='p-0 m-0 min-h-screen'>
-      {!isMobile && <HeroSection />}
-      {isMobile && <MobileSection />}
+      <HeroSection />
       <FeaturedProjects />
-
       <SkillsSection />
       <AboutSection />
       <Footer />

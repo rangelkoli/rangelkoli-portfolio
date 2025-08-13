@@ -22,7 +22,7 @@ export default function RootLayout({
   const pathname = usePathname();
 
   // Show preloader only on first visit
-  const [showPreloader, setShowPreloader] = useState(true);
+  const [showPreloader, setShowPreloader] = useState(false);
   useEffect(() => {
     if (showPreloader) {
       const timer = setTimeout(() => setShowPreloader(false), 5000);

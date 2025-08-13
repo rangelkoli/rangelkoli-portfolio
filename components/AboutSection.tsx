@@ -57,18 +57,37 @@ const AboutSection = () => {
           markers: false,
         },
       });
+      // Use GSAP's matchMedia for responsive animations
+      gsap.matchMedia().add("(min-width: 768px)", () => {
+        // Animation for larger screens
+        tl.to(image, {
+          x: "-50%", // Move to the left of the screen
+          y: "100%",
+          width: "35vw",
+          height: "45vh",
+          borderRadius: "20px",
+          scale: 1.2,
+          opacity: 1,
+          ease: "power2.inOut",
+          duration: 1.5,
+          rotate: 0,
+        });
+      });
 
-      tl.to(image, {
-        x: "-50%", // Move to the left of the screen
-        y: "100%",
-        width: "35vw",
-        height: "45vh",
-        borderRadius: "20px",
-        scale: 1.2,
-        opacity: 1,
-        ease: "power2.inOut",
-        duration: 1.5,
-        rotate: 0,
+      gsap.matchMedia().add("(max-width: 767px)", () => {
+        // Animation for smaller screens
+        tl.to(image, {
+          y: "75%", // Center vertically
+          x: "0%",
+          width: "50vw", // Adjust size for smaller screens
+          height: "30vh",
+          borderRadius: "20px",
+          scale: 1,
+          opacity: 1,
+          ease: "power2.inOut",
+          duration: 1.5,
+          rotate: 0,
+        });
       });
     }
 

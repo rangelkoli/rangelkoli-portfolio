@@ -28,7 +28,7 @@ const FeaturedProjects = () => {
       // Animate title size on scroll
       if (title) {
         gsap.to(title, {
-          fontSize: "2rem", // Smaller size (from 6xl to 4xl)
+          fontSize: "1.5rem", // Smaller size (from 6xl to 4xl)
           paddingTop: "1rem",
           paddingBottom: "0rem",
           ease: "power2.out",

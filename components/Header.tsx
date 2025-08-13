@@ -64,9 +64,6 @@ const Header = () => {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
-    { href: "/#about", label: "About" },
-    { href: "/#skills", label: "Skills" },
-    { href: "/contact", label: "Contact" },
   ];
 
   return (
@@ -74,7 +71,7 @@ const Header = () => {
       className={`${
         buenoRegular.className
       } fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#fff5ee]/90  border-b" : "bg-[#fff5ee]"
+        scrolled ? "bg-[#fff5ee]/90 border-b" : "bg-[#fff5ee]"
       }`}
     >
       <nav className='w-full px-6 sm:px-8 lg:px-12 xl:px-16 justify-between flex'>
