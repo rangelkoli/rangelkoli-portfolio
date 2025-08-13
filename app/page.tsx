@@ -3,7 +3,6 @@ import AboutSection from "@/components/AboutSection";
 import HeroSection from "@/components/HeroSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import Footer from "@/components/Footer";
-import { useEffect, useState } from "react";
 import SkillsSection from "@/components/SkillsSection";
 
 export default function Home() {
