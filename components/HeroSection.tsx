@@ -72,7 +72,7 @@ function Rig() {
   return null;
 }
 
-function FloatingGeometry(props: any) {
+function FloatingGeometry(props: React.ComponentPropsWithoutRef<'mesh'>) {
   const meshRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
@@ -126,12 +126,6 @@ function AnimatedKnot({ hasLoaded }: { hasLoaded: boolean }) {
 
 const HeroSection = () => {
   const { hasLoaded } = useLoader();
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <section className="h-screen w-full relative overflow-hidden">

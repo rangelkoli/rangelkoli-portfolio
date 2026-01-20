@@ -127,7 +127,6 @@ const VideoCard = ({ video }: VideoCardProps) => {
 const BeyondTheCodeSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -155,15 +154,7 @@ const BeyondTheCodeSection = () => {
         pin: true,
         scrub: 1,
         invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          // Update active dot based on progress
-          const progress = self.progress;
-          const newIndex = Math.min(
-            Math.floor(progress * clips.length),
-            clips.length - 1
-          );
-          setActiveIndex(newIndex);
-        },
+
       },
     });
 

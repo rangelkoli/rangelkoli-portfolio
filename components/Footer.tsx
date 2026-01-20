@@ -10,8 +10,6 @@ const mango = localFont({
 });
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer id="contact" className='w-full px-4 mb-4'>
       <div className='relative bg-white rounded-[40px] text-black overflow-hidden pt-16 px-6 md:px-12 pb-0'>

@@ -118,7 +118,7 @@ export default function ProjectsSection() {
         <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2"></div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
-        {projects.slice(0, 4).map((project, index) => (
+        {projects.slice(0, 4).map((project) => (
           <Link
             href={`/projects/${project.slug}`}
             key={project.slug}
