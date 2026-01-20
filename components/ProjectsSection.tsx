@@ -1,284 +1,177 @@
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-import "./ProjectsSection.css";
-import { projects } from "../data/projects";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Pagination } from "swiper/modules";
+"use client";
 
-gsap.registerPlugin(ScrollTrigger);
+import React, { useState, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { projects } from "@/data/projects";
 
 export default function ProjectsSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const [isHovering, setIsHovering] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  // Mouse position with spring animation for smooth following
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const springConfig = { damping: 25, stiffness: 200 };
+  const cursorX = useSpring(mouseX, springConfig);
+  const cursorY = useSpring(mouseY, springConfig);
 
-  useEffect(() => {
-    let swiper: unknown;
-    const colors = [
-      "#F5F5DC", // seashell (default)
-      "#E8F4FD", // light blue
-      "#FFF2E8", // light orange
-      "#F0F8FF", // alice blue
-    ];
-
-    // Background color change animation
-    const backgroundTrigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: "top 80%",
-      end: "top 20%",
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        gsap.to(sectionRef.current, {
-          backgroundColor: gsap.utils.interpolate(
-            colors[0],
-            colors[1],
-            progress
-          ),
-          duration: 0.3,
-        });
-      },
-    });
-
-    // Text highlighting effect
-    const textTrigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: "top 50%",
-      end: "bottom 50%",
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-
-        // Animate title highlighting
-        gsap.to(titleRef.current, {
-          color: gsap.utils.interpolate("#6B7280", "#1F2937", progress),
-          scale: gsap.utils.interpolate(1, 1.05, progress),
-          duration: 0.3,
-        });
-
-        // Animate subtitle highlighting
-        gsap.to(subtitleRef.current, {
-          color: gsap.utils.interpolate("#9CA3AF", "#374151", progress),
-          duration: 0.3,
-        });
-      },
-    }); // Carousel scroll sync with project-based color changes
-    const carouselTrigger = ScrollTrigger.create({
-      trigger: ".carousel-wrapper",
-      start: "top top",
-      end: "+=2000",
-      scrub: 1.5,
-      onUpdate: (self) => {
-        if (!swiper) {
-          swiper = (document.querySelector(".swiper") as { swiper?: unknown })
-            ?.swiper;
-        }
-
-        if (
-          swiper &&
-          typeof swiper === "object" &&
-          swiper !== null &&
-          "wrapperEl" in swiper &&
-          "width" in swiper
-        ) {
-          const s = swiper as { wrapperEl: HTMLElement; width: number };
-          const progress = self.progress;
-
-          // Calculate which project is currently active
-          const projectIndex = Math.min(
-            Math.floor(progress * projects.length),
-            projects.length - 1
-          );
-
-          // Change background color based on current project
-          gsap.to(sectionRef.current, {
-            backgroundColor: colors[projectIndex % colors.length],
-            duration: 0.5,
-          });
-
-          // Highlight current project card
-          const projectCards = document.querySelectorAll(".project-card");
-          projectCards.forEach((card, index) => {
-            const isActive = index === projectIndex;
-            gsap.to(card, {
-              scale: isActive ? 1.05 : 1,
-              y: isActive ? -10 : 0,
-              boxShadow: isActive
-                ? "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-                : "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
-              duration: 0.3,
-            });
-
-            // Animate project title and description
-            const title = card.querySelector(".project-title");
-            const description = card.querySelector(".project-description");
-            const links = card.querySelectorAll(".project-link");
-
-            if (title) {
-              gsap.to(title, {
-                textShadow: isActive ? "0 2px 4px rgba(0,0,0,0.3)" : "none",
-                duration: 0.3,
-              });
-            }
-
-            if (description) {
-              gsap.to(description, {
-                opacity: isActive ? 1 : 0.8,
-                duration: 0.3,
-              });
-            }
-
-            links.forEach((link) => {
-              gsap.to(link, {
-                scale: isActive ? 1.05 : 1,
-                duration: 0.3,
-              });
-            });
-          });
-
-          if (progress === 0) {
-            gsap.to(s.wrapperEl, {
-              transform: `translate3d(0px, 0, 0)`,
-              duration: 0.5,
-              ease: "power2.out",
-            });
-          } else {
-            const movement = -progress * (s.width * 0.8);
-            gsap.to(s.wrapperEl, {
-              transform: `translate3d(${movement}px, 0, 0)`,
-              duration: 0.3,
-              ease: "power2.out",
-            });
-          }
-        }
-      },
-    });
-
-    return () => {
-      backgroundTrigger.kill();
-      textTrigger.kill();
-      carouselTrigger.kill();
-    };
-  }, []);
+  const handleMouseMove = (e: React.MouseEvent) => {
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
+  };
 
   return (
-    <div
-      id='projects'
-      className='w-full h-[300vh] transition-colors duration-500 ease-out'
-      style={{ backgroundColor: "#F5F5DC" }}
+    <section 
+      id="projects" 
+      className="px-4 py-20 bg-seashell overflow-hidden relative"
       ref={sectionRef}
+      onMouseMove={handleMouseMove}
     >
-      <div className='sticky top-0 h-screen flex items-center justify-center'>
-        {/* Scroll indicator */}
-        <div className='scroll-indicator'>
-          {projects.map((_, index) => (
-            <div key={index} className={`scroll-dot project-dot-${index}`} />
-          ))}
-        </div>
+      {/* Custom Cursor */}
+      <motion.div
+        className="hidden md:flex pointer-events-none fixed z-50 w-24 h-24 rounded-full bg-black items-center justify-center"
+        style={{
+          left: cursorX,
+          top: cursorY,
+          x: "-50%",
+          y: "-50%",
+        }}
+        animate={{
+          scale: isHovering ? 1 : 0,
+          opacity: isHovering ? 1 : 0,
+        }}
+        transition={{
+          scale: { duration: 0.3, ease: "easeOut" },
+          opacity: { duration: 0.3, ease: "easeOut" },
+        }}
+      >
+        <span className="text-white text-xs font-bold uppercase tracking-wider">View</span>
+      </motion.div>
 
-        <div className='carousel-wrapper w-full px-2 sm:px-4 md:px-8'>
-          <div className='text-center mb-8 md:mb-12'>
-            <h2
-              ref={titleRef}
-              className='text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-2 md:mb-4 transition-all duration-300 ease-out'
+      {/* Header Section */}
+      <div className="relative mb-20 md:mb-32">
+        <div className="flex items-center justify-between">
+          <div>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="font-playfair italic text-3xl md:text-5xl text-gray-500 block mb-2"
             >
-              Featured Projects
-            </h2>
-            <p
-              ref={subtitleRef}
-              className='text-gray-600 text-base sm:text-lg transition-all duration-300 ease-out'
+              Featured
+            </motion.span>
+            <motion.h1 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="font-mango font-extrabold uppercase text-[22vw] leading-[0.85] text-black"
             >
-              Scroll to explore my latest projects.
-            </p>
+              PROJECTS
+            </motion.h1>
           </div>
-          <Swiper
-            modules={[FreeMode, Pagination]}
-            spaceBetween={16}
-            slidesPerView={1.1}
-            centeredSlides={true}
-            freeMode={{
-              enabled: true,
-              momentum: true,
-              momentumRatio: 0.6,
-              momentumVelocityRatio: 1,
-            }}
-            breakpoints={{
-              480: {
-                slidesPerView: 1.1,
-                spaceBetween: 20,
-              },
-              640: {
-                slidesPerView: 1.2,
-                spaceBetween: 24,
-              },
-              768: {
-                slidesPerView: 1.3,
-                spaceBetween: 32,
-              },
-              1024: {
-                slidesPerView: 1.5,
-                spaceBetween: 40,
-              },
-              1280: {
-                slidesPerView: 2,
-                spaceBetween: 48,
-              },
-            }}
-            className='swiper !overflow-visible'
-          >
-            {projects.map((project, idx) => (
-              <SwiperSlide key={idx} className='!h-auto px-2 sm:px-4'>
-                <div
-                  className='project-card group relative bg-white shadow-lg hover:shadow-2xl overflow-hidden w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl aspect-square mx-auto transition-all duration-500 ease-out transform hover:-translate-y-2'
-                  data-project-index={idx}
-                >
-                  <img
-                    src={project.image[0]}
-                    alt={project.title}
-                    className='w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110'
+         
+          {/* Badge - vertically centered with text */}
+          <div className="hidden md:block flex-shrink-0">
+            <Link href="/projects" className="block relative w-32 h-32 md:w-40 md:h-40 group cursor-pointer">
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                className="w-full h-full text-black"
+              >
+                <svg viewBox="0 0 100 100" className="w-full h-full bg-black rounded-full p-2">
+                  <path
+                    id="curve"
+                    d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0"
+                    fill="transparent"
                   />
-                  <div className='absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#1f2020]/80 to-transparent backdrop-blur-md transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out p-3 sm:p-4 md:p-6 flex flex-col justify-end'>
-                    <h3 className='project-title text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 md:mb-4 text-white transition-all duration-300'>
-                      {project.title}
-                    </h3>
-                    <p className='project-description text-white/90 leading-relaxed text-sm sm:text-base md:text-lg transition-all duration-300'>
-                      {project.description.length > 150
-                        ? `${project.description.substring(0, 150)}...`
-                        : project.description}
-                    </p>
-                    <div className='mt-4 md:mt-8 flex gap-2 md:gap-4 flex-wrap'>
-                      {project.github && (
-                        <a
-                          href={project.github}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          className='project-link inline-flex items-center text-white font-medium bg-blue-600 hover:bg-blue-700 px-3 py-2 md:px-5 md:py-3 transition-all duration-300 text-sm md:text-lg rounded transform hover:scale-105'
-                        >
-                          GitHub
-                        </a>
-                      )}
-                      {project.demo && (
-                        <a
-                          href={project.demo}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          className='project-link inline-flex items-center text-white font-medium bg-green-600 hover:bg-green-700 px-3 py-2 md:px-5 md:py-3 transition-all duration-300 text-sm md:text-lg rounded transform hover:scale-105'
-                        >
-                          Live Demo
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                  <text className="text-[13px] font-bold uppercase tracking-widest fill-white">
+                    <textPath xlinkHref="#curve">
+                      View All Projects • View All Projects •
+                    </textPath>
+                  </text>
+                </svg>
+              </motion.div>
+              {/* Center Icon */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                 <svg 
+                  width="40" 
+                  height="40" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-white w-8 h-8 md:w-12 md:h-12"
+                >
+                  <path d="M12 2C13.1 5.3 15.3 7.7 18 9C15.3 10.3 13.1 12.7 12 16C10.9 12.7 8.7 10.3 6 9C8.7 7.7 10.9 5.3 12 2Z" fill="currentColor"/>
+                </svg>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Projects Grid with Vertical Center Line */}
+      <div className="relative">
+        {/* Vertical Center Line */}
+        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2"></div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
+        {projects.slice(0, 4).map((project, index) => (
+          <Link
+            href={`/projects/${project.slug}`}
+            key={project.slug}
+            className="group block w-full bg-white/50 backdrop-blur-sm p-4 rounded-3xl cursor-none transition-all duration-300 hover:bg-white"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+          >
+            {/* Image/Video Container */}
+            <div className="relative w-full aspect-[16/9] overflow-hidden rounded-2xl mb-6">
+              {project.video ? (
+                <video
+                  src={project.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              ) : project.image.length > 0 ? (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="w-full h-full"
+                >
+                  <Image
+                    src={project.image[0]}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                  />
+                </motion.div>
+              ) : null}
+            </div>
+
+            {/* Content Container */}
+            <div className="flex flex-col space-y-3 px-2">
+              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+                <h2 className="font-mango text-4xl md:text-5xl text-black uppercase leading-none">
+                  {project.title}
+                </h2>
+                <p className="font-playfair italic text-lg text-gray-500 md:text-right">
+                  {project.category}
+                </p>
+              </div>
+              
+              <p className="text-gray-800 text-base md:text-lg leading-relaxed line-clamp-3">
+                {project.description}
+              </p>
+            </div>
+          </Link>
+        ))}
+        </div>
+      </div>
+    </section>
   );
 }

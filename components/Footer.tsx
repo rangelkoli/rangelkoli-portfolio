@@ -3,128 +3,106 @@
 import React from "react";
 import Link from "next/link";
 import localFont from "next/font/local";
-import {
-  FiGithub,
-  FiLinkedin,
-  FiMail,
-  FiTwitter,
-  FiInstagram,
-} from "react-icons/fi";
+import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 
-const bueno_regular = localFont({
-  src: "./bueno-regular.otf",
+const mango = localFont({
+  src: "../public/MangoGrotesque/MangoGrotesque-Bold.ttf",
 });
 
 const Footer = () => {
-  const socialLinks = [
-    {
-      name: "GitHub",
-      icon: <FiGithub size={20} />,
-      href: "https://github.com/rangelkoli", // Update with your GitHub
-      color: "hover:text-gray-800",
-    },
-    {
-      name: "LinkedIn",
-      icon: <FiLinkedin size={20} />,
-      href: "https://linkedin.com/in/rangelkoli", // Update with your LinkedIn
-      color: "hover:text-blue-600",
-    },
-    {
-      name: "Twitter",
-      icon: <FiTwitter size={20} />,
-      href: "https://twitter.com/rangelkoli", // Update with your Twitter
-      color: "hover:text-blue-400",
-    },
-    {
-      name: "Instagram",
-      icon: <FiInstagram size={20} />,
-      href: "https://instagram.com/rangelkoli", // Update with your Instagram
-      color: "hover:text-pink-500",
-    },
-    {
-      name: "Email",
-      icon: <FiMail size={20} />,
-      href: "mailto:rangelkoli@gmail.com", // Update with your email
-      color: "hover:text-red-500",
-    },
-  ];
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className='relative bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 border-t border-orange-100 footer-animate'>
-      <div className='max-w-7xl mx-auto px-6 lg:px-8'>
-        {/* Main Footer Content */}
-        <div className='pt-16 pb-12'>
-          <div className='grid grid-cols-1 lg:grid-cols-3 gap-12 footer-grid'>
-            {/* Brand Section */}
-            <div className='lg:col-span-2 footer-brand'>
-              <div className='mb-8'>
-                <Link href='/' className='inline-block'>
-                  <span
-                    className={`${bueno_regular.className} text-5xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300 uppercase tracking-wider`}
-                  >
-                    RANGEL
-                  </span>
-                </Link>
-              </div>
-              <p className='text-xl text-gray-600 leading-relaxed mb-8 max-w-2xl uppercase tracking-wide font-medium'>
-                BUILDING MODERN WEB EXPERIENCES WITH CREATIVITY AND PRECISION.
-                DEDICATED TO TRANSFORMING CHALLENGES INTO ELEGANT, IMPACTFUL
-                SOLUTIONS—ONE LINE OF CODE AT A TIME.
-              </p>
-            </div>
+    <footer id="contact" className='w-full px-4 mb-4'>
+      <div className='relative bg-white rounded-[40px] text-black overflow-hidden pt-16 px-6 md:px-12 pb-0'>
+        <div className='max-w-[1400px] mx-auto'>
+          <div className='grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-24'>
+            <div className='md:col-span-4'>
+              <h2 className='text-3xl md:text-4xl font-semibold leading-tight'>
+              Let&apos;s build something users actually enjoy using.
 
-            {/* Contact Info */}
-            <div>
-              <h3 className='text-2xl font-semibold text-gray-800 mb-8 uppercase tracking-wider'>
-                GET IN TOUCH
-              </h3>
-              <div className=''>
-                <div className='flex items-center space-x-4 text-gray-600'>
-                  <FiMail className='text-blue-500' size={24} />
-                  <a
-                    href='mailto:rangelkoli@gmail.com'
-                    className='text-lg hover:text-blue-600 transition-colors duration-300 uppercase tracking-wide font-medium'
+              </h2>
+              <div className='mt-6'>
+                <a
+                  href='mailto:rangelkoli@gmail.com'
+                  className='group inline-flex items-center gap-2 text-2xl md:text-3xl font-bold text-gray-500 hover:text-black transition-colors'
+                >
+                  <span className="border-b-2 border-transparent group-hover:border-black transition-all duration-300">Connect</span>
+                  <svg 
+                    className="w-6 h-6 transform transition-transform duration-300 group-hover:translate-x-2" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
                   >
-                    rangelkoli@gmail.com
-                  </a>
-                </div>
-
-                {/* Social Links */}
-                <div className='pt-4'>
-                  <div className='flex space-x-4 footer-social'>
-                    {socialLinks.map((social) => (
-                      <a
-                        key={social.name}
-                        href={social.href}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className={`p-3 bg-white rounded-full shadow-md border border-gray-200 text-gray-600 transition-all duration-300 hover:shadow-lg ${social.color}`}
-                        aria-label={social.name}
-                      >
-                        {social.icon}
-                      </a>
-                    ))}
-                  </div>
-                </div>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </a>
               </div>
             </div>
+
+            <div className='md:col-span-2'>
+              <h3 className='text-lg font-semibold mb-6 text-[#FF9F2E]'>Explore</h3>
+              <ul className='space-y-4 text-gray-500'>
+                <li>
+                  <Link href='/' className='hover:text-black transition-colors'>
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='#about'
+                    className='hover:text-black transition-colors'
+                  >
+                    About Me
+                  </Link>
+                </li>
+
+              </ul>
+            </div>
+
+            <div className='md:col-span-5'>
+              <h3 className='text-lg font-semibold mb-6 text-[#4F91F0]'>Follow Me</h3>
+              <div className='grid grid-cols-2 gap-x-6 gap-y-4'>
+                <a
+                  href='https://linkedin.com/in/rangelkoli'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-gray-500 hover:text-[#0A66C2] transition-colors flex items-center gap-2 group'
+                >
+                  <FaLinkedin size={18} className='text-[#0A66C2]' />
+                  <span className='group-hover:text-black'>LinkedIn</span>
+                </a>
+                <a
+                  href='https://github.com/rangelkoli'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-gray-500 hover:text-black transition-colors flex items-center gap-2 group'
+                >
+                  <FaGithub size={18} className='text-[#181717]' />
+                  <span className='group-hover:text-black'>Github</span>
+                </a>
+                <a
+                  href='https://x.com/rangelkoli'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-gray-500 hover:text-black transition-colors flex items-center gap-2 group'
+                >
+                  <FaXTwitter size={18} />
+                  <span className='group-hover:text-black'>X</span>
+                </a>
+              </div>
+            </div>
+
+            <div className='md:col-span-1'></div>
           </div>
         </div>
-      </div>
 
-      {/* Background decorative elements */}
-      <div className='absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white/20 to-transparent pointer-events-none'></div>
-
-      {/* Floating dots decoration */}
-      <div className='absolute top-8 right-8 opacity-20'>
-        <div className='grid grid-cols-3 gap-2'>
-          {Array.from({ length: 9 }).map((_, i) => (
-            <div
-              key={i}
-              className='w-2 h-2 bg-blue-400 rounded-full floating-dots'
-              style={{ animationDelay: `${i * 0.2}s` }}
-            ></div>
-          ))}
+        <div className='relative w-full flex justify-center items-end leading-[0.75] select-none pointer-events-none'>
+          <h1
+            className={`${mango.className} w-full text-[25vw] md:text-[23vw] text-[#F5F5F5] text-center translate-y-[4vw] leading-[0.7]`}
+          >
+            rangelkoli
+          </h1>
         </div>
       </div>
     </footer>

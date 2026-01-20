@@ -1,353 +1,150 @@
 "use client";
-import { useRef, useEffect } from "react";
-import { motion, useInView, useAnimation } from "framer-motion";
-import Image from "next/image";
-import gsap from "./gsap"; // Using the project's configured GSAP instance
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ProfileImage from "./profile.jpg"; // Adjust the import path as necessary
-gsap.registerPlugin(ScrollTrigger);
-import localFont from "next/font/local";
 
-const bueno_regular = localFont({
-  src: "./bueno-regular.otf", // Ensure the path is correct relative to your project structure
-  display: "swap",
-});
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+
 const AboutSection = () => {
-  const sectionRef = useRef(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef(null);
-  const controls = useAnimation();
-  const isInView = useInView(textRef, { once: true, amount: 0.5 });
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
-  }, [isInView, controls]);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const title = titleRef.current;
-    const image = imageRef.current;
-
-    if (section && image) {
-      // Animate title size on scroll
-      if (title) {
-        gsap.to(title, {
-          fontSize: "2rem", // Smaller size (from 6xl to 4xl)
-          paddingTop: "1rem",
-          paddingBottom: "0rem",
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 20%",
-            end: "+=200",
-            scrub: 1,
-          },
-        });
-      }
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top 75%", // Adjusted start position to trigger earlier
-          // Adjusted start position to trigger earlier
-          end: "bottom bottom",
-          scrub: 1,
-          markers: false,
-        },
-      });
-      // Use GSAP's matchMedia for responsive animations
-      gsap.matchMedia().add("(min-width: 768px)", () => {
-        // Animation for larger screens
-        tl.to(image, {
-          x: "-50%", // Move to the left of the screen
-          y: "100%",
-          width: "35vw",
-          height: "45vh",
-          borderRadius: "20px",
-          scale: 1.2,
-          opacity: 1,
-          ease: "power2.inOut",
-          duration: 1.5,
-          rotate: 0,
-        });
-      });
-
-      gsap.matchMedia().add("(max-width: 767px)", () => {
-        // Animation for smaller screens
-        tl.to(image, {
-          y: "75%", // Center vertically
-          x: "0%",
-          width: "50vw", // Adjust size for smaller screens
-          height: "30vh",
-          borderRadius: "20px",
-          scale: 1,
-          opacity: 1,
-          ease: "power2.inOut",
-          duration: 1.5,
-          rotate: 0,
-        });
-      });
-    }
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.3,
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    }),
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
   return (
-    <section className='relative'>
-      {/* Sticky Title */}
-      <div className='sticky top-0 z-50 bg-transparent px-6 max-w-2xl mx-auto'>
-        <h1
-          ref={titleRef}
-          className='text-6xl font-extrabold uppercase tracking-wider text-center text-[#8082f8] z-50'
+    <section className="w-full bg-[#F4F4F4] text-[#1a1a1a]">
+      
+      {/* --- HEADER SECTION: Large "ABOUT" title like Projects --- */}
+      <div className="px-4 pt-20 md:pt-32">
+        <motion.h1 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="font-mango font-extrabold uppercase text-[22vw] leading-[0.85] text-black"
         >
-          About
-        </h1>
+          ABOUT
+        </motion.h1>
       </div>
 
-      {/* Main Content Section */}
-      <section
-        id='about'
-        ref={sectionRef}
-        className='h-screen w-screen relative overflow-hidden bg-background'
-      >
-        <div className='relative w-full h-full flex flex-col justify-between'>
-          <div className='relative w-full h-1/2 flex items-center justify-center'>
-            <motion.div
-              ref={imageRef}
-              className='absolute w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] md:w-[250px] md:h-[250px] lg:w-[300px] lg:h-[300px] rounded-lg overflow-hidden shadow-lg'
-              initial={{
-                x: "60%",
-                y: "-40%",
-                scale: 0.5,
-                opacity: 0.5,
-                rotate: 5,
-              }}
-            >
-              <Image
-                src={ProfileImage}
-                alt='Background image'
-                fill
-                style={{ objectFit: "cover" }}
-              />
-            </motion.div>
-            <motion.div
-              ref={textRef}
-              initial='hidden'
-              animate={isInView ? "visible" : "hidden"}
-              variants={containerVariants}
-              className='relative z-10 max-w-6xl p-4 sm:p-8 text-center'
-            >
-              {[
-                "Hi, I'm Rangel Koli.",
-                "I don't just build websites. I architect experiences.",
-              ].map((line, index) => (
-                <motion.h2
-                  key={index}
-                  custom={index}
-                  variants={textVariants}
-                  className={`uppercase text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-loose text-black font-bold ${bueno_regular.className}`}
-                  style={{ lineHeight: "1.0" }}
-                >
-                  {line
-                    .split(/(Rangel Koli|websites|architect experiences)/i)
-                    .map((segment, segmentIndex) => (
-                      <motion.span
-                        key={segmentIndex}
-                        style={{
-                          backgroundColor: [
-                            "Rangel Koli",
-                            "websites",
-                            "architect experiences",
-                          ].includes(segment.trim())
-                            ? "#6b46c1"
-                            : "transparent",
-                          color: [
-                            "Rangel Koli",
-                            "websites",
-                            "architect experiences",
-                          ].includes(segment.trim())
-                            ? "#ffffff"
-                            : "inherit",
-                          padding: [
-                            "Rangel Koli",
-                            "websites",
-                            "architect experiences",
-                          ].includes(segment.trim())
-                            ? "0 4px"
-                            : "0",
-                        }}
-                      >
-                        {segment}
-                      </motion.span>
-                    ))}
-                </motion.h2>
-              ))}
-            </motion.div>
-          </div>
-          <div className='relative w-full h-2/3 flex items-center justify-center'>
-            <div className='relative z-10 max-w-2xl px-4 pb-4 -mt-5 sm:p-8 text-center ml-auto'>
-              <motion.div
-                ref={textRef}
-                initial='hidden'
-                animate={isInView ? "visible" : "hidden"}
-                variants={containerVariants}
-                className='relative z-10 max-w-6xl p-4 sm:p-8 text-center'
-              >
-                {[
-                  "I thrive on the challenge of translating complex problems into elegant, user-friendly digital solutions.",
-                  "When I'm not coding, you can find me on the soccer field, where I channel the same passion and teamwork that I bring to my projects.",
-                ].map((line, index) => (
-                  <motion.h2
-                    key={index}
-                    custom={index + 2} // Offset the delay to continue after the first section
-                    variants={textVariants}
-                    className={`uppercase text-xl text-justify sm:text-4xl md:text-3xl lg:text-5xl leading-loose text-black font-bold ${bueno_regular.className}`}
-                    style={{ lineHeight: "1.0" }}
-                  >
-                    {line
-                      .split(
-                        /(challenge|complex problems|elegant|user-friendly|digital solutions|coding|soccer field|passion|teamwork|projects)/i
-                      )
-                      .map((segment, segmentIndex) => (
-                        <motion.span
-                          key={segmentIndex}
-                          style={{
-                            backgroundColor: [
-                              "challenge",
-                              "complex problems",
-                              "elegant",
-                              "user-friendly",
-                              "digital solutions",
-                              "coding",
-                              "soccer field",
-                              "passion",
-                              "teamwork",
-                              "projects",
-                            ].includes(segment.trim())
-                              ? "#6b46c1"
-                              : "transparent",
-                            color: [
-                              "challenge",
-                              "complex problems",
-                              "elegant",
-                              "user-friendly",
-                              "digital solutions",
-                              "coding",
-                              "soccer field",
-                              "passion",
-                              "teamwork",
-                              "projects",
-                            ].includes(segment.trim())
-                              ? "#ffffff"
-                              : "inherit",
-                            padding: [
-                              "challenge",
-                              "complex problems",
-                              "elegant",
-                              "user-friendly",
-                              "digital solutions",
-                              "coding",
-                              "soccer field",
-                              "passion",
-                              "teamwork",
-                              "projects",
-                            ].includes(segment.trim())
-                              ? "0 4px"
-                              : "0",
-                          }}
-                        >
-                          {segment}
-                        </motion.span>
-                      ))}
-                  </motion.h2>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-          {/* <motion.h2
-          custom={2}
-          variants={textVariants}
-          className={`uppercase text-xl text-center sm:text-4xl md:text-3xl lg:text-5xl leading-loose text-black font-bold mt-8 ${bueno_regular.className}`}
-          style={{ lineHeight: "1.0" }}
-        >
-          {"Let's build an experience together"
-            .split(/(build|experience|together)/i)
-            .map((segment, segmentIndex) => (
-              <motion.span
-                key={segmentIndex}
-                style={{
-                  backgroundColor: ["build", "experience", "together"].includes(
-                    segment.trim()
-                  )
-                    ? "#6b46c1"
-                    : "transparent",
-                  color: ["build", "experience", "together"].includes(
-                    segment.trim()
-                  )
-                    ? "#ffffff"
-                    : "inherit",
-                  padding: ["build", "experience", "together"].includes(
-                    segment.trim()
-                  )
-                    ? "0 4px"
-                    : "0",
-                }}
-                whileHover={{
-                  scale: ["build", "experience", "together"].includes(
-                    segment.trim()
-                  )
-                    ? 1.05
-                    : 1,
-                  transition: { duration: 0.2 },
-                }}
-                animate={{
-                  y: ["build", "experience", "together"].includes(
-                    segment.trim()
-                  )
-                    ? [0, -2, 0]
-                    : 0,
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: segmentIndex * 0.2,
-                }}
-              >
-                {segment}
-              </motion.span>
-            ))}
-        </motion.h2> */}
+      {/* --- CONTENT SECTION: Bio text --- */}
+      <div className="px-4 md:px-8 lg:px-16 py-16 md:py-32">
+        <div className="max-w-7xl mx-auto text-center">
+          <motion.h2 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="font-mango font-extrabold uppercase text-[7vw] md:text-[5.5vw] lg:text-[4.5vw] leading-[1.1] text-black"
+          >
+            HEY. I&apos;M RANGEL. A FULL STACK DEVELOPER BASED IN NEW YORK.
+          </motion.h2>
         </div>
-      </section>
+      </div>
+
     </section>
   );
 };
 
+
 export default AboutSection;
+
+const Card = ({ clip }: { clip: any; index: number }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.play();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+    }
+  };
+
+  return (
+    <div 
+      className="group relative h-[50vh] w-[75vw] md:w-[60vh] md:h-[60vh] overflow-hidden rounded-[30px] bg-neutral-200 shrink-0 cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {clip.video && (
+        <video
+          ref={videoRef}
+          src={clip.video}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+      )}
+      
+      {/* Animated Sound Icon - Shows on hover */}
+      <div className={`absolute top-6 right-6 z-30 transition-all duration-300 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}>
+        <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30">
+          {/* Sound Wave Icon */}
+          <div className="flex items-center gap-[3px]">
+            <motion.div 
+              className="w-[3px] bg-white rounded-full"
+              animate={isHovered ? { 
+                height: [8, 16, 8],
+              } : { height: 8 }}
+              transition={{ 
+                duration: 0.5, 
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div 
+              className="w-[3px] bg-white rounded-full"
+              animate={isHovered ? { 
+                height: [16, 8, 16],
+              } : { height: 12 }}
+              transition={{ 
+                duration: 0.5, 
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.1
+              }}
+            />
+            <motion.div 
+              className="w-[3px] bg-white rounded-full"
+              animate={isHovered ? { 
+                height: [10, 18, 10],
+              } : { height: 10 }}
+              transition={{ 
+                duration: 0.5, 
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.2
+              }}
+            />
+            <motion.div 
+              className="w-[3px] bg-white rounded-full"
+              animate={isHovered ? { 
+                height: [14, 6, 14],
+              } : { height: 8 }}
+              transition={{ 
+                duration: 0.5, 
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.3
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Gradient for text readability - Only shows on hover */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+
+      <div className="absolute bottom-8 left-8 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:translate-x-2">
+        <p className="uppercase tracking-widest text-xs font-bold text-white/90 mb-2">
+          {clip.subtitle}
+        </p>
+        <p className="font-mango text-5xl uppercase text-white leading-none">
+          {clip.title}
+        </p>
+      </div>
+    </div>
+  );
+};

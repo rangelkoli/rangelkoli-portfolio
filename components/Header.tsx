@@ -1,13 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import localFont from "next/font/local";
-
-const buenoRegular = localFont({
-  src: "./bueno-regular.otf",
-  display: "swap",
-});
+import { HiMenuAlt4 } from "react-icons/hi";
+import { IoClose } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
+import { useLoader } from "@/context/LoaderContext";
 
 const jadynMaria = localFont({
   src: "./JadynMaria.otf",
@@ -15,185 +13,222 @@ const jadynMaria = localFont({
 });
 
 const Header = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
+  const [isMobile, setIsMobile] = useState(false);
+  const { hasLoaded, progress, shouldMoveUp } = useLoader();
 
+  // Handle Responsive Width Logic
   useEffect(() => {
-    // Check user's preferred color scheme
-
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrolled]);
-
-  // Handle smooth scrolling for anchor links
-  const handleAnchorClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
-  ) => {
-    // Only handle anchor links on the same page
-    if (href.startsWith("/#")) {
-      e.preventDefault();
-      const targetId = href.replace("/#", "");
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-
-        // Update URL without reloading the page
-        window.history.pushState(null, "", href);
-
-        // Close mobile menu if open
-        setMobileMenuOpen(false);
-      }
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
     }
-  };
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/projects", label: "Projects" },
-  ];
+  // Fixed width during loading, scroll-responsive after
+  const fixedWidth = isMobile ? "90%" : "700px";
+
+  // Smooth easing curve
+  const smoothEase = [0.4, 0, 0.2, 1];
+  
+  // Container morph duration
+  const morphDuration = 0.5;
 
   return (
-    <header
-      className={`${
-        buenoRegular.className
-      } fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#fff5ee]/90 border-b" : "bg-[#fff5ee]"
-      }`}
-    >
-      <nav className='w-full px-6 sm:px-8 lg:px-12 xl:px-16 justify-between flex'>
-        <div className='flex items-center justify-between h-12 md:h-12 w-full'>
-          {/* Logo - Left Side */}
-          <div className='flex items-center'>
-            <Link href='/' className='group flex items-center space-x-2'>
-              <span
-                className={`text-2xl md:text-3xl lg:text-4xl font-bold text-black transform transition-transform duration-200 group-hover:scale-105 ${jadynMaria.className}`}
-              >
-                Rangel
-              </span>
-            </Link>
-          </div>
-
-          {/* Desktop Navigation - Centered */}
-          <div className='hidden md:flex items-center space-x-6 lg:space-x-8 z-51'>
-            {navLinks.map((link, index) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleAnchorClick(e, link.href)}
-                className={`relative px-3 py-2 text-base lg:text-lg font-medium transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 
-                ${
-                  pathname === link.href
-                    ? "text-[#8082f8]"
-                    : "text-black hover:text-gray-700"
-                }
-                after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-black
-                after:transition-all after:duration-300 hover:after:w-full
-                ${pathname === link.href ? "" : ""}`}
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button - Right Side */}
-          <div className='md:hidden'>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className='relative w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-300 hover:bg-gray-200/80 focus:outline-none focus:ring-2 focus:ring-gray-400'
-              aria-label='Toggle menu'
-            >
-              <div className='relative w-6 h-6'>
-                <span
-                  className={`absolute block w-6 h-0.5 bg-black transform transition-all duration-300 ${
-                    mobileMenuOpen
-                      ? "rotate-45 translate-y-0"
-                      : "-translate-y-2"
-                  }`}
-                />
-                <span
-                  className={`absolute block w-6 h-0.5 bg-black transform transition-all duration-300 ${
-                    mobileMenuOpen ? "opacity-0" : "opacity-100"
-                  }`}
-                />
-                <span
-                  className={`absolute block w-6 h-0.5 bg-black transform transition-all duration-300 ${
-                    mobileMenuOpen
-                      ? "-rotate-45 translate-y-0"
-                      : "translate-y-2"
-                  }`}
-                />
-              </div>
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden absolute top-16 left-0 right-0 bg-[#fff5ee]/95 text-black shadow-lg border-b border-gray-200/20 transition-all duration-300 ease-in-out transform ${
-          mobileMenuOpen
-            ? "opacity-100 translate-y-0 visible"
-            : "opacity-0 -translate-y-4 invisible"
-        }`}
+    <>
+      {/* Header container */}
+      <motion.header
+        initial={{ 
+          top: "50%",
+          y: "-50%",
+          width: fixedWidth,
+          height: 64,
+          borderRadius: 50,
+        }}
+        animate={{ 
+          top: mobileMenuOpen ? "50vh" : (shouldMoveUp ? 24 : "50%"),
+          y: mobileMenuOpen ? "-50vh" : (shouldMoveUp ? 0 : "-50%"),
+          width: mobileMenuOpen ? "100vw" : fixedWidth,
+          height: mobileMenuOpen ? "100vh" : 64,
+          borderRadius: mobileMenuOpen ? 0 : 50,
+        }}
+        className="fixed left-1/2 -translate-x-1/2 z-50 overflow-hidden shadow-2xl"
+        transition={{ 
+          duration: morphDuration,
+          ease: smoothEase,
+        }}
       >
-        <div className='px-6 py-8 space-y-6'>
-          {navLinks.map((link, index) => (
-            <div
-              key={link.href}
-              className={`transform transition-all duration-300 ${
-                mobileMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-4 opacity-0"
-              }`}
-              style={{
-                transitionDelay: mobileMenuOpen ? `${index * 100}ms` : "0ms",
-              }}
-            >
-              <Link
-                href={link.href}
-                onClick={(e) => {
-                  handleAnchorClick(e, link.href);
-                  setMobileMenuOpen(false);
-                }}
-                className={`block px-6 py-4 rounded-xl text-xl font-medium transition-all duration-200 transform hover:scale-105 hover:translate-x-2
-                ${
-                  pathname === link.href
-                    ? "text-[#8082f8] bg-gray-200/50"
-                    : "text-black hover:text-gray-700 hover:bg-gray-100/50"
-                }`}
-              >
-                {link.label}
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div
-          className='md:hidden fixed inset-0 bg-black/10 -z-10'
-          onClick={() => setMobileMenuOpen(false)}
+        {/* Background - starts light gray, becomes dark after loading */}
+        <motion.div 
+          className="absolute inset-0"
+          initial={{ backgroundColor: '#e8e8e8' }}
+          animate={{ 
+            backgroundColor: mobileMenuOpen ? '#1a1a1a' : (hasLoaded ? '#1a1a1a' : '#e8e8e8'),
+          }}
+          transition={{ duration: 0.3 }}
         />
-      )}
-    </header>
+        
+        {/* Progress fill - dark color fills from left to right */}
+        <motion.div
+          className="absolute top-0 left-0 bottom-0 bg-[#1a1a1a]"
+          initial={{ width: 0, borderRadius: 50 }}
+          animate={{ 
+            opacity: mobileMenuOpen ? 0 : 1,
+            width: `${progress}%`,
+            borderRadius: mobileMenuOpen ? 0 : 50,
+          }}
+          transition={{ 
+            opacity: { duration: 0.2 },
+            width: { duration: 0.1, ease: "linear" },
+            borderRadius: { duration: morphDuration, ease: smoothEase },
+          }}
+        />
+
+        {/* Content switcher */}
+        <AnimatePresence mode="wait">
+          {!mobileMenuOpen ? (
+            <motion.div 
+              key="closed"
+              className="relative z-10 h-full px-2 py-2 pl-6 pr-2 flex items-center justify-between"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              {/* Left: Menu Trigger */}
+              <motion.button
+                onClick={() => setMobileMenuOpen(true)}
+                className='flex items-center gap-2 hover:text-gray-300 transition-colors flex-shrink-0 text-white'
+                animate={{ opacity: hasLoaded ? 1 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <HiMenuAlt4 size={20} />
+                <span className='text-sm font-medium hidden md:block'>Menu</span>
+              </motion.button>
+
+              {/* Center: Logo */}
+              <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex-shrink-0'>
+                <Link href='/' className='group'>
+                  <span
+                    className={`text-2xl font-bold tracking-wide text-white ${jadynMaria.className}`}
+                  >
+                    Rangel
+                  </span>
+                </Link>
+              </div>
+
+              {/* Right: CTA */}
+              <motion.div 
+                className='flex items-center gap-2 flex-shrink-0'
+                animate={{ opacity: hasLoaded ? 1 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Link
+                  href='/projects'
+                  className='bg-[#D1F8EF] text-[#1a1a1a] px-5 py-2 rounded-full text-sm font-bold hover:bg-white transition-colors whitespace-nowrap'
+                >
+                  My Work
+                </Link>
+              </motion.div>
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="open"
+              className='container mx-auto px-6 py-8 h-full flex flex-col relative z-10'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {/* Menu Header */}
+              <motion.div 
+                className='flex justify-between items-center mb-12 w-full'
+                initial={{ opacity: 0, y: -15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, delay: 0.15, ease: smoothEase }}
+              >
+                <span
+                  className={`text-2xl font-bold text-white ${jadynMaria.className}`}
+                >
+                  Rangel
+                </span>
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.25, delay: 0.1 }}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className='w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors'
+                >
+                  <IoClose size={28} />
+                </motion.button>
+              </motion.div>
+
+              {/* Menu Links */}
+              <nav className='flex-1 flex flex-col justify-center items-center gap-2 text-center'>
+                {[
+                  { href: "/", label: "Home" },
+                  { href: "/projects", label: "Projects" },
+                  { href: "/#about", label: "About" },
+                  { href: "/#contact", label: "Contact" },
+                ].map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, y: 25 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                    }}
+                    exit={{ opacity: 0 }}
+                    transition={{ 
+                      duration: 0.35,
+                      delay: 0.2 + (i * 0.05), 
+                      ease: smoothEase,
+                    }}
+                    className="w-full overflow-hidden"
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className='block w-full text-center text-5xl md:text-8xl font-bold uppercase text-white hover:text-gray-400 transition-colors font-mango tracking-wide py-2'
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* Menu Footer */}
+              <motion.div 
+                className='text-center text-gray-500 text-sm'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, delay: 0.4 }}
+              >
+                <p>New York, USA</p>
+                <p className='mt-2'>&copy; {new Date().getFullYear()} Rangel Koli</p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
+    </>
   );
 };
 

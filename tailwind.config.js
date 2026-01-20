@@ -7,7 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        seashell: '#fff5ee',
+        seashell: '#F4F4F4',
+      },
+      fontFamily: {
+        mango: ['var(--font-mango)'],
+        playfair: ['var(--font-playfair)'],
       },
     },
   },

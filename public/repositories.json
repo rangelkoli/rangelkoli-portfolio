@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Nat-Portfolio",
+    "url": "https://github.com/rangelkoli/Nat-Portfolio",
+    "description": "A personal portfolio website showcasing projects and skills, built with Next.js.",
+    "language": "TypeScript"
+  },
+  {
+    "name": "FindX",
+    "url": "https://github.com/rangelkoli/FindX",
+    "description": "An AI-powered missing person detection system leveraging facial recognition to help citizens and police locate missing individuals.",
+    "language": "Python"
+  },
+  {
+    "name": "JudgifySU",
+    "url": "https://github.com/rangelkoli/JudgifySU",
+    "description": "A constraint-based assignment system for research poster-judge optimization, featuring a Next.js frontend and Flask backend.",
+    "language": "TypeScript"
+  },
+  {
+    "name": "Anonimo-ML",
+    "url": "https://github.com/rangelkoli/Anonimo-ML",
+    "description": "Machine learning components for the Anonimo platform, an anonymous social support system featuring real-time chat and therapist resources.",
+    "language": "HTML"
+  },
+  {
+    "name": "HereAfter",
+    "url": "",
+    "description": "Hereafter is a map-based social app where memories take shape in the places you love. Share voice, photos, videos, and notes friends can discover, creating a living community archive built through presence, not performance.",
+    "language": "React"
+  }
+]

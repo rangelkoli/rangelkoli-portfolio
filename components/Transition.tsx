@@ -3,9 +3,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 
 const transitionVariants = {
-  initial: { y: 40, opacity: 0, scale: 0.98 },
-  animate: { y: 0, opacity: 1, scale: 1 },
-  exit: { y: -40, opacity: 0, scale: 0.98 },
+  initial: { y: 20, opacity: 0 },
+  animate: { y: 0, opacity: 1 },
+  exit: { y: -20, opacity: 0 },
 };
 
 export default function Transition({
@@ -26,7 +26,7 @@ export default function Transition({
         transition={{
           type: "spring",
           stiffness: 80,
-          damping: 18,
+          damping: 20,
         }}
         style={{ width: "100%" }}
         className={className}
