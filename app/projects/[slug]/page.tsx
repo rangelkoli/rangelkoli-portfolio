@@ -7,8 +7,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = projects.find((p) => p.slug === params.slug);
+export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = React.use(params);
+  const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
     notFound();
