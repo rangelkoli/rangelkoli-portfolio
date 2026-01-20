@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { projects, Project } from "@/data/projects";
 import Image from "next/image";
@@ -87,7 +87,6 @@ const RevealText: React.FC<RevealTextProps> = ({
 
   const ProjectsPage = () => {
   const [isHovering, setIsHovering] = useState(false);
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<{ [key: number]: number }>({});
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -268,11 +267,9 @@ const RevealText: React.FC<RevealTextProps> = ({
                   className={`relative group cursor-none ${index % 2 === 1 ? 'lg:order-2' : ''}`}
                   onMouseEnter={() => {
                     setIsHovering(true);
-                    setHoveredProject(project.title);
                   }}
                   onMouseLeave={() => {
                     setIsHovering(false);
-                    setHoveredProject(null);
                   }}
                 >
                   <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-gray-100">

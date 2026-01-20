@@ -11,7 +11,7 @@ const SmoothScroll = () => {
       mouseMultiplier: 1,
       smoothTouch: false,
       touchMultiplier: 2,
-    } as any);
+    });
 
     function raf(time: number) {
       lenis.raf(time);

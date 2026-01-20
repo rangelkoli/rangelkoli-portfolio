@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 
 const AboutSection = () => {
   return (
