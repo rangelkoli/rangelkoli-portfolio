@@ -8,9 +8,12 @@
 .marquee-content {
   display: flex;
   gap: 3rem;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
   animation: marquee 30s linear infinite;
   flex-shrink: 0;
+  height: 120px;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
@@ -24,6 +27,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-100%);
   }
