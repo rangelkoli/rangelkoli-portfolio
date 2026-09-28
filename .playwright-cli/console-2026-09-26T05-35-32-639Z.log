@@ -1,0 +1,94 @@
+[     902ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    1002ms] [LOG] [HMR] connected @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    3245ms] [WARNING] Image with src "/projects/judgify/judgify-cover.png" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    3245ms] [WARNING] Image with src "/projects/findx/photo-1.jpg" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    3728ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    3729ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /, path: /} @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    3729ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /, path: /} @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    3730ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/ color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790400936368} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[    3730ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/ color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790400936368} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   42267ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   42310ms] [LOG] [HMR] connected @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   42463ms] [WARNING] Image with src "/projects/judgify/judgify-cover.png" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   42463ms] [WARNING] Image with src "/projects/findx/photo-1.jpg" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   42901ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   42901ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /, path: /} @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   42902ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /, path: /} @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   42902ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/ color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790400975540} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   42902ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/ color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790400975540} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   43053ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   43493ms] [LOG] [Fast Refresh] done in 502ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   43653ms] [LOG] [Fast Refresh] done in 502ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   43781ms] [LOG] [Fast Refresh] done in 502ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   44812ms] [LOG] [Fast Refresh] done in 502ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   44987ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   45045ms] [LOG] [HMR] connected @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   45740ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   45740ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /projects, path: /projects} @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   45740ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /projects, path: /projects} @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   45740ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/projects color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/projects, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790400978379} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   45741ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/projects color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/projects, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790400978379} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   45916ms] [WARNING] Image with src "/projects/orange-housing/orange-housing-hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   46293ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[   46347ms] [LOG] [Fast Refresh] done in 156ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  111672ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  111746ms] [LOG] [Fast Refresh] done in 178ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  114625ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  114908ms] [LOG] [Fast Refresh] done in 95ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  115630ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/projects color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/projects, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790401048245} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  115633ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/projects color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/projects, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790401048265} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  115787ms] [LOG] [Fast Refresh] done in 797ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  166850ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  167179ms] ReferenceError: HiMenuAlt4 is not defined
+    at Header (http://localhost:3001/_next/static/chunks/%5Broot-of-the-server%5D__00r2-9k._.js?id=%255Bproject%255D/components/Header.tsx+%255Bapp-client%255D+(ecmascript):217:254)
+    at Object.react_stack_bottom_frame (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:14894:24)
+    at renderWithHooks (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:4425:24)
+    at updateFunctionComponent (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:5892:21)
+    at beginWork (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:6518:24)
+    at runWithFiberInDEV (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:761:74)
+    at performUnitOfWork (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:9385:97)
+    at workLoopSync (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:9279:40)
+    at renderRootSync (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:9263:13)
+    at performWorkOnRoot (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:8928:47)
+    at performSyncWorkOnRoot (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:10093:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:10009:316)
+    at flushSyncWork$1 (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:9060:86)
+    at Object.scheduleRefresh (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:82:13)
+    at http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:589:33
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:582:38)
+    at applyUpdate (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:137:31)
+    at http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:145:13
+[  167209ms] [LOG] [Fast Refresh] done in 447ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  167511ms] [LOG] [Fast Refresh] done in 447ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  167512ms] [LOG] [Fast Refresh] done in 447ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  167888ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3001/projects:0
+[  168348ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  168440ms] [LOG] [HMR] connected @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  168516ms] [ERROR] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template). @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:1052
+[  168553ms] ReferenceError: HiMenuAlt4 is not defined
+    at Header (http://localhost:3001/_next/static/chunks/%5Broot-of-the-server%5D__00r2-9k._.js:449:254)
+    at Object.react_stack_bottom_frame (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:14894:24)
+    at renderWithHooks (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:4425:24)
+    at updateFunctionComponent (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:5892:21)
+    at beginWork (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:6518:24)
+    at runWithFiberInDEV (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:761:74)
+    at performUnitOfWork (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:9385:97)
+    at workLoopSync (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:9279:40)
+    at renderRootSync (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:9263:13)
+    at performWorkOnRoot (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:8928:47)
+    at performWorkOnRootViaSchedulerTask (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_react-dom_096_9a-._.js:10085:9)
+    at MessagePort.performWorkUntilDeadline (http://localhost:3001/_next/static/chunks/node_modules_next_dist_compiled_1amofcm._.js:2647:64)
+[  169956ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  170055ms] [LOG] [Fast Refresh] done in 181ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  170201ms] [LOG] [Fast Refresh] done in 181ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  170903ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  171019ms] [LOG] [HMR] connected @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  171541ms] [LOG] %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  171542ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /projects, path: /projects} @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  171542ms] [LOG] %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {route: /projects, path: /projects} @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  171542ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/projects color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/projects, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790401104180} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  171542ms] [LOG] %c[Vercel Web Analytics]%c [view] http://localhost:3001/projects color: rgb(120, 120, 120) color: inherit {o: http://localhost:3001/projects, sv: 0.1.3, sdkn: @vercel/analytics/next, sdkv: 2.0.1, ts: 1790401104180} /_vercel/insights/view @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  172045ms] [WARNING] Image with src "/projects/orange-housing/orange-housing-hero.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776

@@ -1,175 +1,220 @@
 "use client";
 
-import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { projects } from "@/data/projects";
+import SectionTitle from "./SectionTitle";
+import { FaNodeJs, FaReact } from "react-icons/fa";
+import type { IconType } from "react-icons";
+import {
+  SiExpress,
+  SiFirebase,
+  SiFlask,
+  SiMongodb,
+  SiMui,
+  SiNextdotjs,
+  SiRedux,
+  SiTailwindcss,
+  SiTensorflow,
+  SiTypescript,
+} from "react-icons/si";
 
-export default function ProjectsSection() {
-  const [isHovering, setIsHovering] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  
-  // Mouse position with spring animation for smooth following
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  const springConfig = { damping: 25, stiffness: 200 };
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
+const techIconMap: Record<string, IconType | undefined> = {
+  "Next.js": SiNextdotjs,
+  React: FaReact,
+  "React Native": FaReact,
+  TypeScript: SiTypescript,
+  "Tailwind CSS": SiTailwindcss,
+  Flask: SiFlask,
+  "Node.js": FaNodeJs,
+  MongoDB: SiMongodb,
+  Express: SiExpress,
+  Redux: SiRedux,
+  Firebase: SiFirebase,
+  "Material UI": SiMui,
+  TensorFlow: SiTensorflow,
+};
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
-  };
+function ViewportVideo({ src, poster, className }: { src: string; poster?: string; className: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches) return;
+
+    if (!("IntersectionObserver" in window)) {
+      void video.play().catch(() => undefined);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          void video.play().catch(() => undefined);
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: "0px" }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section 
-      id="projects" 
-      className="px-4 py-20 bg-seashell overflow-hidden relative"
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-    >
-      {/* Custom Cursor */}
-      <motion.div
-        className="hidden md:flex pointer-events-none fixed z-50 w-24 h-24 rounded-full bg-black items-center justify-center"
-        style={{
-          left: cursorX,
-          top: cursorY,
-          x: "-50%",
-          y: "-50%",
-        }}
-        animate={{
-          scale: isHovering ? 1 : 0,
-          opacity: isHovering ? 1 : 0,
-        }}
-        transition={{
-          scale: { duration: 0.3, ease: "easeOut" },
-          opacity: { duration: 0.3, ease: "easeOut" },
-        }}
-      >
-        <span className="text-white text-xs font-bold uppercase tracking-wider">View</span>
-      </motion.div>
+    <video
+      ref={videoRef}
+      src={src}
+      poster={poster}
+      preload="none"
+      muted
+      loop
+      playsInline
+      aria-hidden="true"
+      className={className}
+    />
+  );
+}
 
+export default function ProjectsSection() {
+  const featuredProjects = projects.filter((project) =>
+    ["judgifysu", "walksafe", "findx"].includes(project.slug)
+  );
+
+  return (
+    <section
+      id="projects"
+      className="relative flex w-full flex-col bg-seashell px-4 py-16 md:py-24"
+    >
       {/* Header Section */}
-      <div className="relative mb-20 md:mb-32">
-        <div className="flex items-center justify-between">
-          <div>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="font-playfair italic text-3xl md:text-5xl text-gray-500 block mb-2"
+      <SectionTitle
+        title="Projects"
+        accentWord={null}
+        as="h2"
+        align="left"
+        size="lg"
+        className="mb-10 md:mb-14"
+        action={
+          <Link
+            href="/projects"
+            className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-neutral-300/80 dark:border-neutral-700 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm text-sm font-instrument font-medium text-neutral-800 dark:text-neutral-200 hover:bg-black hover:text-white hover:border-black dark:hover:bg-white dark:hover:text-black dark:hover:border-white transition-all duration-300 shadow-xs"
+          >
+            <span>View all projects</span>
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+              &rarr;
+            </span>
+          </Link>
+        }
+      />
+
+      <div className="relative mx-auto w-full max-w-7xl">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-neutral-300/80 dark:bg-neutral-700 md:block"
+        />
+        <div className="relative z-10 grid w-full grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
+          {featuredProjects.map((project, index) => (
+            <Link
+              href={`/projects/${project.slug}`}
+              key={project.slug}
+              data-loader-box="project-card"
+              className="group flex h-full w-full flex-col rounded-[28px] border border-black/[0.07] bg-white/80 p-3 shadow-[0_8px_30px_rgba(30,25,20,0.04)] transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1 hover:border-black/[0.12] hover:shadow-[0_20px_55px_rgba(30,25,20,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 motion-reduce:transition-none dark:border-white/[0.09] dark:bg-[#1f2025] dark:hover:border-white/[0.16] dark:hover:shadow-[0_20px_55px_rgba(0,0,0,0.35)] dark:focus-visible:ring-white"
             >
-              Featured
-            </motion.span>
-            <motion.h1 
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="font-mango font-extrabold uppercase text-[22vw] leading-[0.85] text-black"
-            >
-              PROJECTS
-            </motion.h1>
-          </div>
-         
-          {/* Badge - vertically centered with text */}
-          <div className="hidden md:block flex-shrink-0">
-            <Link href="/projects" className="block relative w-32 h-32 md:w-40 md:h-40 group cursor-pointer">
-              <motion.div 
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="w-full h-full text-black"
+              <div
+                data-loader-media="project-preview"
+                className="relative isolate mb-1 aspect-[16/10] w-full overflow-hidden rounded-[21px] bg-neutral-100 dark:bg-neutral-900"
               >
-                <svg viewBox="0 0 100 100" className="w-full h-full bg-black rounded-full p-2">
-                  <path
-                    id="curve"
-                    d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0"
-                    fill="transparent"
+                {project.video ? (
+                  <ViewportVideo
+                    src={project.video}
+                    poster={project.image[0]}
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
                   />
-                  <text className="text-[13px] font-bold uppercase tracking-widest fill-white">
-                    <textPath xlinkHref="#curve">
-                      View All Projects • View All Projects •
-                    </textPath>
-                  </text>
-                </svg>
-              </motion.div>
-              {/* Center Icon */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                 <svg 
-                  width="40" 
-                  height="40" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="text-white w-8 h-8 md:w-12 md:h-12"
-                >
-                  <path d="M12 2C13.1 5.3 15.3 7.7 18 9C15.3 10.3 13.1 12.7 12 16C10.9 12.7 8.7 10.3 6 9C8.7 7.7 10.9 5.3 12 2Z" fill="currentColor"/>
-                </svg>
+                ) : project.image.length > 0 ? (
+                  <div className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none">
+                    <Image
+                      src={project.image[0]}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ) : null}
+
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10"
+                />
+                <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between p-4 sm:p-5">
+                  <span className="rounded-full border border-white/25 bg-black/30 px-3 py-1.5 font-instrument text-[10px] font-medium uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md">
+                    {String(index + 1).padStart(2, "0")} <span className="text-white/55">/</span> Featured
+                  </span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/35 bg-white/15 text-white shadow-sm backdrop-blur-md transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-black motion-reduce:transition-none">
+                    <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
+                      <path d="M5 15 15 5M6 5h9v9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-1 flex-col px-3 pb-3 pt-5 sm:px-4 sm:pb-4 sm:pt-6">
+                <div className="mb-3">
+                  <p className="mb-2 line-clamp-1 font-playfair text-sm italic text-neutral-500 dark:text-neutral-400">
+                    {project.category}
+                  </p>
+                  <h3 className="font-mango text-4xl uppercase leading-[0.95] tracking-tight text-black dark:text-[#F4F4F4] sm:text-[2.7rem]">
+                    {project.title}
+                  </h3>
+                </div>
+
+                <p className="line-clamp-3 font-instrument text-[15px] leading-6 text-neutral-600 dark:text-neutral-300 sm:text-base">
+                  {project.description}
+                </p>
+
+                {project.technologies && project.technologies.length > 0 && (
+                  <div className="mt-auto flex flex-wrap gap-2 pt-5">
+                    {project.technologies.slice(0, 4).map((tech) => {
+                      const TechIcon = techIconMap[tech];
+
+                      return (
+                        <span
+                          key={tech}
+                          title={TechIcon ? tech : undefined}
+                          className="inline-flex items-center justify-center rounded-full border border-black/[0.06] bg-[#F4F4F4] px-3 py-1.5 font-instrument text-[11px] font-medium text-neutral-600 dark:border-white/[0.08] dark:bg-white/[0.05] dark:text-neutral-300"
+                        >
+                          {TechIcon ? (
+                            <>
+                              <TechIcon className="h-4 w-4" aria-hidden="true" />
+                              <span className="sr-only">{tech}</span>
+                            </>
+                          ) : (
+                            tech
+                          )}
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </Link>
-          </div>
+          ))}
         </div>
-      </div>
 
-      {/* Projects Grid with Vertical Center Line */}
-      <div className="relative">
-        {/* Vertical Center Line */}
-        <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2"></div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
-        {projects.slice(0, 4).map((project) => (
+        {/* Mobile View All Link */}
+        <div className="mt-8 flex justify-center sm:hidden">
           <Link
-            href={`/projects/${project.slug}`}
-            key={project.slug}
-            className="group block w-full bg-white/50 backdrop-blur-sm p-4 rounded-3xl cursor-none transition-all duration-300 hover:bg-white"
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
+            href="/projects"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm text-sm font-instrument font-medium text-neutral-800 dark:text-neutral-200"
           >
-            {/* Image/Video Container */}
-            <div className="relative w-full aspect-[16/9] overflow-hidden rounded-2xl mb-6">
-              {project.video ? (
-                <video
-                  src={project.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-              ) : project.image.length > 0 ? (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="w-full h-full"
-                >
-                  <Image
-                    src={project.image[0]}
-                    alt={project.title}
-                    fill
-                    className="object-cover"
-                  />
-                </motion.div>
-              ) : null}
-            </div>
-
-            {/* Content Container */}
-            <div className="flex flex-col space-y-3 px-2">
-              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
-                <h2 className="font-mango text-4xl md:text-5xl text-black uppercase leading-none">
-                  {project.title}
-                </h2>
-                <p className="font-playfair italic text-lg text-gray-500 md:text-right">
-                  {project.category}
-                </p>
-              </div>
-              
-              <p className="text-gray-800 text-base md:text-lg leading-relaxed line-clamp-3">
-                {project.description}
-              </p>
-            </div>
+            <span>View all projects</span>
+            <span aria-hidden="true">&rarr;</span>
           </Link>
-        ))}
         </div>
       </div>
     </section>

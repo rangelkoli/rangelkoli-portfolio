@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import localFont from "next/font/local";
@@ -11,10 +9,10 @@ const mango = localFont({
 
 const Footer = () => {
   return (
-    <footer id="contact" className='w-full px-4 mb-4'>
-      <div className='relative bg-white rounded-[40px] text-black overflow-hidden pt-16 px-6 md:px-12 pb-0'>
+    <footer id="contact" className='w-screen relative left-1/2 -translate-x-1/2 px-4 mb-4'>
+      <div data-loader-box="footer" className='relative bg-white rounded-[40px] text-black overflow-hidden pt-10 px-6 md:px-12 pb-0'>
         <div className='max-w-[1400px] mx-auto'>
-          <div className='grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-24'>
+          <div className='grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-12'>
             <div className='md:col-span-4'>
               <h2 className='text-3xl md:text-4xl font-semibold leading-tight'>
               Let&apos;s build something users actually enjoy using.
@@ -97,7 +95,7 @@ const Footer = () => {
 
         <div className='relative w-full flex justify-center items-end leading-[0.75] select-none pointer-events-none'>
           <h1
-            className={`${mango.className} w-full text-[25vw] md:text-[23vw] text-[#F5F5F5] text-center translate-y-[4vw] leading-[0.7]`}
+            className={`${mango.className} w-full text-[25vw] md:text-[23vw] text-[#F5F5F5] dark:text-[#1A1A1A] text-center translate-y-[4vw] leading-[0.7]`}
           >
             rangelkoli
           </h1>

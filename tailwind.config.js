@@ -12,6 +12,7 @@ module.exports = {
       fontFamily: {
         mango: ['var(--font-mango)'],
         playfair: ['var(--font-playfair)'],
+        instrument: ['"Instrument Sans"', 'sans-serif'],
       },
     },
   },

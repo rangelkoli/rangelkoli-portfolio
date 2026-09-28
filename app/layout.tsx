@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
@@ -12,6 +11,7 @@ import SmoothScroll from "../components/SmoothScroll";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { LoaderProvider } from "@/context/LoaderContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const bueno_regular = localFont({
   src: "../components/bueno-regular.otf",
@@ -66,17 +66,40 @@ export default function RootLayout({
   const pathname = usePathname();
 
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var storedTheme = window.localStorage.getItem("rangel-portfolio-theme");
+                  var theme = storedTheme === "light" || storedTheme === "dark"
+                    ? storedTheme
+                    : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+                  document.documentElement.dataset.theme = theme;
+                  document.documentElement.style.colorScheme = theme;
+                } catch (error) {
+                  document.documentElement.dataset.theme = "light";
+                  document.documentElement.style.colorScheme = "light";
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${bueno_regular.className} ${mangoGrotesque.variable} ${playfair.variable} bg-seashell`}>
-        <LoaderProvider>
-          <SmoothScroll />
-          <Analytics />
-          <Loader />
-          <Header />
-          <AnimatePresence mode='wait'>
-            <Transition key={pathname}>{children}</Transition>
-          </AnimatePresence>
-        </LoaderProvider>
+        <ThemeProvider>
+          <LoaderProvider>
+            <SmoothScroll />
+            <Analytics />
+            <Loader />
+            <Header />
+            <div className="site-shell relative z-10">
+              <Transition key={pathname}>{children}</Transition>
+            </div>
+          </LoaderProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

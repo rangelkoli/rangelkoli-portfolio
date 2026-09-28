@@ -1,11 +1,250 @@
-"use client";
-
 import React from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { projects } from "@/data/projects";
+import { projects, Project } from "@/data/projects";
+import TechStackBadges from "@/components/TechStackBadges";
+
+function CaseStudyPage({ project }: { project: Project }) {
+  const caseStudy = project.caseStudy;
+
+  if (!caseStudy) return null;
+
+  return (
+    <main className="min-h-screen bg-seashell px-4 py-8 md:px-8 md:py-14 text-black">
+      <div className="max-w-7xl mx-auto">
+        <nav className="mb-12 md:mb-20">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            <span className="font-medium">Back to Projects</span>
+          </Link>
+        </nav>
+
+        <header
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-end mb-16 md:mb-24"
+        >
+          <div className="lg:col-span-8">
+            <p className="font-playfair italic text-xl md:text-2xl text-gray-500 mb-5">
+              {caseStudy.label}
+            </p>
+            <h1 className="font-mango font-extrabold uppercase text-[19vw] md:text-[13vw] lg:text-[10rem] leading-[0.8] text-black mb-8">
+              {project.title}
+            </h1>
+            <p className="max-w-3xl text-2xl md:text-4xl leading-tight text-gray-800 text-pretty">
+              {caseStudy.lead}
+            </p>
+          </div>
+
+          <aside className="lg:col-span-4 lg:pb-2">
+            <div className="border-t border-gray-300 pt-5 grid grid-cols-2 gap-y-6 text-sm">
+              <div>
+                <p className="uppercase tracking-[0.18em] text-gray-500 mb-1">Role</p>
+                <p className="text-lg text-black">{caseStudy.role || project.role || "Engineer"}</p>
+              </div>
+              <div>
+                <p className="uppercase tracking-[0.18em] text-gray-500 mb-1">Type</p>
+                <p className="text-lg text-black">{caseStudy.type || "Web Application"}</p>
+              </div>
+              <div>
+                <p className="uppercase tracking-[0.18em] text-gray-500 mb-1">Focus</p>
+                <p className="text-lg text-black">{caseStudy.focus || "Full-stack Engineering"}</p>
+              </div>
+              <div>
+                <p className="uppercase tracking-[0.18em] text-gray-500 mb-1">Stack</p>
+                <p className="text-lg text-black">{project.technologies.join(", ")}</p>
+              </div>
+            </div>
+          </aside>
+        </header>
+
+        <div
+          className="relative aspect-[16/7] rounded-[2rem] overflow-hidden bg-white shadow-xl mb-16 md:mb-24"
+        >
+          {project.image[0] ? (
+            <Image
+              src={project.image[0]}
+              alt={`${project.title} overview preview`}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 1200px"
+              className="object-cover"
+            />
+          ) : project.video ? (
+            <video
+              src={project.video}
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              className="w-full h-full object-cover"
+              aria-label={`${project.title} product demo`}
+            />
+          ) : null}
+        </div>
+
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 mb-24 md:mb-36">
+          <div className="lg:col-span-4">
+            <p className="font-playfair italic text-2xl text-gray-500">The product</p>
+          </div>
+          <div className="lg:col-span-8">
+            <p className="text-2xl md:text-4xl leading-tight text-gray-800 text-pretty">
+              {caseStudy.context}
+            </p>
+          </div>
+        </section>
+
+        {project.video && (
+          <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 mb-24 md:mb-36">
+            <div className="lg:col-span-4">
+              <p className="font-playfair italic text-2xl text-gray-500">Prototype walkthrough</p>
+              <h2 className="font-mango text-5xl md:text-7xl uppercase leading-none text-black mt-4">
+                In motion
+              </h2>
+            </div>
+            <div className="lg:col-span-8">
+              <div className="relative rounded-[2rem] overflow-hidden bg-black shadow-xl aspect-[16/9] max-h-[640px]">
+                <video
+                  src={project.video}
+                  preload="none"
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  className="w-full h-full object-contain"
+                  aria-label={`${project.title} video prototype walkthrough`}
+                />
+              </div>
+            </div>
+          </section>
+        )}
+
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 mb-24 md:mb-36">
+          <div className="lg:col-span-4">
+            <p className="font-playfair italic text-2xl text-gray-500">Core architecture</p>
+            <h2 className="font-mango text-5xl md:text-7xl uppercase leading-none text-black mt-4">
+              System design
+            </h2>
+          </div>
+          <div className="lg:col-span-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+              {caseStudy.sections.map((section, index) => (
+                <div key={section.title} className="border-t border-gray-300 pt-6">
+                  <span className="font-mango text-3xl text-gray-400 block mb-4">
+                    0{index + 1}
+                  </span>
+                  <h3 className="font-mango text-3xl md:text-4xl uppercase leading-none text-black mb-3">
+                    {section.title}
+                  </h3>
+                  <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                    {section.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {project.image.length > 1 && (
+          <section className="mb-24 md:mb-36">
+            <div className="mb-8 md:mb-12">
+              <p className="font-playfair italic text-2xl text-gray-500">Product visuals</p>
+              <h2 className="font-mango text-5xl md:text-7xl uppercase leading-none text-black mt-2">
+                Interface & details
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {project.image.slice(1).map((image, index) => (
+                <figure
+                  key={image}
+                  className="relative min-h-[260px] md:min-h-[360px] rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm"
+                >
+                  <Image
+                    src={image}
+                    alt={`${project.title} interface view ${index + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                </figure>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 mb-24 md:mb-36">
+          <div className="lg:col-span-4">
+            <p className="font-playfair italic text-2xl text-gray-500">My contribution</p>
+            <h2 className="font-mango text-5xl md:text-7xl uppercase leading-none text-black mt-4">
+              In the build
+            </h2>
+          </div>
+          <div className="lg:col-span-8">
+            <ul className="divide-y divide-gray-300 border-y border-gray-300">
+              {caseStudy.contribution.map((item, index) => (
+                <li key={item} className="flex items-start gap-5 py-5 md:py-7">
+                  <span className="font-mango text-2xl text-gray-400">0{index + 1}</span>
+                  <span className="text-xl md:text-2xl leading-tight text-gray-800 text-pretty">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="bg-black text-white rounded-[2rem] p-8 md:p-16 lg:p-20 mb-20 md:mb-28">
+          <p className="font-playfair italic text-2xl text-gray-400 mb-6">The result</p>
+          <p className="max-w-5xl text-3xl md:text-5xl leading-tight text-pretty">{caseStudy.outcome}</p>
+          <div className="flex flex-wrap gap-3 mt-10">
+            {project.technologies.map((technology) => (
+              <span key={technology} className="px-4 py-2 rounded-full border border-white/25 text-sm text-gray-300">
+                {technology}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <Link href="/projects" className="font-playfair italic text-xl text-gray-600 hover:text-black transition-colors">
+            ← More projects
+          </Link>
+          <div className="flex flex-wrap items-center gap-3">
+            {project.demo && (
+              <Link
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border-2 border-black bg-white text-black px-6 py-3 rounded-full hover:bg-black hover:text-white transition-colors"
+              >
+                <span>Live Demo</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                </svg>
+              </Link>
+            )}
+            {project.github && (
+              <Link
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-colors"
+              >
+                <span>View the code</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="M7 17 17 7M7 7h10v10" />
+                </svg>
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
 
 export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = React.use(params);
@@ -15,307 +254,167 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
     notFound();
   }
 
-  // Coming Soon Page
+  if (project.caseStudy) {
+    return <CaseStudyPage project={project} />;
+  }
+
   if (project.comingSoon) {
     return (
-      <div className="min-h-dvh bg-seashell flex items-center justify-center px-4">
-        <div className="max-w-4xl mx-auto text-center w-full">
-          {/* Back Button */}
-          <Link 
-            href="/projects"
-            className="inline-flex items-center gap-2 mb-12 text-gray-600 hover:text-black transition-colors"
-          >
-            <svg 
-              width="20" 
-              height="20" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2"
-              aria-hidden="true"
+      <main className="min-h-screen bg-seashell px-4 py-8 md:px-8 md:py-14 text-black flex flex-col justify-between">
+        <div className="max-w-4xl mx-auto w-full">
+          <nav className="mb-12">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
             >
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Projects
-          </Link>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              <span className="font-medium">Back to Projects</span>
+            </Link>
+          </nav>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <h1 className="font-mango font-extrabold uppercase text-8xl md:text-[12rem] leading-none text-black mb-8 text-balance">
+          <header className="mb-12">
+            <span className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold tracking-wide uppercase mb-4">
+              Case study in progress
+            </span>
+            <h1 className="font-mango font-extrabold uppercase text-5xl md:text-7xl text-black mb-4">
               {project.title}
             </h1>
-            
-            {project.video && (
-              <div className="relative w-full max-w-3xl mx-auto aspect-video rounded-2xl overflow-hidden mb-12 bg-gray-100">
-                <video
-                  src={project.video}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
+            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
+              {project.description}
+            </p>
+          </header>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="bg-white p-12 md:p-16 rounded-3xl shadow-sm border border-gray-100"
-            >
-              <div className="mb-8">
-                <svg 
-                  width="80" 
-                  height="80" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  className="mx-auto mb-6 text-black"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2C13.1 5.3 15.3 7.7 18 9C15.3 10.3 13.1 12.7 12 16C10.9 12.7 8.7 10.3 6 9C8.7 7.7 10.9 5.3 12 2Z" fill="currentColor"/>
-                </svg>
-              </div>
-              
-              <h2 className="font-playfair italic text-5xl md:text-6xl text-gray-800 mb-6 text-balance">
-                Coming Soon
-              </h2>
-              
-              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto text-pretty">
-                This project is currently under development. Check back soon for detailed information, screenshots, and more.
-              </p>
+          <div className="border-t border-gray-200 pt-8 mb-12">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-4">
+              Technologies
+            </h2>
+            <TechStackBadges technologies={project.technologies} />
+          </div>
 
-              {project.github && (
-                <Link
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-full hover:bg-gray-800 transition-colors font-medium focus:ring-2 focus:ring-offset-2 focus:ring-black outline-none"
-                >
-                  View on GitHub
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                </Link>
-              )}
-            </motion.div>
-          </motion.div>
+          <p className="text-gray-500 text-sm">
+            Full case study, metrics, and architecture deep-dive coming soon.
+          </p>
         </div>
-      </div>
+
+        <div className="max-w-4xl mx-auto w-full pt-12 border-t border-gray-200 mt-12 flex items-center justify-between">
+          <Link href="/projects" className="text-sm font-medium text-gray-600 hover:text-black transition-colors">
+            ← Back to all projects
+          </Link>
+          {project.github && (
+            <Link
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-black hover:underline"
+            >
+              View repository →
+            </Link>
+          )}
+        </div>
+      </main>
     );
   }
 
-  // Full Project Page
   return (
-    <div className="min-h-dvh bg-seashell">
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-20">
-        {/* Navigation */}
-        <nav className="mb-12 md:mb-20">
-          <Link 
+    <main className="min-h-screen bg-seashell px-4 py-8 md:px-8 md:py-14 text-black">
+      <div className="max-w-4xl mx-auto">
+        <nav className="mb-12">
+          <Link
             href="/projects"
             className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
           >
-            <svg 
-              width="20" 
-              height="20" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2"
-              aria-hidden="true"
-            >
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
             <span className="font-medium">Back to Projects</span>
           </Link>
         </nav>
 
-        {/* Project Header */}
-        <motion.header
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-16 md:mb-24 text-center md:text-left"
-        >
-          <div className="inline-block mb-4 px-4 py-1.5 rounded-full border border-gray-300 bg-white/50 backdrop-blur-sm">
-             <span className="font-playfair italic text-lg text-gray-800">
-              {project.category}
-            </span>
-          </div>
-          <h1 className="font-mango font-extrabold uppercase text-7xl md:text-8xl lg:text-[10rem] leading-[0.85] text-black mb-6 text-balance">
+        <header className="mb-12">
+          <p className="font-playfair italic text-lg text-gray-500 mb-2">
+            {project.category}
+          </p>
+          <h1 className="font-mango font-extrabold uppercase text-5xl md:text-7xl text-black mb-6">
             {project.title}
           </h1>
-        </motion.header>
+          <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
+            {project.description}
+          </p>
 
-        {/* Project Media (Hero) */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-          className="mb-20 md:mb-32"
-        >
-          <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-white shadow-xl">
-            {project.video ? (
-              <video
-                src={project.video}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            ) : project.image.length > 0 ? (
-              <Image
-                src={project.image[0]}
-                alt={project.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            ) : null}
-          </div>
-        </motion.div>
-
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-20 md:mb-32">
-          {/* Left Column: Description & Features */}
-          <motion.div 
-            className="lg:col-span-7"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-mango text-4xl md:text-5xl uppercase mb-8 text-black">
-              About the Project
-            </h2>
-            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-12 text-pretty font-light">
-              {project.description}
-            </p>
-
-            {project.features && project.features.length > 0 && (
-              <div className="mt-16">
-                <h3 className="font-mango text-3xl md:text-4xl uppercase mb-8 text-black">
-                  Key Features
-                </h3>
-                <ul className="space-y-6">
-                  {project.features.map((feature, index) => (
-                    <motion.li
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: 0.1 * index, ease: "easeOut" }}
-                      viewport={{ once: true }}
-                      className="flex items-start gap-4 group"
-                    >
-                      <div className="flex-shrink-0 mt-1.5 w-6 h-6 rounded-full bg-black flex items-center justify-center text-white">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                          <path d="M20 6L9 17l-5-5"/>
-                        </svg>
-                      </div>
-                      <span className="text-lg md:text-xl text-gray-700 text-pretty group-hover:text-black transition-colors">{feature}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
+          <div className="flex flex-wrap gap-4 pt-2">
+            {project.github && (
+              <Link
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
+              >
+                <span>View on GitHub</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="M7 17 17 7M7 7h10v10" />
+                </svg>
+              </Link>
             )}
-          </motion.div>
+            {project.demo && (
+              <Link
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border border-gray-300 bg-white px-5 py-2.5 rounded-full text-sm font-medium text-gray-800 hover:border-black transition-colors"
+              >
+                <span>Live Demo</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                </svg>
+              </Link>
+            )}
+          </div>
+        </header>
 
-          {/* Right Column: Meta & Links */}
-          <motion.div 
-            className="lg:col-span-5"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-            viewport={{ once: true }}
-          >
-            <div className="bg-white p-8 md:p-10 rounded-3xl border border-gray-100 shadow-sm sticky top-8">
-              <div className="mb-10">
-                <h3 className="font-mango text-3xl uppercase mb-6 text-black">
-                  Technologies
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-4 py-2 bg-gray-50 rounded-full text-sm font-medium text-gray-800 border border-gray-200"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                {project.github && (
-                  <Link
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 w-full bg-black text-white px-6 py-4 rounded-full hover:bg-gray-800 transition-colors font-medium text-lg"
-                  >
-                    <span>View on GitHub</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                  </Link>
-                )}
-                {project.demo && (
-                  <Link
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 w-full bg-white text-black px-6 py-4 rounded-full hover:bg-gray-50 transition-colors font-medium text-lg border-2 border-gray-200"
-                  >
-                    <span>Live Demo</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                    </svg>
-                  </Link>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Gallery */}
-        {project.image.length > 1 && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="pb-20"
-          >
-            <h3 className="font-mango text-4xl md:text-6xl uppercase mb-12 text-black text-center md:text-left">
-              Project Gallery
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {project.image.slice(1).map((img, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.1 * index, ease: "easeOut" }}
-                  viewport={{ once: true }}
-                  className="relative aspect-video rounded-3xl overflow-hidden bg-gray-100 shadow-md group"
-                >
-                  <Image
-                    src={img}
-                    alt={`${project.title} screenshot ${index + 2}`}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+        {project.image.length > 0 && (
+          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-gray-100 mb-12 shadow-md">
+            <Image
+              src={project.image[0]}
+              alt={`${project.title} screenshot`}
+              fill
+              priority
+              sizes="(max-width: 896px) 100vw, 896px"
+              className="object-cover"
+            />
+          </div>
         )}
+
+        {project.features && project.features.length > 0 && (
+          <section className="border-t border-gray-200 pt-10 mb-12">
+            <h2 className="font-mango text-3xl uppercase text-black mb-6">
+              Key Features
+            </h2>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {project.features.map((feature, i) => (
+                <li key={i} className="flex items-start gap-3 text-gray-700">
+                  <span className="font-mango text-lg text-gray-400">0{i + 1}</span>
+                  <span className="leading-snug">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section className="border-t border-gray-200 pt-10 mb-16">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-4">
+            Technologies Used
+          </h2>
+          <TechStackBadges technologies={project.technologies} />
+        </section>
+
+        <div className="border-t border-gray-200 pt-8 flex items-center justify-between">
+          <Link href="/projects" className="text-sm font-medium text-gray-600 hover:text-black transition-colors">
+            ← Back to all projects
+          </Link>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }

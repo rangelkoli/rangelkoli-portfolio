@@ -6,6 +6,7 @@ import { projects, Project } from "@/data/projects";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import SectionTitle from "@/components/SectionTitle";
 import {
   FiGithub,
   FiExternalLink,
@@ -26,6 +27,9 @@ import {
   SiMui,
   SiTensorflow,
   SiSocketdotio,
+  SiSupabase,
+  SiPostgresql,
+  SiStripe,
 } from "react-icons/si";
 
 const techIconMap: { [key: string]: React.ElementType } = {
@@ -43,47 +47,10 @@ const techIconMap: { [key: string]: React.ElementType } = {
   "Material UI": SiMui,
   TensorFlow: SiTensorflow,
   "Socket.io": SiSocketdotio,
+  Supabase: SiSupabase,
+  PostgreSQL: SiPostgresql,
+  Stripe: SiStripe,
 };
-
-// RevealText Component - Smooth clip-path reveal from center to outer
-interface RevealTextProps {
-  children: React.ReactNode;
-  direction?: "left" | "right";
-  delay?: number;
-  duration?: number;
-  className?: string;
-}
-
-const RevealText: React.FC<RevealTextProps> = ({
-  children,
-  direction = "left",
-  delay = 0,
-  duration = 1,
-  className = "",
-}) => {
-  const initialClip = direction === "left" 
-    ? "inset(-10% 100% -10% 0)"
-    : "inset(-10% 0 -10% 100%)";
-  
-  const finalClip = "inset(-10% 0 -10% 0)";
-
-  return (
-    <motion.div
-      initial={{ clipPath: initialClip }}
-      animate={{ clipPath: finalClip }}
-      transition={{
-        duration: duration,
-        delay: delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className={className}
-      style={{ overflow: 'visible' }}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
 
   const ProjectsPage = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -148,7 +115,7 @@ const RevealText: React.FC<RevealTextProps> = ({
       </motion.div>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 px-4 md:px-8">
+      <section className="relative pt-16 pb-8 px-4 md:px-8">
         {/* Background gradient accent */}
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-30 pointer-events-none">
           <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
@@ -156,110 +123,62 @@ const RevealText: React.FC<RevealTextProps> = ({
 
         {/* Header with split text reveal */}
         <div className="relative mb-12">
-          {/* Subtitle */}
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-playfair italic text-3xl md:text-5xl text-gray-500 block mb-4 text-center"
-          >
-            Explore my
-          </motion.span>
-
-          {/* Main Title */}
-          <RevealText direction="left" delay={0.2} duration={1}>
-            <h1 className="font-mango font-extrabold text-[18vw] md:text-[14vw] leading-[0.85] text-black uppercase text-center">
-              Projects
-            </h1>
-          </RevealText>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto text-center mt-8 px-4 font-light"
-          >
-            A curated collection of my work spanning web applications, mobile apps, and innovative solutions.
-          </motion.p>
+          <SectionTitle
+            title="All Projects"
+            eyebrow="Archive"
+            description="A curated collection of my work spanning web applications, mobile apps, and innovative solutions."
+            align="center"
+            as="h1"
+          />
         </div>
 
         {/* Stats Bar */}
-        <motion.div 
-          className="flex justify-center gap-12 md:gap-24 mb-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+        <div 
+          className="flex justify-center gap-12 md:gap-24 mb-8"
         >
           <div className="text-center">
-            <motion.span 
+            <span 
               className="font-mango text-5xl md:text-7xl text-black block"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
             >
               {projects.length}
-            </motion.span>
+            </span>
             <span className="font-playfair italic text-gray-500 text-lg">Projects</span>
           </div>
           <div className="text-center">
-            <motion.span 
+            <span 
               className="font-mango text-5xl md:text-7xl text-black block"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1 }}
             >
               {Array.from(new Set(projects.flatMap(p => p.technologies))).length}
-            </motion.span>
+            </span>
             <span className="font-playfair italic text-gray-500 text-lg">Technologies</span>
           </div>
           <div className="text-center">
-            <motion.span 
+            <span 
               className="font-mango text-5xl md:text-7xl text-black block"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.1 }}
             >
               100%
-            </motion.span>
+            </span>
             <span className="font-playfair italic text-gray-500 text-lg">Passion</span>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Projects Grid Section */}
-      <section className="relative px-4 md:px-8 pb-20">
+      <section className="relative px-4 md:px-8 pb-10">
         {/* Vertical Center Line */}
         <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2 z-0"></div>
 
         {/* Projects List */}
         <div className="relative z-10 max-w-7xl mx-auto">
-          <motion.div 
+          <div 
             className="space-y-4"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.15 }
-              }
-            }}
           >
             {projects.map((project: Project, index: number) => (
-              <motion.div
+              <div
                 key={project.title}
                 className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${
                   index % 2 === 1 ? 'lg:direction-rtl' : ''
                 }`}
-                variants={{
-                  hidden: { opacity: 0, y: 60 },
-                  visible: { 
-                    opacity: 1, 
-                    y: 0,
-                    transition: { duration: 0.7, ease: "easeOut" }
-                  }
-                }}
               >
                 {/* Image Side */}
                 <Link
@@ -354,45 +273,29 @@ const RevealText: React.FC<RevealTextProps> = ({
                 {/* Content Side */}
                 <div className={`${index % 2 === 1 ? 'lg:order-1 lg:text-right' : ''}`}>
                   {/* Project Number */}
-                  <motion.span 
+                  <span 
                     className="font-mango text-8xl md:text-9xl text-gray-200 block leading-none"
-                    initial={{ opacity: 0, x: index % 2 === 1 ? 50 : -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
                   >
                     {String(index + 1).padStart(2, '0')}
-                  </motion.span>
+                  </span>
 
                   {/* Title */}
-                  <motion.h2 
+                  <h2 
                     className="font-mango text-5xl md:text-7xl lg:text-8xl text-black uppercase leading-none -mt-8 mb-6"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    viewport={{ once: true }}
                   >
                     {project.title}
-                  </motion.h2>
+                  </h2>
 
                   {/* Description */}
-                  <motion.p 
+                  <p 
                     className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8 max-w-lg"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    viewport={{ once: true }}
                   >
                     {project.description}
-                  </motion.p>
+                  </p>
 
                   {/* Tech Stack */}
-                  <motion.div 
+                  <div 
                     className={`flex flex-wrap gap-3 mb-8 ${index % 2 === 1 ? 'lg:justify-end' : ''}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    viewport={{ once: true }}
                   >
                     {project.technologies.filter(tech => tech.trim()).map((tech, techIndex) => {
                       const IconComponent = techIconMap[tech];
@@ -408,15 +311,11 @@ const RevealText: React.FC<RevealTextProps> = ({
                         </motion.div>
                       );
                     })}
-                  </motion.div>
+                  </div>
 
                   {/* Links */}
-                  <motion.div 
+                  <div 
                     className={`flex gap-4 ${index % 2 === 1 ? 'lg:justify-end' : ''}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    viewport={{ once: true }}
                   >
                     <Link
                       href={`/projects/${project.slug}`}
@@ -453,11 +352,11 @@ const RevealText: React.FC<RevealTextProps> = ({
                         <FiArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                       </motion.a>
                     )}
-                  </motion.div>
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* Decorative Elements */}
@@ -465,7 +364,7 @@ const RevealText: React.FC<RevealTextProps> = ({
       </section>
 
       {/* Call to Action Section */}
-      <section className="relative py-32 px-4 overflow-hidden">
+      <section className="relative py-12 px-4 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -474,30 +373,12 @@ const RevealText: React.FC<RevealTextProps> = ({
         </div>
 
         <div className="relative z-10 text-center max-w-4xl mx-auto">
-          <motion.span 
-            className="font-playfair italic text-2xl md:text-3xl text-gray-500 block mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Interested in working together?
-          </motion.span>
-          <motion.h2 
-            className="font-mango text-6xl md:text-8xl lg:text-9xl text-black uppercase leading-none mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            Let&apos;s Talk
-          </motion.h2>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
+          <SectionTitle
+            title="Say Hello"
+            eyebrow="Contact"
+            align="center"
+          />
+          <div>
             <Link 
               href="mailto:rangelkoli@gmail.com"
               className="inline-flex items-center gap-3 px-10 py-5 bg-black text-white rounded-full text-xl font-medium hover:bg-gray-900 transition-colors duration-300 group"
@@ -505,7 +386,7 @@ const RevealText: React.FC<RevealTextProps> = ({
               <span>Get in Touch</span>
               <FiArrowUpRight className="w-6 h-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
 
