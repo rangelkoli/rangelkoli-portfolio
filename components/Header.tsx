@@ -74,7 +74,7 @@ const Header = () => {
           x: mobileMenuOpen ? 0 : "-50%",
           width: mobileMenuOpen ? "100vw" : fixedWidth,
           height: mobileMenuOpen ? "100dvh" : 64,
-          borderRadius: mobileMenuOpen ? 0 : 50,
+          borderRadius: mobileMenuOpen ? 0 : 24,
         }}
         className="fixed z-50 shadow-2xl"
         transition={{ 
@@ -88,7 +88,7 @@ const Header = () => {
           initial={false}
           animate={{ 
             backgroundColor: navBackground,
-            borderRadius: mobileMenuOpen ? 0 : 50 
+            borderRadius: mobileMenuOpen ? 0 : 24 
           }}
           transition={{ duration: 0.4, ease: smoothEase }}
         />
