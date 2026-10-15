@@ -1,114 +1,219 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { projects } from "@/data/projects";
+import { techIconMap } from "@/data/techIcons";
 import SectionTitle from "./SectionTitle";
 
-export default function ExperienceSection() {
-  const experienceSlugs = ["orange-housing", "hereafter"];
-  const experiences = experienceSlugs
-    .map((slug) => projects.find((project) => project.slug === slug))
-    .filter((project): project is (typeof projects)[number] => Boolean(project));
+// Resume details; slugged entries pull title, copy, tech, and screenshots from their project page.
+const experienceEntries: Array<{
+  slug?: string;
+  title?: string;
+  description?: string;
+  technologies?: string[];
+  role: string;
+  period: string;
+  location: string;
+}> = [
+  {
+    slug: "orange-housing",
+    role: "Software Engineer",
+    period: "Jan 2026 – Present",
+    location: "Syracuse, NY",
+  },
+  {
+    slug: "hereafter",
+    role: "Founding Software Engineer",
+    period: "Aug 2025 – Dec 2025",
+    location: "New York, NY",
+  },
+  {
+    title: "Delet",
+    role: "Software Developer",
+    period: "Jun 2024 – Aug 2024",
+    location: "San Francisco, CA",
+    description:
+      "Migrated a legacy website to a React Native app, cutting latency 25%, and built real-time video streaming on AWS EC2 & S3 for 10,000+ concurrent users.",
+    technologies: ["React Native", "AWS"],
+  },
+];
 
-  if (experiences.length === 0) return null;
+// Applied to every text element so it flips to white while its row is blue.
+const onBlue =
+  "transition-colors duration-300 group-hover:text-white group-focus-visible:text-white motion-reduce:transition-none";
+
+export default function ExperienceSection() {
+  const reduceMotion = useReducedMotion();
+  const experiences = experienceEntries.map((entry) => {
+    const project = projects.find((p) => p.slug === entry.slug);
+    return {
+      key: entry.slug ?? entry.title!,
+      href: project && `/projects/${project.slug}`,
+      title: project?.title ?? entry.title!,
+      description: project
+        ? (project.caseStudy?.lead ?? project.description)
+        : entry.description!,
+      technologies: project?.technologies ?? entry.technologies ?? [],
+      images: project?.image ?? [],
+      role: entry.role,
+      period: entry.period,
+      location: entry.location,
+    };
+  });
 
   return (
     <section
       id="experience"
-      className="w-full bg-[#F4F4F4] px-4 py-16 dark:bg-neutral-950 md:py-24"
+      className="w-full bg-[#F4F4F4] px-4 py-10 dark:bg-neutral-950 md:py-14"
     >
       <div className="mx-auto max-w-7xl">
         <SectionTitle
           title="Experience"
-          eyebrow="Selected work"
           description="Roles where I’ve helped take ambitious ideas from architecture to launch."
-          align="left"
-          size="lg"
-          className="mb-10 md:mb-14"
+          className="mb-0"
         />
 
-        <div className="space-y-6 md:space-y-8">
-          {experiences.map((experience, index) => (
-            <article
-              key={experience.slug}
-              className="group"
-            >
-              <div
-                data-loader-box="experience-card"
-                className="grid gap-0 overflow-hidden rounded-[28px] border border-black/[0.07] bg-white/80 p-3 shadow-[0_10px_35px_rgba(30,25,20,0.045)] transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1 hover:border-black/[0.13] hover:shadow-[0_22px_55px_rgba(30,25,20,0.1)] focus-within:border-black/[0.2] motion-reduce:transition-none dark:border-white/[0.09] dark:bg-[#1f2025] dark:hover:border-white/[0.17] dark:hover:shadow-[0_22px_55px_rgba(0,0,0,0.3)] md:grid-cols-[0.94fr_1.06fr] md:rounded-[32px]"
-              >
-                <Link
-                  href={`/projects/${experience.slug}`}
-                  data-loader-media="experience-preview"
-                  className="group/media relative block aspect-[16/10] overflow-hidden rounded-[20px] bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-black dark:bg-neutral-900 dark:focus-visible:ring-white md:aspect-auto md:min-h-[390px] md:rounded-[23px]"
-                  aria-label={`View ${experience.title} case study`}
+        <ol>
+          {experiences.map((experience, index) => {
+            const hasImages = experience.images.length > 0;
+            const row = (
+              <>
+                {/* Blue fill that rises from the row's bottom edge. */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 -z-10 origin-bottom scale-y-0 bg-blue-600 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100 group-focus-visible:scale-y-100 motion-reduce:transition-none"
+                />
+                <span
+                  className={`font-instrument text-[11px] font-semibold tracking-[0.2em] text-[#9A9EAC] tabular-nums dark:text-[#6B6B73] ${onBlue}`}
                 >
-                  <Image
-                    src={experience.image[0]}
-                    alt={`${experience.title} preview`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 45vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover/media:scale-[1.04] motion-reduce:transition-none"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10"
-                  />
-                  <div className="pointer-events-none absolute right-4 top-4 sm:right-5 sm:top-5">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/35 bg-black/20 text-white backdrop-blur-md transition-[background-color,color,border-color] duration-300 group-hover/media:border-white group-hover/media:bg-white group-hover/media:text-black motion-reduce:transition-none">
-                      <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
-                        <path d="M5 15 15 5M6 5h9v9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                  </div>
-                </Link>
-
-                <div className="flex min-w-0 flex-col px-4 pb-4 pt-7 sm:px-7 sm:pb-6 sm:pt-8 md:px-9 md:py-8 lg:px-12 lg:py-10">
-                  <div className="mb-8 flex items-center gap-4 font-instrument text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 md:mb-auto">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <span aria-hidden="true" className="h-px w-8 bg-neutral-300 dark:bg-neutral-600" />
-                    <span>{experience.caseStudy?.type ?? experience.category}</span>
-                    {experience.period && <span className="ml-auto tabular-nums">{experience.period}</span>}
-                  </div>
-
-                  {experience.role && (
-                    <p className="mb-2 font-instrument text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-600 dark:text-neutral-300">
-                      {experience.role}
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="min-w-0 flex-1 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-10">
+                  <div>
+                    <h3
+                      className={`font-bricolage font-bold text-[2.4rem] leading-[1.05] tracking-[-0.015em] [font-variation-settings:"opsz"_96] text-black dark:text-[#F4F4F4] sm:text-[3rem] lg:text-[3.6rem] ${onBlue}`}
+                    >
+                      {experience.title}
+                    </h3>
+                    <p
+                      className={`mt-3 flex flex-wrap gap-x-3 gap-y-1 font-instrument text-[13px] font-medium uppercase tracking-[0.14em] text-[#6B6B73] dark:text-[#9A9EAC] ${onBlue}`}
+                    >
+                      <span className="text-neutral-900 group-hover:text-white group-focus-visible:text-white dark:text-neutral-100">
+                        {experience.role}
+                      </span>
+                      <span className="tabular-nums">{experience.period}</span>
+                      <span>{experience.location}</span>
                     </p>
-                  )}
+                    <ul
+                      aria-label="Technologies used"
+                      className="-ml-1.5 mt-3 flex flex-wrap items-center gap-1"
+                    >
+                      {experience.technologies.map((technology) => {
+                        const TechIcon = techIconMap[technology];
 
-                  <h3 className="font-mango text-5xl uppercase leading-[0.95] tracking-tight text-black dark:text-[#F4F4F4] sm:text-6xl">
-                    {experience.title}
-                  </h3>
+                        return (
+                          <li
+                            key={technology}
+                            title={technology}
+                            className="rounded-md p-1.5 font-instrument text-xs text-neutral-500 transition-colors duration-300 group-hover:bg-white/10 group-hover:text-white group-hover:ring-1 group-hover:ring-inset group-hover:ring-white/20 group-focus-visible:bg-white/10 group-focus-visible:text-white group-focus-visible:ring-1 group-focus-visible:ring-inset group-focus-visible:ring-white/20 motion-reduce:transition-none dark:text-neutral-400"
+                          >
+                            {TechIcon ? (
+                              <>
+                                <TechIcon
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
+                                />
+                                <span className="sr-only">{technology}</span>
+                              </>
+                            ) : (
+                              technology
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
 
-                  <p className="mt-5 max-w-[52ch] font-instrument text-[15px] leading-7 text-neutral-600 dark:text-neutral-300 sm:text-base">
-                    {experience.caseStudy?.lead ?? experience.description}
-                  </p>
-
-                  <ul aria-label="Technologies used" className="mt-6 flex flex-wrap gap-x-3 gap-y-2">
-                    {experience.technologies.map((technology) => (
-                      <li
-                        key={technology}
-                        className="font-instrument text-xs text-neutral-500 before:mr-1.5 before:text-neutral-300 before:content-['·'] dark:text-neutral-400 dark:before:text-neutral-600"
+                  <div className="relative mt-4 md:mt-1">
+                    <div
+                      className={`transition-opacity duration-300 motion-reduce:transition-none ${
+                        hasImages
+                          ? "md:group-hover:opacity-0 md:group-focus-visible:opacity-0"
+                          : ""
+                      }`}
+                    >
+                      <p
+                        className={`max-w-[56ch] font-instrument text-[15px] leading-7 text-neutral-600 dark:text-neutral-300 ${onBlue}`}
                       >
-                        {technology}
-                      </li>
-                    ))}
-                  </ul>
+                        {experience.description}
+                      </p>
+                    </div>
 
-                  <Link
-                    href={`/projects/${experience.slug}`}
-                    className="group/link mt-7 inline-flex w-fit items-center gap-3 border-b border-neutral-300 pb-1 font-instrument text-sm font-semibold text-neutral-900 transition-colors hover:border-neutral-900 focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 dark:border-neutral-600 dark:text-white dark:hover:border-white dark:focus-visible:ring-white dark:focus-visible:ring-offset-neutral-900 md:mt-auto md:pt-7"
-                  >
-                    View case study
-                    <span aria-hidden="true" className="transition-transform duration-300 group-hover/link:translate-x-1 motion-reduce:transition-none">
-                      &rarr;
-                    </span>
-                  </Link>
+                    {hasImages && (
+                      /* Screenshot strip that takes the description's place while hovered. */
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 hidden translate-y-4 overflow-hidden opacity-0 transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 motion-reduce:transition-none md:block"
+                      >
+                        <div className="flex h-full w-max animate-[experience-strip_18s_linear_infinite] gap-3 [animation-play-state:paused] group-hover:[animation-play-state:running] motion-reduce:animate-none">
+                          {[...experience.images, ...experience.images].map(
+                            (src, imageIndex) => (
+                              <div
+                                key={`${src}-${imageIndex}`}
+                                className="relative aspect-[16/10] h-full shrink-0 overflow-hidden rounded-sm bg-blue-700"
+                              >
+                                <Image
+                                  src={src}
+                                  alt=""
+                                  fill
+                                  sizes="240px"
+                                  className="object-cover object-top"
+                                />
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
-        </div>
+                <span
+                  aria-hidden="true"
+                  className={`${experience.href ? "" : "invisible"} font-instrument text-xl text-neutral-400 transition duration-300 group-hover:-rotate-45 group-hover:text-white group-focus-visible:-rotate-45 group-focus-visible:text-white motion-reduce:transition-none`}
+                >
+                  &rarr;
+                </span>
+              </>
+            );
+            const rowClass =
+              "group relative isolate flex items-baseline gap-6 overflow-hidden px-3 py-6 focus-visible:outline-none md:px-5 md:py-8";
+
+            return (
+              <motion.li
+                key={experience.key}
+                data-loader-box="experience-card"
+                initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-90px" }}
+                transition={{
+                  duration: 0.5,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: reduceMotion ? 0 : index * 0.08,
+                }}
+              >
+                {experience.href ? (
+                  <Link href={experience.href} className={rowClass}>
+                    {row}
+                  </Link>
+                ) : (
+                  <div className={rowClass}>{row}</div>
+                )}
+              </motion.li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );
