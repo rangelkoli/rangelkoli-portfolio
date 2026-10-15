@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { preload } from "react-dom";
-import { GitHubCalendar } from "react-github-calendar";
+import { ActivityCalendar, type Activity } from "react-activity-calendar";
 import "react-activity-calendar/tooltips.css";
 import { useTheme } from "@/context/ThemeContext";
+import { useLoader } from "@/context/LoaderContext";
 
 interface GithubContributionsProps {
   username?: string;
@@ -15,17 +16,35 @@ export default function GithubContributions({
   username = "rangelkoli",
   className = "",
 }: GithubContributionsProps) {
-  preload(
-    `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=last&client=react-github-calendar`,
-    { as: "fetch", crossOrigin: "anonymous" }
-  );
+  const url = `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=last&client=react-github-calendar`;
+  preload(url, { as: "fetch", crossOrigin: "anonymous" });
 
   const { theme } = useTheme();
-  const [isMounted, setIsMounted] = useState(false);
+  const { holdLoader } = useLoader();
+  const [data, setData] = useState<Activity[] | null>(null);
+  const [failed, setFailed] = useState(false);
 
+  // Fetch here instead of via <GitHubCalendar> so the page loader can wait on it.
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    const release = holdLoader();
+    const controller = new AbortController();
+
+    fetch(url, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`GitHub contributions: ${response.status}`);
+        return response.json();
+      })
+      .then((json: { contributions: Activity[] }) => setData(json.contributions))
+      .catch((error) => {
+        if (error.name !== "AbortError") setFailed(true);
+      })
+      .finally(release);
+
+    return () => {
+      controller.abort();
+      release();
+    };
+  }, [url, holdLoader]);
 
   return (
     <div
@@ -34,10 +53,16 @@ export default function GithubContributions({
     >
       {/* Calendar */}
       <div className="w-full overflow-x-auto scrollbar-none py-1">
-        {isMounted ? (
+        {failed ? (
+          <div className="h-[140px] w-full flex items-center justify-center text-sm text-[#888888]">
+            Couldn&apos;t load GitHub contributions.
+          </div>
+        ) : (
           <div className="w-full min-w-[640px]">
-            <GitHubCalendar
-              username={username}
+            <ActivityCalendar
+              data={data ?? []}
+              loading={!data}
+              maxLevel={4}
               colorScheme={theme === "dark" ? "dark" : "light"}
               blockSize={12}
               blockMargin={4}
@@ -58,10 +83,6 @@ export default function GithubContributions({
                 },
               }}
             />
-          </div>
-        ) : (
-          <div className="h-[140px] w-full flex items-center justify-center text-sm text-[#888888]">
-            Loading contributions...
           </div>
         )}
       </div>
