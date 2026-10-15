@@ -5,36 +5,12 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { projects } from "@/data/projects";
 import SectionTitle from "./SectionTitle";
-import { FaNodeJs, FaReact } from "react-icons/fa";
-import type { IconType } from "react-icons";
-import {
-  SiExpress,
-  SiFirebase,
-  SiFlask,
-  SiMongodb,
-  SiMui,
-  SiNextdotjs,
-  SiRedux,
-  SiTailwindcss,
-  SiTensorflow,
-  SiTypescript,
-} from "react-icons/si";
+import { techIconMap } from "@/data/techIcons";
+import { motion, useReducedMotion } from "framer-motion";
 
-const techIconMap: Record<string, IconType | undefined> = {
-  "Next.js": SiNextdotjs,
-  React: FaReact,
-  "React Native": FaReact,
-  TypeScript: SiTypescript,
-  "Tailwind CSS": SiTailwindcss,
-  Flask: SiFlask,
-  "Node.js": FaNodeJs,
-  MongoDB: SiMongodb,
-  Express: SiExpress,
-  Redux: SiRedux,
-  Firebase: SiFirebase,
-  "Material UI": SiMui,
-  TensorFlow: SiTensorflow,
-};
+// Same as ExperienceSection: text flips to white while the tile is blue.
+const onBlue =
+  "transition-colors duration-300 group-hover:text-white group-focus-visible:text-white motion-reduce:transition-none";
 
 function ViewportVideo({ src, poster, className }: { src: string; poster?: string; className: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -82,6 +58,7 @@ function ViewportVideo({ src, poster, className }: { src: string; poster?: strin
 }
 
 export default function ProjectsSection() {
+  const reduceMotion = useReducedMotion();
   const featuredProjects = projects.filter((project) =>
     ["judgifysu", "walksafe", "findx"].includes(project.slug)
   );
@@ -89,16 +66,12 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative flex w-full flex-col bg-seashell px-4 py-16 md:py-24"
+      className="relative flex w-full flex-col bg-seashell px-4 py-10 md:py-14"
     >
       {/* Header Section */}
       <SectionTitle
         title="Projects"
-        accentWord={null}
-        as="h2"
-        align="left"
-        size="lg"
-        className="mb-10 md:mb-14"
+        className="mx-auto mb-0 w-full max-w-7xl"
         action={
           <Link
             href="/projects"
@@ -113,98 +86,105 @@ export default function ProjectsSection() {
       />
 
       <div className="relative mx-auto w-full max-w-7xl">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-neutral-300/80 dark:bg-neutral-700 md:block"
-        />
-        <div className="relative z-10 grid w-full grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
+        {/* Columns instead of Experience's rows; same rising-blue hover language. */}
+        <ol className="grid grid-cols-1 md:grid-cols-3">
           {featuredProjects.map((project, index) => (
-            <Link
-              href={`/projects/${project.slug}`}
+            <motion.li
               key={project.slug}
               data-loader-box="project-card"
-              className="group flex h-full w-full flex-col rounded-[28px] border border-black/[0.07] bg-white/80 p-3 shadow-[0_8px_30px_rgba(30,25,20,0.04)] transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1 hover:border-black/[0.12] hover:shadow-[0_20px_55px_rgba(30,25,20,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 motion-reduce:transition-none dark:border-white/[0.09] dark:bg-[#1f2025] dark:hover:border-white/[0.16] dark:hover:shadow-[0_20px_55px_rgba(0,0,0,0.35)] dark:focus-visible:ring-white"
+              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-90px" }}
+              transition={{
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1],
+                delay: reduceMotion ? 0 : index * 0.08,
+              }}
+              className="border-x border-b border-black/10 dark:border-white/15 md:border-r-0 md:last:border-r"
             >
-              <div
-                data-loader-media="project-preview"
-                className="relative isolate mb-1 aspect-[16/10] w-full overflow-hidden rounded-[21px] bg-neutral-100 dark:bg-neutral-900"
+              <Link
+                href={`/projects/${project.slug}`}
+                className="group relative isolate flex h-full flex-col overflow-hidden px-3 py-6 focus-visible:outline-none md:px-6 md:py-8"
               >
-                {project.video ? (
-                  <ViewportVideo
-                    src={project.video}
-                    poster={project.image[0]}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
-                  />
-                ) : project.image.length > 0 ? (
-                  <div className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none">
-                    <Image
-                      src={project.image[0]}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
-                    />
-                  </div>
-                ) : null}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 -z-10 origin-bottom scale-y-0 bg-blue-600 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100 group-focus-visible:scale-y-100 motion-reduce:transition-none"
+                />
+
+                <div className="mb-5 flex items-baseline justify-between">
+                  <span
+                    className={`font-instrument text-[11px] font-semibold tracking-[0.2em] text-[#9A9EAC] tabular-nums dark:text-[#6B6B73] ${onBlue}`}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="font-instrument text-xl text-neutral-400 transition duration-300 group-hover:-rotate-45 group-hover:text-white group-focus-visible:-rotate-45 group-focus-visible:text-white motion-reduce:transition-none"
+                  >
+                    &rarr;
+                  </span>
+                </div>
 
                 <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10"
-                />
-                <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between p-4 sm:p-5">
-                  <span className="rounded-full border border-white/25 bg-black/30 px-3 py-1.5 font-instrument text-[10px] font-medium uppercase tracking-[0.18em] text-white shadow-sm backdrop-blur-md">
-                    {String(index + 1).padStart(2, "0")} <span className="text-white/55">/</span> Featured
-                  </span>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/35 bg-white/15 text-white shadow-sm backdrop-blur-md transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-black motion-reduce:transition-none">
-                    <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4" aria-hidden="true">
-                      <path d="M5 15 15 5M6 5h9v9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none" />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex flex-1 flex-col px-3 pb-3 pt-5 sm:px-4 sm:pb-4 sm:pt-6">
-                <div className="mb-3">
-                  <p className="mb-2 line-clamp-1 font-playfair text-sm italic text-neutral-500 dark:text-neutral-400">
-                    {project.category}
-                  </p>
-                  <h3 className="font-mango text-4xl uppercase leading-[0.95] tracking-tight text-black dark:text-[#F4F4F4] sm:text-[2.7rem]">
-                    {project.title}
-                  </h3>
+                  data-loader-media="project-preview"
+                  className="relative aspect-[16/10] w-full overflow-hidden rounded-sm bg-neutral-200 dark:bg-neutral-900"
+                >
+                  {project.video ? (
+                    <ViewportVideo
+                      src={project.video}
+                      poster={project.image[0]}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
+                    />
+                  ) : project.image.length > 0 ? (
+                    <Image
+                      src={project.image[0]}
+                      alt=""
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
+                    />
+                  ) : null}
                 </div>
 
-                <p className="line-clamp-3 font-instrument text-[15px] leading-6 text-neutral-600 dark:text-neutral-300 sm:text-base">
+                <h3
+                  className={`mt-6 font-bricolage font-bold text-[2.4rem] leading-[1.05] tracking-[-0.015em] [font-variation-settings:"opsz"_96] text-black dark:text-[#F4F4F4] sm:text-[2.7rem] ${onBlue}`}
+                >
+                  {project.title}
+                </h3>
+                <p
+                  className={`mt-4 line-clamp-3 font-instrument text-[15px] leading-7 text-neutral-600 dark:text-neutral-300 ${onBlue}`}
+                >
                   {project.description}
                 </p>
 
-                {project.technologies && project.technologies.length > 0 && (
-                  <div className="mt-auto flex flex-wrap gap-2 pt-5">
-                    {project.technologies.slice(0, 4).map((tech) => {
+                {project.technologies.length > 0 && (
+                  <ul aria-label="Technologies used" className="-ml-1.5 mt-auto flex flex-wrap items-center gap-1 pt-5">
+                    {project.technologies.slice(0, 5).map((tech) => {
                       const TechIcon = techIconMap[tech];
 
                       return (
-                        <span
+                        <li
                           key={tech}
-                          title={TechIcon ? tech : undefined}
-                          className="inline-flex items-center justify-center rounded-full border border-black/[0.06] bg-[#F4F4F4] px-3 py-1.5 font-instrument text-[11px] font-medium text-neutral-600 dark:border-white/[0.08] dark:bg-white/[0.05] dark:text-neutral-300"
+                          title={tech}
+                          className="rounded-md p-1.5 font-instrument text-xs text-neutral-500 transition-colors duration-300 group-hover:bg-white/10 group-hover:text-white group-hover:ring-1 group-hover:ring-inset group-hover:ring-white/20 group-focus-visible:bg-white/10 group-focus-visible:text-white group-focus-visible:ring-1 group-focus-visible:ring-inset group-focus-visible:ring-white/20 motion-reduce:transition-none dark:text-neutral-400"
                         >
                           {TechIcon ? (
                             <>
-                              <TechIcon className="h-4 w-4" aria-hidden="true" />
+                              <TechIcon className="h-5 w-5" aria-hidden="true" />
                               <span className="sr-only">{tech}</span>
                             </>
                           ) : (
                             tech
                           )}
-                        </span>
+                        </li>
                       );
                     })}
-                  </div>
+                  </ul>
                 )}
-              </div>
-            </Link>
+              </Link>
+            </motion.li>
           ))}
-        </div>
+        </ol>
 
         {/* Mobile View All Link */}
         <div className="mt-8 flex justify-center sm:hidden">
