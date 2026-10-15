@@ -1,8 +1,24 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
 const SmoothScroll = () => {
+  const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
+
+  useEffect(() => {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  }, []);
+
+  // Lenis lives in the root layout and keeps its own scroll target across
+  // routes, so jump to top on every pathname change (hash links scroll themselves).
+  useEffect(() => {
+    if (window.location.hash) return;
+    lenisRef.current?.scrollTo(0, { immediate: true, force: true });
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -12,6 +28,7 @@ const SmoothScroll = () => {
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
+    lenisRef.current = lenis;
 
     let animationFrame: number | undefined;
 
@@ -35,6 +52,7 @@ const SmoothScroll = () => {
       document.removeEventListener("visibilitychange", updateVisibility);
       if (animationFrame !== undefined) cancelAnimationFrame(animationFrame);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
