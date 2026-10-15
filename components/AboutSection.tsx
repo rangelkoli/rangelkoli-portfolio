@@ -8,7 +8,7 @@ const AboutSection = () => {
       
       {/* --- HEADER SECTION: Large "ABOUT" title like Projects --- */}
       <div className="px-4 pt-12 md:pt-16">
-        <SectionTitle title="About" index="00" eyebrow="Profile" as="h1" className="mb-0 md:mb-0" />
+        <SectionTitle title="About" as="h1" className="mb-0" />
       </div>
 
       {/* --- CONTENT SECTION: Bio text --- */}

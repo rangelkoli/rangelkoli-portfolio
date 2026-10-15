@@ -125,7 +125,6 @@ const techIconMap: { [key: string]: React.ElementType } = {
         <div className="relative mb-12">
           <SectionTitle
             title="All Projects"
-            eyebrow="Archive"
             description="A curated collection of my work spanning web applications, mobile apps, and innovative solutions."
             align="center"
             as="h1"
@@ -375,7 +374,6 @@ const techIconMap: { [key: string]: React.ElementType } = {
         <div className="relative z-10 text-center max-w-4xl mx-auto">
           <SectionTitle
             title="Say Hello"
-            eyebrow="Contact"
             align="center"
           />
           <div>
