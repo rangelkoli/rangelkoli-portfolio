@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import { Playfair_Display } from "next/font/google";
+import { Bricolage_Grotesque, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Transition from "../components/Transition";
 import Header from "../components/Header";
@@ -53,6 +53,12 @@ const mangoGrotesque = localFont({
   variable: "--font-mango",
 });
 
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-bricolage",
+});
+
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
@@ -88,7 +94,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${bueno_regular.className} ${mangoGrotesque.variable} ${playfair.variable} bg-seashell`}>
+      <body className={`${bueno_regular.className} ${mangoGrotesque.variable} ${playfair.variable} ${bricolage.variable} bg-seashell`}>
         <ThemeProvider>
           <LoaderProvider>
             <SmoothScroll />
