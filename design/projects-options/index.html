@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projects section options</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:Mango;src:url(../../public/MangoGrotesque/MangoGrotesque-Medium.ttf)}
+:root{--ink:#000;--mute:#6B6B73;--faint:#9A9EAC;--line:rgba(0,0,0,.1);--blue:#155dfc;--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box;margin:0}
+body{background:#F4F4F4;font-family:"Instrument Sans",sans-serif;color:var(--ink)}
+section{max-width:1280px;margin:0 auto;padding:72px 16px}
+.head{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:28px}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+h2{font-size:84px;font-weight:400;letter-spacing:-.04em;line-height:1}
+.opt{font-family:Mango;font-size:28px;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.pill{border:1px solid #ccc;border-radius:99px;padding:10px 18px;font-size:14px;background:#fff}
+.t{font-family:Mango;text-transform:uppercase;line-height:.95;letter-spacing:-.01em}
+.cat{font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.d{font-size:15px;line-height:1.75;color:#525252}
+.n{font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--faint)}
+.arr{font-size:20px;color:#a3a3a3;transition:.3s}
+.m{position:relative;overflow:hidden;border-radius:2px;background:#ddd}
+.m img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .7s var(--ease)}
+/* shared hover: blue rises, text white */
+.h{position:relative;isolation:isolate;overflow:hidden;cursor:pointer}
+.h::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--blue);transform:scaleY(0);transform-origin:bottom;transition:transform .5s var(--ease)}
+.h:hover::before,.h.on::before{transform:scaleY(1)}
+.h:hover :is(.t,.cat,.d,.n),.h.on :is(.t,.cat,.d,.n){color:#fff}
+.h:hover .arr,.h.on .arr{color:#fff;transform:rotate(-45deg)}
+.h:hover .m img,.h.on .m img{transform:scale(1.04)}
+.h *{transition:color .3s}
+
+/* B: feature + stack */
+.b{display:grid;grid-template-columns:1.6fr 1fr;border-bottom:1px solid var(--line)}
+.b .big{padding:32px 32px 32px 12px;border-right:1px solid var(--line);display:flex;flex-direction:column}
+.b .big .m{aspect-ratio:16/10}
+.b .side{display:grid;grid-template-rows:1fr 1fr}
+.b .sm{padding:28px;display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:start}
+.b .sm+.sm{border-top:1px solid var(--line)}
+.b .sm .m{aspect-ratio:4/5}
+.row{display:flex;justify-content:space-between;align-items:baseline}
+
+/* C: index + viewer */
+.c{display:grid;grid-template-columns:1fr 1.15fr;gap:48px;padding-top:0}
+.c ol{list-style:none;padding:0}
+.c li{border-bottom:1px solid var(--line);padding:26px 14px;display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:baseline}
+.c .viewer{position:sticky;top:24px;margin-top:28px}
+.c .viewer .m{aspect-ratio:4/3}
+.c .viewer .cap{margin-top:16px;display:flex;justify-content:space-between}
+
+/* D: rail of tall cards */
+.d4{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.card{aspect-ratio:3/4.2;position:relative;border-radius:2px;overflow:hidden;cursor:pointer}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .7s var(--ease)}
+.card .panel{position:absolute;inset:auto 0 0 0;padding:22px;background:#F4F4F4;isolation:isolate;transition:transform .5s var(--ease);transform:translateY(calc(100% - 92px))}
+.card .panel::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--blue);transform:scaleY(0);transform-origin:bottom;transition:transform .5s var(--ease)}
+.card:hover .panel,.card.on .panel{transform:none}
+.card:hover .panel::before,.card.on .panel::before{transform:scaleY(1)}
+.card:hover :is(.t,.cat,.d,.n),.card.on :is(.t,.cat,.d,.n){color:#fff}
+.card:hover .arr,.card.on .arr{color:#fff;transform:rotate(-45deg)}
+.card:hover img,.card.on img{transform:scale(1.05)}
+.card .n{position:absolute;top:16px;left:16px;background:#F4F4F4;padding:4px 8px;color:#000}
+</style></head><body>
+
+<section id="B">
+  <p class="opt">Option B — Feature + stack</p>
+  <div class="head"><div><p class="eyebrow">Selected work</p><h2>Projects</h2></div><span class="pill">View all projects →</span></div>
+  <div class="b">
+    <div class="big h on">
+      <div class="row" style="margin-bottom:20px"><span class="n">01</span><span class="arr">→</span></div>
+      <div class="m"><img src="../../public/projects/judgify/judgify-cover.png" alt=""></div>
+      <h3 class="t" style="font-size:64px;margin-top:24px">Judgify</h3>
+      <p class="cat" style="margin-top:10px">Next.js · Flask · Python</p>
+      <p class="d" style="margin-top:14px;max-width:56ch">Assigns judges to research posters, collects their scores and generates a final ranking.</p>
+    </div>
+    <div class="side">
+      <div class="sm h"><div class="m"><img src="../../public/projects/walksafe/2.jpg" alt=""></div>
+        <div><div class="row"><span class="n">02</span><span class="arr">→</span></div><h3 class="t" style="font-size:40px;margin-top:14px">WalkSafe</h3><p class="cat" style="margin-top:8px">React Native</p><p class="d" style="margin-top:10px">Live location sharing and check-ins for walking home at night.</p></div></div>
+      <div class="sm h"><div class="m"><img src="../../public/projects/findx/photo-1.jpg" alt=""></div>
+        <div><div class="row"><span class="n">03</span><span class="arr">→</span></div><h3 class="t" style="font-size:40px;margin-top:14px">FindX</h3><p class="cat" style="margin-top:8px">Python · Django</p><p class="d" style="margin-top:10px">Facial recognition that helps locate missing persons.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="C">
+  <p class="opt">Option C — Index + live preview</p>
+  <div class="head"><div><p class="eyebrow">Selected work</p><h2>Projects</h2></div><span class="pill">View all projects →</span></div>
+  <div class="c">
+    <ol>
+      <li class="h on"><span class="n">01</span><div><h3 class="t" style="font-size:56px">Judgify</h3><p class="cat" style="margin-top:8px">Next.js · Flask · Python</p></div><span class="arr">→</span></li>
+      <li class="h"><span class="n">02</span><div><h3 class="t" style="font-size:56px">WalkSafe</h3><p class="cat" style="margin-top:8px">React Native</p></div><span class="arr">→</span></li>
+      <li class="h"><span class="n">03</span><div><h3 class="t" style="font-size:56px">FindX</h3><p class="cat" style="margin-top:8px">Python · Django</p></div><span class="arr">→</span></li>
+    </ol>
+    <div class="viewer"><div class="m"><img src="../../public/projects/judgify/judgify-cover.png" alt=""></div>
+      <div class="cap"><p class="d" style="max-width:46ch">Assigns judges to research posters, collects their scores and generates a final ranking.</p><span class="n">01 / 03</span></div></div>
+  </div>
+</section>
+
+<section id="D">
+  <p class="opt">Option D — Tall cards, panel rises</p>
+  <div class="head"><div><p class="eyebrow">Selected work</p><h2>Projects</h2></div><span class="pill">View all projects →</span></div>
+  <div class="d4">
+    <div class="card"><img src="../../public/projects/judgify/judgify-cover.png" alt=""><span class="n">01</span>
+      <div class="panel"><div class="row"><h3 class="t" style="font-size:44px">Judgify</h3><span class="arr">→</span></div><p class="cat" style="margin-top:10px">Next.js · Flask · Python</p><p class="d" style="margin-top:12px">Assigns judges to research posters, collects their scores and generates a final ranking.</p></div></div>
+    <div class="card on"><img src="../../public/projects/walksafe/2.jpg" alt=""><span class="n">02</span>
+      <div class="panel"><div class="row"><h3 class="t" style="font-size:44px">WalkSafe</h3><span class="arr">→</span></div><p class="cat" style="margin-top:10px">React Native</p><p class="d" style="margin-top:12px">Live location sharing and check-ins for walking home at night.</p></div></div>
+    <div class="card"><img src="../../public/projects/findx/photo-1.jpg" alt=""><span class="n">03</span>
+      <div class="panel"><div class="row"><h3 class="t" style="font-size:44px">FindX</h3><span class="arr">→</span></div><p class="cat" style="margin-top:10px">Python · Django</p><p class="d" style="margin-top:12px">Facial recognition that helps locate missing persons.</p></div></div>
+  </div>
+</section>
+</body></html>

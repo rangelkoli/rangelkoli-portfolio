@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Archivo:wdth,wght@62..125,100..900&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Familjen+Grotesk:wght@400..700&family=Unbounded:wght@200..900&family=Big+Shoulders+Display:wght@100..900&family=Schibsted+Grotesk:wght@400..900&display=swap" rel="stylesheet">
+<style>@font-face{font-family:MangoGrotesque;src:url(../../public/MangoGrotesque/MangoGrotesque-Regular.ttf)}
+body{margin:0;background:#F4F4F4;color:#000;font-family:"Instrument Sans",sans-serif;padding:40px 32px}
+h1{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#6B6B73;font-weight:600;margin:0 0 32px}
+.opt{display:grid;grid-template-columns:220px 1fr;gap:32px;border-top:1px solid #d6d6da;padding:28px 0}
+.lab b{display:block;font-size:22px;margin-bottom:6px}.lab span{font-size:13px;color:#6B6B73;line-height:1.5;display:block}
+.row{display:flex;align-items:baseline;gap:20px;padding:10px 14px}
+.row.blue{background:#2563eb;color:#fff}
+.n{font-size:11px;font-weight:600;letter-spacing:.2em;color:#9A9EAC}.blue .n{color:#fff}
+.t{font-size:3.4rem;line-height:.95}
+.meta{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#6B6B73;margin:6px 0 0 50px}
+@media(max-width:700px){.opt{grid-template-columns:1fr}.t{font-size:2.4rem}}
+</style></head><body>
+<h1>Experience &amp; project title — candidates (row 2 = hover state)</h1>
+<script>
+const opts=[
+["Current: Mango Grotesque","Condensed display, very tall and tight.","font-family:'MangoGrotesque',Impact,sans-serif;text-transform:uppercase"],
+["A. Archivo Condensed Black","Same condensed energy as now, but sturdier, cleaner curves, reads better at small sizes. Variable width, so phone can be narrower.","font-family:Archivo;font-stretch:72%;font-weight:800;text-transform:uppercase;letter-spacing:-.01em"],
+["B. Bricolage Grotesque","Mixed case, quirky ink-trap grotesque with optical sizing. Warmer, more personal. Pairs with Instrument Sans.","font-family:'Bricolage Grotesque';font-variation-settings:'opsz' 96;font-weight:700;letter-spacing:-.035em"],
+["C. Unbounded","Wide, geometric, techy. Loud; titles get shorter-feeling and bolder.","font-family:Unbounded;font-weight:600;letter-spacing:-.03em;font-size:2.7rem"],
+["D. Big Shoulders Display","Condensed, Chicago-industrial. Closest drop-in for Mango but more character.","font-family:'Big Shoulders Display';font-weight:800;text-transform:uppercase;letter-spacing:-.005em;font-size:4rem"],
+["E. Familjen Grotesk","Mixed case, Scandinavian grotesque with sharp details. Quiet, editorial, confident.","font-family:'Familjen Grotesk';font-weight:600;letter-spacing:-.04em"],
+["F. Schibsted Grotesk Black","Newspaper-grade grotesque, heavy weight, tight. Bold without shouting.","font-family:'Schibsted Grotesk';font-weight:800;letter-spacing:-.045em"],
+];
+const titles=["Orange Housing","HereAfter"];
+document.write(opts.map(([n,d,s])=>`<div class="opt"><div class="lab"><b>${n}</b><span>${d}</span></div><div>${titles.map((t,i)=>`<div class="row ${i?'blue':''}"><span class="n">0${i+1}</span><span class="t" style="${s}">${t}</span></div>`).join('')}<div class="meta">Founding Engineer · 2024 — Now</div></div></div>`).join(''));
+</script></body></html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exploration C · 3D Match Cards on Court</title>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #ECE8DF;
+    --ink: #171614;
+    --ink-2: #57534E;
+    --court: #1D4ED8;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Instrument Sans", system-ui, sans-serif;
+  }
+  section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 24px 64px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--ink);
+  }
+  h1 {
+    font-family: "Schibsted Grotesk", sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+  }
+  .lede {
+    max-width: 34ch;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+  .cards-row {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    perspective: 1100px;
+  }
+  .tilt-card {
+    position: relative;
+    aspect-ratio: 9 / 15;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #111;
+    border: 2px solid var(--ink);
+    box-shadow: 0 18px 34px -16px rgba(23, 22, 20, 0.45);
+    transform: rotateX(2deg) rotateY(-3deg);
+    transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    color: #fff;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    cursor: pointer;
+  }
+  .tilt-card:nth-child(even) {
+    transform: rotateX(-2deg) rotateY(3deg);
+  }
+  .tilt-card:hover {
+    transform: rotateX(0deg) rotateY(0deg) translateY(-6px);
+  }
+  .tilt-card video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .sheen {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.24) 0%, transparent 45%, rgba(0,0,0,0.82) 100%);
+    pointer-events: none;
+  }
+  .badge {
+    position: relative;
+    z-index: 2;
+    align-self: flex-start;
+    background: var(--court);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .foot {
+    position: relative;
+    z-index: 2;
+  }
+  .foot h2 {
+    font-family: "Schibsted Grotesk", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .foot p {
+    margin-top: 4px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+  }
+  @media (max-width: 768px) {
+    .cards-row {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .tilt-card {
+      flex: 0 0 74vw;
+      scroll-snap-align: center;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+<section aria-labelledby="c-title">
+  <header>
+    <h1 id="c-title">After Hours</h1>
+    <p class="lede">Four match-day collector cards in one row, tilted under the gym floodlights.</p>
+  </header>
+  <div class="cards-row">
+    <button class="tilt-card" type="button">
+      <video src="/soccer-clip-1.mp4" muted loop playsinline autoplay></video>
+      <span class="sheen" aria-hidden="true"></span>
+      <span class="badge">PLAY 01</span>
+      <div class="foot"><h2>Keeper Release</h2><p>Quick outlet from the box</p></div>
+    </button>
+    <button class="tilt-card" type="button">
+      <video src="/soccer-clip-3.mp4" muted loop playsinline autoplay></video>
+      <span class="sheen" aria-hidden="true"></span>
+      <span class="badge">PLAY 02</span>
+      <div class="foot"><h2>Wing Build-Up</h2><p>Two-touch wall pass</p></div>
+    </button>
+    <button class="tilt-card" type="button">
+      <video src="/soccer-clip-4.mp4" muted loop playsinline autoplay></video>
+      <span class="sheen" aria-hidden="true"></span>
+      <span class="badge">PLAY 03</span>
+      <div class="foot"><h2>Midcourt 1v1</h2><p>Center-circle isolation</p></div>
+    </button>
+    <button class="tilt-card" type="button">
+      <video src="/soccer-clip-2.mp4" muted loop playsinline autoplay></video>
+      <span class="sheen" aria-hidden="true"></span>
+      <span class="badge">PLAY 04</span>
+      <div class="foot"><h2>Spot-Kick Finish</h2><p>Six-meter penalty</p></div>
+    </button>
+  </div>
+</section>
+</body>
+</html>

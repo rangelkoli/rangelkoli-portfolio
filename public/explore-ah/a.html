@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exploration A · Tactical Telestrator Strip</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #F4F4F4;
+    --ink: #1A1A1A;
+    --ink-2: #525259;
+    --rule: rgba(26, 26, 26, 0.14);
+    --blue: #2563EB;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 24px 64px;
+  }
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  h1 {
+    margin-top: 10px;
+    font-size: clamp(52px, 6.5vw, 84px);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  h1 span {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--ink-2);
+    margin-top: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .lede {
+    max-width: 36ch;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    text-align: right;
+  }
+
+  /* Single-row stage with continuous tactical telestrator SVG over all 4 clips */
+  .stage {
+    position: relative;
+    margin-top: 28px;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 14px;
+    height: 490px;
+  }
+  .card {
+    position: relative;
+    flex: 1 1 0%;
+    min-width: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #0D0E12;
+    border: 1px solid rgba(26, 26, 26, 0.15);
+    cursor: pointer;
+    transition: flex 520ms var(--ease), filter 420ms var(--ease), border-color 320ms var(--ease);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18px;
+    color: #fff;
+    text-align: left;
+  }
+  .row:hover .card {
+    flex: 0.86 1 0%;
+    filter: grayscale(0.85) contrast(1.06);
+  }
+  .row .card:hover,
+  .row .card:focus-visible,
+  .row .card[data-active="true"] {
+    flex: 1.48 1 0%;
+    filter: none;
+    border-color: var(--blue);
+    outline: none;
+  }
+  .card video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 700ms var(--ease);
+  }
+  .card:hover video,
+  .card[data-active="true"] video {
+    transform: scale(1.05);
+  }
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(8,10,15,0.62) 0%, rgba(8,10,15,0.06) 42%, rgba(8,10,15,0.86) 100%);
+    pointer-events: none;
+  }
+  /* Rising blue band at bottom, matching Experience & Projects */
+  .blue-band {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 128px;
+    background: var(--blue);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 460ms var(--ease);
+    pointer-events: none;
+  }
+  .card:hover .blue-band,
+  .card[data-active="true"] .blue-band {
+    transform: scaleY(1);
+  }
+  .top {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .idx {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    font-variant-numeric: tabular-nums;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(10, 12, 18, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+  }
+  .card:hover .idx,
+  .card[data-active="true"] .idx {
+    background: var(--blue);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  .snd {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(10, 12, 18, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    display: grid;
+    place-items: center;
+    color: #fff;
+  }
+  .bottom {
+    position: relative;
+    z-index: 3;
+  }
+  .zone {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .title {
+    margin-top: 4px;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-variation-settings: "opsz" 96;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .meta {
+    margin-top: 6px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.88);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Continuous Tactical SVG Overlay across all 4 cards */
+  .telestrator {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .pass-line {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.55);
+    stroke-width: 2;
+    stroke-dasharray: 7 7;
+  }
+  .pass-active {
+    fill: none;
+    stroke: #60A5FA;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 0;
+  }
+  .court-mark {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.18);
+    stroke-width: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .lede { text-align: left; }
+    .row {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      height: 410px;
+    }
+    .row .card,
+    .row .card[data-active="true"] {
+      flex: 0 0 76vw;
+      scroll-snap-align: start;
+    }
+    .telestrator { display: none; }
+  }
+</style>
+</head>
+<body>
+<section aria-labelledby="ah-title">
+  <header>
+    <div>
+      <p class="eyebrow">Off the clock</p>
+      <h1 id="ah-title">After Hours <span>(04)</span></h1>
+    </div>
+    <p class="lede">Five-a-side indoor futsal most weeks. Four clips traced from keeper release to the far post.</p>
+  </header>
+
+  <div class="stage">
+    <div class="row">
+      <button class="card" data-active="true" type="button" aria-label="Play clip 01: Keeper release with sound">
+        <video src="/soccer-clip-1.mp4" muted loop playsinline autoplay></video>
+        <span class="scrim" aria-hidden="true"></span>
+        <span class="blue-band" aria-hidden="true"></span>
+        <div class="top">
+          <span class="idx">01</span>
+          <span class="snd" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.5A2.25 2.25 0 002.25 9.75v4.5a2.25 2.25 0 002.25 2.25h1.94l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06z"/></svg>
+          </span>
+        </div>
+        <div class="bottom">
+          <p class="zone">Own Box · Q1</p>
+          <h2 class="title">Keeper Release</h2>
+          <p class="meta">First pass out of pressure · 0:17</p>
+        </div>
+      </button>
+
+      <button class="card" type="button" aria-label="Play clip 02: Right touchline wall pass with sound">
+        <video src="/soccer-clip-3.mp4" muted loop playsinline autoplay></video>
+        <span class="scrim" aria-hidden="true"></span>
+        <span class="blue-band" aria-hidden="true"></span>
+        <div class="top">
+          <span class="idx">02</span>
+          <span class="snd" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.5A2.25 2.25 0 002.25 9.75v4.5a2.25 2.25 0 002.25 2.25h1.94l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06z"/></svg>
+          </span>
+        </div>
+        <div class="bottom">
+          <p class="zone">Right Wing · Q2</p>
+          <h2 class="title">Touchline Build-Up</h2>
+          <p class="meta">Two-touch give-and-go · 0:32</p>
+        </div>
+      </button>
+
+      <button class="card" type="button" aria-label="Play clip 03: Midcourt 1v1 isolation with sound">
+        <video src="/soccer-clip-4.mp4" muted loop playsinline autoplay></video>
+        <span class="scrim" aria-hidden="true"></span>
+        <span class="blue-band" aria-hidden="true"></span>
+        <div class="top">
+          <span class="idx">03</span>
+          <span class="snd" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.5A2.25 2.25 0 002.25 9.75v4.5a2.25 2.25 0 002.25 2.25h1.94l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06z"/></svg>
+          </span>
+        </div>
+        <div class="bottom">
+          <p class="zone">Center Circle · Q3</p>
+          <h2 class="title">Midcourt 1v1</h2>
+          <p class="meta">Split defender at half · 0:29</p>
+        </div>
+      </button>
+
+      <button class="card" type="button" aria-label="Play clip 04: Six-meter spot kick with sound">
+        <video src="/soccer-clip-2.mp4" muted loop playsinline autoplay></video>
+        <span class="scrim" aria-hidden="true"></span>
+        <span class="blue-band" aria-hidden="true"></span>
+        <div class="top">
+          <span class="idx">04</span>
+          <span class="snd" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.5A2.25 2.25 0 002.25 9.75v4.5a2.25 2.25 0 002.25 2.25h1.94l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06z"/></svg>
+          </span>
+        </div>
+        <div class="bottom">
+          <p class="zone">Far Goal · FT</p>
+          <h2 class="title">Spot-Kick Finish</h2>
+          <p class="meta">Last kick before lights out · 0:26</p>
+        </div>
+      </button>
+    </div>
+
+    <!-- Continuous tactical court & pass trajectory overlay spanning all 4 videos -->
+    <svg class="telestrator" viewBox="0 0 1200 490" preserveAspectRatio="none" aria-hidden="true">
+      <line class="court-mark" x1="600" y1="20" x2="600" y2="470" />
+      <circle class="court-mark" cx="600" cy="245" r="68" />
+      <path class="pass-line" d="M 160 285 C 310 165, 370 190, 490 225 S 710 310, 825 235 S 995 160, 1085 205" />
+      <path class="pass-active" d="M 160 285 C 310 165, 370 190, 490 225" />
+      <circle cx="160" cy="285" r="7" fill="#2563EB" stroke="#fff" stroke-width="2.5" />
+      <circle cx="490" cy="225" r="6" fill="#0D0E12" stroke="#fff" stroke-width="2" />
+      <circle cx="825" cy="235" r="6" fill="#0D0E12" stroke="#fff" stroke-width="2" />
+      <circle cx="1085" cy="205" r="6" fill="#0D0E12" stroke="#fff" stroke-width="2" />
+    </svg>
+  </div>
+</section>
+</body>
+</html>

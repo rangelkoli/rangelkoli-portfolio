@@ -1,0 +1,44 @@
+[
+  {
+    "w": 1280,
+    "fails": [
+      "8 type families in real use (Instrument Sans, MangoGrotesque, Archivo, Bricolage Grotesque, Unbounded, Big Shoulders Display, Familjen Grotesk, Schibsted Grotesk). Two is a system, four is a ransom note.",
+      "Contrast below WCAG AA: 2.43:1 11px \"01\"; 2.43:1 11px \"01\"; 2.43:1 11px \"01\"; 2.43:1 11px \"01\"; 2.43:1 11px \"01\" (7 elements in all)"
+    ],
+    "warns": [
+      "Empty <title>.",
+      "14 text elements at 11px: 11px \"01\"; 11px \"02\"; 11px \"01\"",
+      "7 small letter-spaced uppercase labels. An eyebrow over every section stops meaning anything.",
+      "No action in the first 1280×900 screen (outside the nav). The one action should be visible without scrolling.",
+      "8 em dashes in visible copy. A period or colon usually reads cleaner."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "86%",
+        "MangoGrotesque": "2%",
+        "Archivo": "2%",
+        "Bricolage Grotesque": "2%",
+        "Unbounded": "2%",
+        "Big Shoulders Display": "2%",
+        "Familjen Grotesk": "2%",
+        "Schibsted Grotesk": "2%"
+      },
+      "sizes": [
+        64,
+        54.4,
+        43.2,
+        22,
+        13,
+        11
+      ],
+      "body": null,
+      "hues": [
+        210
+      ],
+      "boxes": 14,
+      "cardGrids": 0,
+      "defaultIcons": 0,
+      "focusStops": 0
+    }
+  }
+]
