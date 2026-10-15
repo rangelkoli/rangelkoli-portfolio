@@ -74,6 +74,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const preferredTheme = readPreferredTheme();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage read must wait until after hydration
     setTheme(preferredTheme);
     applyTheme(preferredTheme);
     setIsReady(true);

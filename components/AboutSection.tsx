@@ -17,7 +17,7 @@ const AboutSection = () => {
           <h2 
             className="font-mango font-extrabold text-[6vw] md:text-[5vw] lg:text-[4vw] leading-[1.1] text-black text-balance"
           >
-            Hey. I&apos;m Rangel. A Full Stack Developer Based in New York. I've built everything from end-to-end web platforms to AI-powered applications, working across the entire stack with JavaScript, Python, and modern frameworks. Open to freelance projects and full-time opportunities where I can make a meaningful impact.
+            Hey. I&apos;m Rangel. A Full Stack Developer Based in New York. I&apos;ve built everything from end-to-end web platforms to AI-powered applications, working across the entire stack with JavaScript, Python, and modern frameworks. Open to freelance projects and full-time opportunities where I can make a meaningful impact.
           </h2>
         </div>
       </div>
