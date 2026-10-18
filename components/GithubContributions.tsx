@@ -2,21 +2,29 @@
 
 import React, { useEffect, useState } from "react";
 import { preload } from "react-dom";
-import { ActivityCalendar, type Activity } from "react-activity-calendar";
+import dynamic from "next/dynamic";
+import type { Activity } from "react-activity-calendar";
 import "react-activity-calendar/tooltips.css";
 import { useTheme } from "@/context/ThemeContext";
 import { useLoader } from "@/context/LoaderContext";
 
+// Client-only: the library's reduced-motion hook defaults to `true` on the server,
+// so its loading state renders <article> on SSR but null on the client (hydration mismatch).
+const ActivityCalendar = dynamic(
+  () => import("react-activity-calendar").then((m) => m.ActivityCalendar),
+  { ssr: false },
+);
+
 interface GithubContributionsProps {
-  username?: string;
   className?: string;
 }
 
+// Served by app/api/github-contributions, which caches the upstream response.
+const url = "/api/github-contributions";
+
 export default function GithubContributions({
-  username = "rangelkoli",
   className = "",
 }: GithubContributionsProps) {
-  const url = `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=last&client=react-github-calendar`;
   preload(url, { as: "fetch", crossOrigin: "anonymous" });
 
   const { theme } = useTheme();
