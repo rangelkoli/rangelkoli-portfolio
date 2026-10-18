@@ -67,6 +67,7 @@ const Header = () => {
       <motion.header
         initial={false}
         data-loader-box="header"
+        style={{ backgroundColor: navBackground }}
         animate={{ 
           top: mobileMenuOpen ? 0 : 24,
           y: 0,
@@ -75,6 +76,7 @@ const Header = () => {
           width: mobileMenuOpen ? "100vw" : fixedWidth,
           height: mobileMenuOpen ? "100dvh" : 64,
           borderRadius: mobileMenuOpen ? 0 : 24,
+          backgroundColor: navBackground,
         }}
         className="fixed z-50 shadow-2xl"
         transition={{ 
@@ -137,11 +139,12 @@ const Header = () => {
               <div className='ml-auto flex shrink-0 items-center gap-2'>
                 <button
                   type='button'
+                  data-theme-toggle
                   onClick={(e) => toggleTheme(e)}
                   aria-label={themeLabel}
                   aria-pressed={isDark}
                   title={themeLabel}
-                  className='w-10 h-10 rounded-full bg-[var(--nav-item-surface)] flex items-center justify-center text-[var(--nav-item)] hover:bg-[var(--nav-item-surface-hover)] transition-colors relative overflow-hidden'
+                  className='w-10 h-10 rounded-full border border-transparent bg-[var(--nav-item-surface)] flex items-center justify-center text-[var(--nav-item)] hover:bg-[var(--nav-item-surface-hover)] transition-colors relative overflow-hidden'
                 >
                   <AnimatePresence mode="wait" initial={false}>
                     {isDark ? (
@@ -174,7 +177,7 @@ const Header = () => {
                   onClick={() => setMobileMenuOpen(true)}
                   aria-label='Open menu'
                   title='Open menu'
-                  className='theme-accent-button w-10 h-10 rounded-full bg-[var(--accent)] flex items-center justify-center text-on-accent transition-colors hover:brightness-105'
+                  className='theme-accent-button w-10 h-10 rounded-full border border-transparent bg-[var(--accent)] flex items-center justify-center text-on-accent transition-colors hover:brightness-105'
                 >
                   <HiMenu size={20} aria-hidden='true' />
                 </motion.button>
@@ -205,11 +208,12 @@ const Header = () => {
                 <div className='flex items-center gap-3'>
                   <button
                     type='button'
+                    data-theme-toggle
                     onClick={(e) => toggleTheme(e)}
                     aria-label={themeLabel}
                     aria-pressed={isDark}
                     title={themeLabel}
-                    className='w-12 h-12 rounded-full bg-[var(--nav-item-surface)] flex items-center justify-center text-[var(--nav-item)] hover:bg-[var(--nav-item-surface-hover)] transition-colors relative overflow-hidden'
+                    className='w-12 h-12 rounded-full border border-transparent bg-[var(--nav-item-surface)] flex items-center justify-center text-[var(--nav-item)] hover:bg-[var(--nav-item-surface-hover)] transition-colors relative overflow-hidden'
                   >
                     <AnimatePresence mode="wait" initial={false}>
                       {isDark ? (
@@ -243,7 +247,7 @@ const Header = () => {
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.25, delay: 0.1 }}
                     onClick={() => setMobileMenuOpen(false)}
-                    className='w-12 h-12 rounded-full bg-[var(--nav-item-surface)] flex items-center justify-center text-[var(--nav-item)] hover:bg-[var(--nav-item-surface-hover)] transition-colors'
+                    className='w-12 h-12 rounded-full border border-transparent bg-[var(--nav-item-surface)] flex items-center justify-center text-[var(--nav-item)] hover:bg-[var(--nav-item-surface-hover)] transition-colors'
                     aria-label='Close menu'
                   >
                     <IoClose size={28} />
@@ -256,7 +260,7 @@ const Header = () => {
                 {[
                   { href: "/", label: "Home" },
                   { href: "/projects", label: "Projects" },
-                  { href: "/#about", label: "About" },
+                  { href: "/experience", label: "Experience" },
                   { href: "/#contact", label: "Contact" },
                 ].map((link, i) => (
                   <motion.div

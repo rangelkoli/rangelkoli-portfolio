@@ -31,7 +31,7 @@ const experienceEntries: Array<{
   },
   {
     title: "Delet",
-    role: "Software Developer",
+    role: "Software Engineering Intern",
     period: "Jun 2024 – Aug 2024",
     location: "San Francisco, CA",
     description:
@@ -92,6 +92,11 @@ export default function ExperienceSection() {
                 </span>
                 <div className="min-w-0 flex-1 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-10">
                   <div>
+                    <p
+                      className={`mb-2 font-instrument text-[13px] font-medium uppercase tracking-[0.14em] text-[#6B6B73] tabular-nums dark:text-[#9A9EAC] ${onBlue}`}
+                    >
+                      {experience.period}
+                    </p>
                     <h3
                       className={`font-bricolage font-bold text-[2.4rem] leading-[1.05] tracking-[-0.015em] [font-variation-settings:"opsz"_96] text-black dark:text-[#F4F4F4] sm:text-[3rem] lg:text-[3.6rem] ${onBlue}`}
                     >
@@ -103,7 +108,6 @@ export default function ExperienceSection() {
                       <span className="text-neutral-900 group-hover:text-white group-focus-visible:text-white dark:text-neutral-100">
                         {experience.role}
                       </span>
-                      <span className="tabular-nums">{experience.period}</span>
                       <span>{experience.location}</span>
                     </p>
                     <ul
