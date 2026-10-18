@@ -19,6 +19,9 @@ type ThemeContextValue = {
 
 const THEME_STORAGE_KEY = "rangel-portfolio-theme";
 const THEME_TRANSITION_DURATION_MS = 500;
+const WAVE_DURATION_MS = 550;
+const MIN_WAVE_DURATION_MS = 200;
+const MAX_QUEUED_WAVES = 4;
 
 const isTheme = (value: string | null): value is Theme =>
   value === "light" || value === "dark";
@@ -71,9 +74,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
   const [isReady, setIsReady] = useState(false);
   const transitionTimeout = useRef<number | NodeJS.Timeout | null>(null);
+  // Source of truth for rapid toggles; state lags behind async view transitions.
+  const themeRef = useRef<Theme>("light");
+  const activeTransition = useRef<unknown>(null);
+  const waveQueue = useRef<{ x: number; y: number }[]>([]);
 
   useEffect(() => {
     const preferredTheme = readPreferredTheme();
+    themeRef.current = preferredTheme;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage read must wait until after hydration
     setTheme(preferredTheme);
     applyTheme(preferredTheme);
@@ -92,9 +100,66 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
   }, [isReady, theme]);
 
+  // Waves play one after another: starting a view transition while another is
+  // still animating crashes some Chromium builds (Electron 44 / Chrome 152).
+  const playNextWave = useCallback(function playWave() {
+    const point = waveQueue.current.shift();
+    if (!point) {
+      activeTransition.current = null;
+      return;
+    }
+
+    const nextTheme = themeRef.current === "light" ? "dark" : "light";
+    themeRef.current = nextTheme;
+
+    const { x, y } = point;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+    // Speed up while clicks are queued so spamming keeps pace.
+    const duration = Math.max(
+      MIN_WAVE_DURATION_MS,
+      WAVE_DURATION_MS / (1 + waveQueue.current.length)
+    );
+
+    const transition = (document as unknown as {
+      startViewTransition: (callback: () => void) => {
+        ready: Promise<void>;
+        finished: Promise<void>;
+      };
+    }).startViewTransition(() => {
+      applyTheme(nextTheme);
+      setTheme(nextTheme);
+    });
+
+    activeTransition.current = transition;
+
+    transition.ready
+      .then(() => {
+        document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration,
+            easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+            pseudoElement: "::view-transition-new(root)",
+          }
+        );
+      })
+      .catch(() => {
+        // If animation fails or is canceled, state is already applied.
+      });
+
+    transition.finished.then(playWave, playWave);
+  }, []);
+
   const toggleTheme = useCallback(
     (event?: React.MouseEvent | MouseEvent) => {
-      const nextTheme = theme === "light" ? "dark" : "light";
       const root = document.documentElement;
 
       if (transitionTimeout.current !== null) {
@@ -137,42 +202,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
           }
         }
 
-        const endRadius = Math.hypot(
-          Math.max(x, window.innerWidth - x),
-          Math.max(y, window.innerHeight - y)
-        );
-
-        const transition = (document as unknown as {
-          startViewTransition: (callback: () => void) => {
-            ready: Promise<void>;
-          };
-        }).startViewTransition(() => {
-          applyTheme(nextTheme);
-          setTheme(nextTheme);
-        });
-
-        transition.ready
-          .then(() => {
-            root.animate(
-              {
-                clipPath: [
-                  `circle(0px at ${x}px ${y}px)`,
-                  `circle(${endRadius}px at ${x}px ${y}px)`,
-                ],
-              },
-              {
-                duration: 550,
-                easing: "cubic-bezier(0.4, 0, 0.2, 1)",
-                pseudoElement: "::view-transition-new(root)",
-              }
-            );
-          })
-          .catch(() => {
-            // If animation fails or is canceled, state is already applied.
-          });
-
+        // ponytail: clicks beyond the cap are dropped so the queue never lags far behind.
+        if (waveQueue.current.length < MAX_QUEUED_WAVES) {
+          waveQueue.current.push({ x, y });
+        }
+        if (!activeTransition.current) playNextWave();
         return;
       }
+
+      const nextTheme = themeRef.current === "light" ? "dark" : "light";
+      themeRef.current = nextTheme;
 
       // Smooth CSS transition fallback
       if (prefersReducedMotion) {
@@ -188,8 +227,34 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       applyTheme(nextTheme);
       setTheme(nextTheme);
     },
-    [theme]
+    [playNextWave]
   );
+
+  // During a view transition the browser hit-tests every click to <html>,
+  // so clicks on the toggle are routed back here by position.
+  useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      if (!activeTransition.current || event.target !== document.documentElement) return;
+
+      const hitToggle = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-theme-toggle]")
+      ).some((toggle) => {
+        const rect = toggle.getBoundingClientRect();
+        return (
+          rect.width > 0 &&
+          event.clientX >= rect.left &&
+          event.clientX <= rect.right &&
+          event.clientY >= rect.top &&
+          event.clientY <= rect.bottom
+        );
+      });
+
+      if (hitToggle) toggleTheme(event);
+    };
+
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, [toggleTheme]);
 
   useEffect(
     () => () => {
