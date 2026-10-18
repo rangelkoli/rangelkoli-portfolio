@@ -16,7 +16,7 @@
 
 html {
   /* scroll-behavior: smooth; */
-  overflow-x: hidden;
+  overflow-x: clip;
   color-scheme: light;
 }
 
@@ -87,7 +87,7 @@ body {
   min-height: 100vh;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
   transition: background-color 500ms cubic-bezier(0.4, 0, 0.2, 1), color 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -225,4 +225,32 @@ body {
   to {
     transform: translateX(-50%);
   }
+}
+
+/* Judgify case study: the assignment draw */
+.jd-lines { clip-path: inset(0 0 0 0); animation: jd-sweep 1.4s cubic-bezier(.2,.7,.2,1) .2s both; }
+.jd-edge, .jd-conflict { fill: none; vector-effect: non-scaling-stroke; transition: stroke 200ms, stroke-width 200ms, opacity 200ms; }
+.jd-edge { stroke: #F76900; stroke-width: 1.25; }
+.jd-conflict { stroke: var(--text-muted); stroke-width: 1.25; stroke-dasharray: 4 4; animation: jd-fade .4s ease-out 1.5s both; }
+.jd-draw[data-focus] .jd-edge { opacity: .18; }
+.jd-draw[data-focus] .jd-edge[data-on] { opacity: 1; stroke-width: 2.5; }
+.jd-row { transition: opacity 200ms; cursor: default; }
+.jd-draw[data-focus] .jd-row { opacity: .4; }
+.jd-draw[data-focus] .jd-row[data-on] { opacity: 1; }
+@keyframes jd-sweep { from { clip-path: inset(0 100% 0 0); } }
+@keyframes jd-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .jd-lines, .jd-conflict { animation: none; }
+}
+
+/* /projects preview: the next project rises in from the bottom, like the row's blue. */
+@keyframes project-wipe {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+.project-wipe {
+  animation: project-wipe 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-wipe { animation: none; }
 }

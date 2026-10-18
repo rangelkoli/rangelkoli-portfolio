@@ -145,28 +145,27 @@ export const projects: Project[] = [
   {
     slug: "judgifysu",
     title: "Judgify",
-    description: "This project streamlines the process of assigning judges to research posters, collecting and displaying poster scores, and generating a final ranking.",
+    description: "Assigns faculty judges to research posters with an integer program, collects scores from judges' phones, and ranks posters with per-judge z-score normalisation.",
     image: [
-      "/projects/judgify/judgify-cover.png",
-      "/assets/project-oculus-logo.jpg",
-      "/assets/project-oculus-logo.jpg"
+      "/projects/judgify/judgify-cover.png"
     ],
     category: "Next.js, Flask, Python, Full-stack Web Application",
-    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Flask"],
+    technologies: ["Next.js", "TypeScript", "Supabase", "Flask", "PuLP", "SPECTER", "CrewAI"],
     github: "https://github.com/rangelkoli/JudgifySU",
     demo: "https://judgify-su.vercel.app",
+    period: "February 2025",
     features: [
-      "Automated judge assignment system for research posters",
-      "Real-time score collection and display",
-      "Comprehensive ranking generation",
-      "User-friendly interface for judges and administrators",
-      "Secure authentication and data management"
+      "Judge-to-poster assignment solved as an integer program (PuLP + CBC)",
+      "Semantic matching of judge expertise to abstracts with AllenAI SPECTER",
+      "Judge profiles researched by a CrewAI agent over Google Scholar",
+      "Code-based judge sign-in and scoring, protected by Postgres row-level security",
+      "Fair ranking with winsorised per-judge z-scores"
     ]
   },
   {
     slug: "walksafe",
     title: "WalkSafe",
-    description: "WalkSafe, your ultimate companion for ensuring the safety of your loved ones while navigating through the city. WalkSafe is a comprehensive mobile application built with React Native, designed to provide real-time tracking, route optimization, and safety alerts to keep you and your family secure at all times.",
+    description: "1st place at CuseHacks 2024. A React Native safety app for Syracuse that reroutes walks around crime hotspots scored from 8,346 police reports, tracks family on a live map, and sends an automatic check-in when you get home.",
     image: [
       "/projects/walksafe/2.jpg",
       "/projects/walksafe/3.jpg",
@@ -174,36 +173,54 @@ export const projects: Project[] = [
     ],
     video: "/projects/walksafe/walksafe-intro.mp4",
     category: "React Native, Mobile Application",
-    technologies: ["React Native", "Node.js", "MongoDB", "Express", "Redux"],
+    technologies: ["React Native", "Expo", "Supabase", "Flask", "Pandas", "Google Maps"],
     github: "https://github.com/rangelkoli/WalkSafe",
-    demo: "https://walksafe-app.vercel.app",
+    demo: "https://www.youtube.com/watch?v=A9GDLB774t4",
+    period: "March 2024",
     features: [
-      "Real-time location tracking for family members",
-      "Smart route optimization for safer paths",
-      "Instant safety alerts and notifications",
-      "Emergency contact integration",
-      "Crime data visualization and safe zone mapping"
+      "1st place, CuseHacks 2024",
+      "Safer walking routes that steer around weighted crime hotspots",
+      "Live location of friends and family on one map",
+      "Automatic check-in notification when you reach home",
+      "User-reported crime alerts on a shared map"
     ]
   },
   {
     slug: "findx",
     title: "FindX",
-    description: "FindX is a comprehensive web-based platform that leverages machine learning and facial recognition technology to help locate missing persons. The system provides a dual interface for both citizens and police authorities to collaborate in finding missing individuals.",
+    description: "A Django web app that checks a citizen's photo against registered missing-person cases with DeepFace (VGG-Face) and, on a match, alerts the nearest police station and the station that owns the case.",
     image: [
-      "/projects/findx/photo-1.jpg",
       "/projects/findx/photo-2.jpg",
-      "/projects/findx/photo-3.jpg"
+      "/projects/findx/matchFound.jpg",
+      "/projects/findx/photo-1.jpg"
     ],
     category: "Python, Django, Full-stack Web Application",
-    technologies: ["React", "Firebase", "Material UI", "Redux", "TensorFlow"],
+    technologies: ["Python", "Django", "DeepFace", "OpenCV", "SQLite", "Bootstrap"],
     github: "https://github.com/rangelkoli/FindX",
-    demo: "https://findx-app.vercel.app",
+    period: "November 2023",
     features: [
-      "Advanced facial recognition using TensorFlow",
-      "Dual interface for citizens and police",
-      "Real-time missing person database",
-      "Machine learning-powered image matching",
-      "Collaborative search and reporting system"
+      "Face matching against registered cases with DeepFace (VGG-Face, MTCNN)",
+      "Separate citizen app and police portal",
+      "Automatic alerts to the nearest police station and the case's station",
+      "Case dashboard with Active, Resolved and Closed statuses",
+      "PDF case reports and station-to-station messages"
+    ]
+  },
+  {
+    slug: "agrobasket",
+    title: "AgroBasket",
+    description: "1st place at a hackathon in 2023. A Django marketplace where farmers list produce and customers buy it directly. Separate farmer and customer apps share one Django auth system, and each customer gets a single open cart whose totals are worked out from its line items.",
+    image: [],
+    category: "Python, Django, Full-stack Web Application",
+    technologies: ["Python", "Django", "SQLite", "JavaScript", "Bootstrap"],
+    github: "https://github.com/rangelkoli/AgroBasket",
+    period: "March 2023",
+    features: [
+      "1st place, hackathon 2023",
+      "Separate farmer and customer apps with their own sign-up and login",
+      "Product catalogue with categories, ratings and detail pages",
+      "One open cart per customer, with quantity changes posted as JSON",
+      "Customer profiles with delivery addresses"
     ]
   },
   {

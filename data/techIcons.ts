@@ -1,16 +1,27 @@
 import { FaNodeJs, FaReact } from "react-icons/fa";
 import type { IconType } from "react-icons";
+import { TbFaceId, TbMathFunction } from "react-icons/tb";
 import {
+  SiBootstrap,
+  SiCrewai,
+  SiDjango,
   SiExpo,
   SiExpress,
   SiFirebase,
   SiFlask,
+  SiGooglemaps,
+  SiJavascript,
   SiMapbox,
   SiMongodb,
   SiMui,
+  SiOpencv,
+  SiPandas,
   SiNextdotjs,
   SiPostgresql,
+  SiPython,
   SiRedux,
+  SiSemanticscholar,
+  SiSqlite,
   SiStripe,
   SiSupabase,
   SiTailwindcss,
@@ -37,5 +48,18 @@ export const techIconMap: Record<string, IconType | undefined> = {
   Stripe: SiStripe,
   Expo: SiExpo,
   Mapbox: SiMapbox,
+  Python: SiPython,
+  Django: SiDjango,
+  OpenCV: SiOpencv,
+  SQLite: SiSqlite,
+  Bootstrap: SiBootstrap,
+  JavaScript: SiJavascript,
+  Pandas: SiPandas,
+  "Google Maps": SiGooglemaps,
+  CrewAI: SiCrewai,
+  // ponytail: no brand marks exist for these, so generic glyphs stand in
+  SPECTER: SiSemanticscholar, // AllenAI / Semantic Scholar model
+  DeepFace: TbFaceId,
+  PuLP: TbMathFunction,
 };
 

@@ -1,9 +1,20 @@
 import React from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { projects, Project } from "@/data/projects";
 import TechStackBadges from "@/components/TechStackBadges";
+import JudgifyCaseStudy from "@/components/projects/JudgifyCaseStudy";
+import WalkSafeCaseStudy from "@/components/projects/WalkSafeCaseStudy";
+import FindXCaseStudy from "@/components/projects/FindXCaseStudy";
+import AgroBasketCaseStudy from "@/components/projects/AgroBasketCaseStudy";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+  return project ? { title: { absolute: project.title }, description: project.description } : {};
+}
 
 function CaseStudyPage({ project }: { project: Project }) {
   const caseStudy = project.caseStudy;
@@ -252,6 +263,22 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
 
   if (!project) {
     notFound();
+  }
+
+  if (project.slug === "judgifysu") {
+    return <JudgifyCaseStudy project={project} />;
+  }
+
+  if (project.slug === "walksafe") {
+    return <WalkSafeCaseStudy project={project} />;
+  }
+
+  if (project.slug === "findx") {
+    return <FindXCaseStudy project={project} />;
+  }
+
+  if (project.slug === "agrobasket") {
+    return <AgroBasketCaseStudy project={project} />;
   }
 
   if (project.caseStudy) {
