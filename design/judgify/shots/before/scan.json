@@ -1,0 +1,35 @@
+[
+  {
+    "w": 1440,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\"; 4.40:1 18px \"Next.js, Flask, Python, Full-s\"; 2.37:1 18px \"0 1\"; 2.37:1 18px \"0 2\"; 2.37:1 18px \"0 3\" (8 elements in all)"
+    ],
+    "warns": [
+      "Empty <title>.",
+      "Default-reach font: Playfair Display. If DIRECTION.md does not say why this face and not another, it is the default talking.",
+      "No action in the first 1440×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "bueno_regular": "84%",
+        "Playfair Display": "9%",
+        "mangoGrotesque": "6%",
+        "jadynMaria": "1%"
+      },
+      "sizes": [
+        72,
+        30,
+        24,
+        18,
+        16,
+        14
+      ],
+      "body": 24,
+      "hues": [],
+      "boxes": 5,
+      "cardGrids": 0,
+      "defaultIcons": 1,
+      "focusStops": 2
+    }
+  }
+]

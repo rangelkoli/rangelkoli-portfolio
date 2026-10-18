@@ -1,0 +1,51 @@
+[
+  {
+    "w": 390,
+    "fails": [],
+    "warns": [
+      "No visible <h1>."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "100%"
+      },
+      "sizes": [
+        28,
+        18,
+        17,
+        15,
+        13
+      ],
+      "body": null,
+      "hues": [],
+      "boxes": 1,
+      "cardGrids": 0,
+      "defaultIcons": 0
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [],
+    "warns": [
+      "No visible <h1>."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "100%"
+      },
+      "sizes": [
+        44,
+        22,
+        17,
+        15,
+        13
+      ],
+      "body": null,
+      "hues": [],
+      "boxes": 1,
+      "cardGrids": 0,
+      "defaultIcons": 0,
+      "focusStops": 7
+    }
+  }
+]

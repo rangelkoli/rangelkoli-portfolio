@@ -1,0 +1,39 @@
+[
+  {
+    "w": 1440,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\""
+    ],
+    "warns": [
+      "Lines too long to read comfortably (aim for 45 to 75): ~91 chars/line \"Police data only covers \"",
+      "No action in the first 1440×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "100%",
+        "Bricolage Grotesque": "0%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        84,
+        44,
+        40,
+        27.2,
+        24,
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "body": 18.6,
+      "hues": [
+        150
+      ],
+      "boxes": 5,
+      "cardGrids": 0,
+      "defaultIcons": 1,
+      "focusStops": 45
+    }
+  }
+]

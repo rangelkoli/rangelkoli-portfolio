@@ -1,0 +1,59 @@
+[
+  {
+    "w": 390,
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "92%",
+        "Bricolage Grotesque": "8%"
+      },
+      "sizes": [
+        48,
+        34,
+        22,
+        20,
+        16,
+        14,
+        13,
+        12
+      ],
+      "body": 15,
+      "hues": [
+        210
+      ],
+      "boxes": 2,
+      "cardGrids": 0,
+      "defaultIcons": 0
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "92%",
+        "Bricolage Grotesque": "8%"
+      },
+      "sizes": [
+        84,
+        56,
+        22,
+        20,
+        16,
+        14,
+        13,
+        12
+      ],
+      "body": 15,
+      "hues": [
+        210
+      ],
+      "boxes": 2,
+      "cardGrids": 0,
+      "defaultIcons": 0,
+      "focusStops": 5
+    }
+  }
+]

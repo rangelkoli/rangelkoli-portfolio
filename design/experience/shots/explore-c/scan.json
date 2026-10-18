@@ -1,0 +1,59 @@
+[
+  {
+    "w": 390,
+    "fails": [],
+    "warns": [
+      "Default-reach font: Playfair Display. If DIRECTION.md does not say why this face and not another, it is the default talking.",
+      "No action in the first 390×844 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "92%",
+        "Playfair Display": "8%"
+      },
+      "sizes": [
+        44,
+        26,
+        16,
+        14
+      ],
+      "body": 16,
+      "hues": [
+        240,
+        30
+      ],
+      "boxes": 1,
+      "cardGrids": 0,
+      "defaultIcons": 0
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [],
+    "warns": [
+      "Default-reach font: Playfair Display. If DIRECTION.md does not say why this face and not another, it is the default talking.",
+      "No action in the first 1440×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "92%",
+        "Playfair Display": "8%"
+      },
+      "sizes": [
+        76,
+        26,
+        16,
+        14
+      ],
+      "body": 16,
+      "hues": [
+        240,
+        30
+      ],
+      "boxes": 1,
+      "cardGrids": 0,
+      "defaultIcons": 0,
+      "focusStops": 1
+    }
+  }
+]

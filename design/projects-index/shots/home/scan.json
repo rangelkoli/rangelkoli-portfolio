@@ -1,0 +1,47 @@
+[
+  {
+    "w": 1440,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\"; 4.40:1 13px \"1835 contributions in the last\"; 4.40:1 13px \"Less\"; 4.40:1 13px \"More\"; 2.43:1 11px \"01\" (19 elements in all)"
+    ],
+    "warns": [
+      "Empty <title>.",
+      "13 distinct text sizes. A scale has 6 to 9 steps: 84, 57.6, 44, 43.2, 24, 22, 18, 17, 15, 14, 13, 12, 11",
+      "6 text elements at 11px: 11px \"01\"; 11px \"02\"; 11px \"03\"",
+      "9 small letter-spaced uppercase labels. An eyebrow over every section stops meaning anything.",
+      "No action in the first 1440×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "87%",
+        "Bricolage Grotesque": "10%",
+        "bueno_regular": "2%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        84,
+        57.6,
+        44,
+        43.2,
+        24,
+        22,
+        18,
+        17,
+        15,
+        14,
+        13,
+        12,
+        11
+      ],
+      "body": 15.7,
+      "hues": [
+        210,
+        180
+      ],
+      "boxes": 10,
+      "cardGrids": 0,
+      "defaultIcons": 1,
+      "focusStops": 8
+    }
+  }
+]

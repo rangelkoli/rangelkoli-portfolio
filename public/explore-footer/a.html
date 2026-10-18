@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Footer A · Night Shift</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: "Mango"; src: url("MangoGrotesque-Bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+  :root {
+    color-scheme: light;
+    --page: #F4F4F4;
+    --slab: #1A1A1A;
+    --ink: #F4F5F8;
+    --muted: #9A9EAC;
+    --rule: rgb(255 255 255 / 0.12);
+    --mint: #9FE7D7;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--page); font-family: "Instrument Sans", system-ui, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  .lead { max-width: 72rem; margin: 0 auto; padding: 72px 24px 56px; color: #6B6B73; font-size: 15px; }
+  footer { padding: 0 16px 16px; }
+  .slab { background: var(--slab); color: var(--ink); border-radius: 32px; overflow: hidden; position: relative; }
+  .inner { max-width: 72rem; margin: 0 auto; padding: 56px 24px 0; }
+  .top { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  @media (min-width: 900px) { .top { grid-template-columns: 1.4fr 1fr; align-items: end; } }
+  .ask { font-size: clamp(28px, 4vw, 44px); line-height: 1.08; font-weight: 600; letter-spacing: -0.02em; max-width: 16ch; }
+  .mail { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; font-size: clamp(18px, 2vw, 22px); color: var(--mint); text-decoration: none; padding-bottom: 4px; border-bottom: 1px solid rgb(159 231 215 / 0.4); transition: border-color .3s var(--ease); }
+  .mail:hover, .mail:focus-visible { border-color: var(--mint); }
+  .mail svg { transition: transform .4s var(--ease); }
+  .mail:hover svg { transform: translate(4px, -4px); }
+  :focus-visible { outline: 2px solid var(--mint); outline-offset: 4px; border-radius: 4px; }
+  nav { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  nav h3 { font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 14px; }
+  nav ul { list-style: none; display: grid; gap: 10px; }
+  nav a { color: var(--ink); text-decoration: none; font-size: 17px; display: inline-flex; min-height: 28px; align-items: center; }
+  nav a:hover { color: var(--mint); }
+  .word { font-family: "Mango", "Arial Narrow", sans-serif; font-weight: 700; font-size: 27.5vw; line-height: 0.74; text-align: center; margin-top: 48px; color: var(--mint); white-space: nowrap; display: flex; justify-content: center; transform: translateY(6%); }
+  .word span { display: inline-block; transform: translateY(105%); transition: transform 1.1s var(--ease); }
+  .slab.in .word span { transform: translateY(0); }
+  .word span:hover { transform: translateY(-6%); transition-duration: .35s; }
+  .base { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--rule); padding: 16px 24px; font-size: 13px; color: var(--muted); position: relative; z-index: 1; background: var(--slab); }
+  @media (prefers-reduced-motion: reduce) { .word span { transform: none !important; transition: none; } }
+</style>
+</head>
+<body>
+  <p class="lead">↑ end of Toolbox section</p>
+  <footer id="contact">
+    <div class="slab">
+      <div class="inner">
+        <div class="top">
+          <div>
+            <h2 class="ask">Let's build something users actually enjoy using.</h2>
+            <a class="mail" href="mailto:rangelkoli@gmail.com">rangelkoli@gmail.com
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </div>
+          <nav aria-label="Footer">
+            <div><h3>Explore</h3><ul><li><a href="#">Home</a></li><li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li></ul></div>
+            <div><h3>Elsewhere</h3><ul><li><a href="https://github.com/rangelkoli">GitHub</a></li><li><a href="https://linkedin.com/in/rangelkoli">LinkedIn</a></li><li><a href="https://x.com/rangelkoli">X</a></li></ul></div>
+          </nav>
+        </div>
+      </div>
+      <div class="word" aria-hidden="true"></div>
+      <div class="base"><span>Rangel Koli © 2026</span><span>New York, USA</span></div>
+    </div>
+  </footer>
+<script>
+  const w = document.querySelector('.word');
+  [...'rangelkoli'].forEach((c, i) => { const s = document.createElement('span'); s.textContent = c; s.style.transitionDelay = (i * 55) + 'ms'; w.append(s); });
+  const slab = document.querySelector('.slab');
+  new IntersectionObserver(([e]) => e.isIntersecting && slab.classList.add('in'), { threshold: 0.3 }).observe(slab);
+</script>
+</body>
+</html>

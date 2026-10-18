@@ -1,0 +1,65 @@
+[
+  {
+    "w": 390,
+    "fails": [],
+    "warns": [
+      "Display type with default or positive tracking: 56px \"Rangel\". Big type usually wants -1% to -4%.",
+      "No visible <h1>."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "98%",
+        "Jadyn": "2%"
+      },
+      "sizes": [
+        56,
+        26,
+        18,
+        16,
+        15,
+        14,
+        13,
+        11
+      ],
+      "body": 16,
+      "hues": [
+        30
+      ],
+      "boxes": 1,
+      "cardGrids": 0,
+      "defaultIcons": 0
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [],
+    "warns": [
+      "Display type with default or positive tracking: 88px \"Rangel\". Big type usually wants -1% to -4%.",
+      "No visible <h1>."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "98%",
+        "Jadyn": "2%"
+      },
+      "sizes": [
+        88,
+        38,
+        18,
+        16,
+        15,
+        14,
+        13,
+        11
+      ],
+      "body": 16,
+      "hues": [
+        30
+      ],
+      "boxes": 1,
+      "cardGrids": 0,
+      "defaultIcons": 0,
+      "focusStops": 4
+    }
+  }
+]

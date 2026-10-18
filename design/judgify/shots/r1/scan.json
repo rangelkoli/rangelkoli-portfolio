@@ -1,0 +1,153 @@
+[
+  {
+    "w": 390,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\""
+    ],
+    "warns": [
+      "Empty <title>.",
+      "No action in the first 390×844 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "bueno_regular": "94%",
+        "ui-monospace": "3%",
+        "mangoGrotesque": "3%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        101.4,
+        96,
+        60,
+        48,
+        30,
+        24,
+        20,
+        18,
+        16,
+        14,
+        13,
+        12
+      ],
+      "body": 17.8,
+      "hues": [],
+      "boxes": 9,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 768,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\""
+    ],
+    "warns": [
+      "Empty <title>.",
+      "Lines too long to read comfortably (aim for 45 to 75): ~109 chars/line \"Judgify assigns faculty \"; ~103 chars/line \"A CrewAI agent on Gemini\"; ~104 chars/line \"Judge profiles and poste\"",
+      "No action in the first 768×1024 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "bueno_regular": "94%",
+        "ui-monospace": "3%",
+        "mangoGrotesque": "3%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        176,
+        128,
+        96,
+        60,
+        36,
+        30,
+        24,
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "body": 17.8,
+      "hues": [],
+      "boxes": 10,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 1280,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\""
+    ],
+    "warns": [
+      "Empty <title>.",
+      "No action in the first 1280×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "bueno_regular": "94%",
+        "ui-monospace": "3%",
+        "mangoGrotesque": "3%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        176,
+        128,
+        96,
+        60,
+        36,
+        30,
+        24,
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "body": 17.8,
+      "hues": [],
+      "boxes": 10,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\"",
+      "1 keyboard stop(s) are covered by other content when focused: \"All projects\". A focused element must be on top and on screen (a footer fixed behind the page, a closed menu still in the tab order)."
+    ],
+    "warns": [
+      "Empty <title>.",
+      "No action in the first 1440×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "bueno_regular": "94%",
+        "ui-monospace": "3%",
+        "mangoGrotesque": "3%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        176,
+        128,
+        96,
+        60,
+        36,
+        30,
+        24,
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "body": 17.8,
+      "hues": [],
+      "boxes": 10,
+      "cardGrids": 0,
+      "defaultIcons": 1,
+      "focusStops": 31
+    }
+  }
+]

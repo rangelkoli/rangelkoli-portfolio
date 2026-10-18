@@ -1,0 +1,137 @@
+[
+  {
+    "w": 390,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\""
+    ],
+    "warns": [
+      "No action in the first 390×844 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "100%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        52,
+        36,
+        24,
+        20,
+        18,
+        17,
+        16,
+        14,
+        12
+      ],
+      "body": 17.1,
+      "hues": [
+        210
+      ],
+      "boxes": 6,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 768,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\""
+    ],
+    "warns": [
+      "No action in the first 768×1024 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "100%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        84,
+        44,
+        27.2,
+        24,
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "body": 18.4,
+      "hues": [
+        210
+      ],
+      "boxes": 6,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 1280,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\""
+    ],
+    "warns": [
+      "Lines too long to read comfortably (aim for 45 to 75): ~92 chars/line \"Missing-person posters d\"",
+      "No action in the first 1280×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "100%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        84,
+        44,
+        27.2,
+        24,
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "body": 18.4,
+      "hues": [
+        210
+      ],
+      "boxes": 6,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\""
+    ],
+    "warns": [
+      "Lines too long to read comfortably (aim for 45 to 75): ~92 chars/line \"Missing-person posters d\"",
+      "No action in the first 1440×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "100%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        84,
+        44,
+        27.2,
+        24,
+        20,
+        18,
+        16,
+        14,
+        12
+      ],
+      "body": 18.4,
+      "hues": [
+        210
+      ],
+      "boxes": 6,
+      "cardGrids": 0,
+      "defaultIcons": 1,
+      "focusStops": 12
+    }
+  }
+]
