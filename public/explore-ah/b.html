@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exploration B · 35mm Contact Strip & Loupe</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: "Mango";
+    src: url(/MangoGrotesque/MangoGrotesque-Bold.ttf);
+  }
+  :root {
+    color-scheme: dark;
+    --ground: #0B0C0F;
+    --ink: #F4F5F8;
+    --ink-2: #A1A6B4;
+    --amber: #FF6B2B;
+    --rule: rgba(244, 245, 248, 0.16);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Instrument Sans", system-ui, sans-serif;
+  }
+  section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 24px 64px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--rule);
+  }
+  h1 {
+    font-family: "Mango", sans-serif;
+    font-size: clamp(72px, 9vw, 128px);
+    line-height: 0.82;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+  .lede {
+    max-width: 34ch;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .strip-rail {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 4px;
+    font-family: "Martian Mono", monospace;
+    font-size: 12px;
+    color: var(--amber);
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--rule);
+  }
+  .contact-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-left: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .frame {
+    position: relative;
+    aspect-ratio: 9 / 14;
+    border-right: 1px solid var(--rule);
+    overflow: hidden;
+    background: #050507;
+    cursor: pointer;
+    padding: 0;
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+    color: var(--ink);
+    text-align: left;
+  }
+  .frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.08) saturate(0.82);
+    transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 400ms;
+  }
+  .frame:hover video,
+  .frame[data-active="true"] video {
+    transform: scale(1.06);
+    filter: contrast(1.05) saturate(1.1);
+  }
+  .frame-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5,5,7,0.55) 0%, transparent 35%, rgba(5,5,7,0.88) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+  }
+  .code {
+    font-family: "Martian Mono", monospace;
+    font-size: 12px;
+    color: var(--amber);
+    display: flex;
+    justify-content: space-between;
+  }
+  .caption strong {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .caption span {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  @media (max-width: 768px) {
+    .contact-row {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .frame {
+      flex: 0 0 74vw;
+      scroll-snap-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+<section aria-labelledby="b-title">
+  <header>
+    <h1 id="b-title">After Hours</h1>
+    <p class="lede">35mm match contact sheet. Four consecutive plays from the Friday night five-a-side floor.</p>
+  </header>
+  <div class="strip-rail" aria-hidden="true">
+    <span>KODAK 500T · FUTSAL REEL</span>
+    <span>FRAMES 01A — 04A</span>
+  </div>
+  <div class="contact-row">
+    <button class="frame" data-active="true" type="button">
+      <video src="/soccer-clip-1.mp4" muted loop playsinline autoplay></video>
+      <div class="frame-overlay">
+        <div class="code"><span>01A</span><span>00:17</span></div>
+        <div class="caption"><strong>Keeper Release</strong><span>Own box outlet pass</span></div>
+      </div>
+    </button>
+    <button class="frame" type="button">
+      <video src="/soccer-clip-3.mp4" muted loop playsinline autoplay></video>
+      <div class="frame-overlay">
+        <div class="code"><span>02A</span><span>00:32</span></div>
+        <div class="caption"><strong>Touchline Give-and-Go</strong><span>Right flank overload</span></div>
+      </div>
+    </button>
+    <button class="frame" type="button">
+      <video src="/soccer-clip-4.mp4" muted loop playsinline autoplay></video>
+      <div class="frame-overlay">
+        <div class="code"><span>03A</span><span>00:29</span></div>
+        <div class="caption"><strong>Midcourt Isolation</strong><span>Center circle cut</span></div>
+      </div>
+    </button>
+    <button class="frame" type="button">
+      <video src="/soccer-clip-2.mp4" muted loop playsinline autoplay></video>
+      <div class="frame-overlay">
+        <div class="code"><span>04A</span><span>00:26</span></div>
+        <div class="caption"><strong>Six-Meter Penalty</strong><span>Post-whistle spot kick</span></div>
+      </div>
+    </button>
+  </div>
+</section>
+</body>
+</html>

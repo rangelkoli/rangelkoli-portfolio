@@ -1,208 +1,88 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "./BeyondTheCodeSection.css";
+import { useEffect, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import SectionTitle from "./SectionTitle";
 
-// Register ScrollTrigger plugin
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-const clips = [
-  { video: "/soccer-clip-1.mp4" },
-  { video: "/soccer-clip-2.mp4" },
-  { video: "/soccer-clip-3.mp4" },
-  { video: "/soccer-clip-4.mp4" },
+const CLIPS = [
+  "/soccer-clip-1.mp4",
+  "/soccer-clip-2.mp4",
+  "/soccer-clip-3.mp4",
+  "/soccer-clip-4.mp4",
 ];
 
-interface VideoCardProps {
-  video: string;
-}
-
-const VideoCard = ({ video }: VideoCardProps) => {
+function ClipVideo({ src }: { src: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (videoRef.current) {
-      videoRef.current.muted = false;
-      videoRef.current.play();
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (videoRef.current) {
-      videoRef.current.muted = true;
-    }
-  };
-
-  return (
-    <div
-      className="beyond-card"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <video
-        ref={videoRef}
-        src={video}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-      />
-
-      {/* Gradient overlay */}
-      <div className="beyond-card-overlay" />
-
-      {/* Sound indicator */}
-      <div className="beyond-sound-indicator">
-        <div className="beyond-sound-bars">
-          <motion.div
-            className="beyond-sound-bar"
-            animate={
-              isHovered
-                ? { height: [8, 16, 8] }
-                : { height: 8 }
-            }
-            transition={{
-              duration: 0.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="beyond-sound-bar"
-            animate={
-              isHovered
-                ? { height: [16, 8, 16] }
-                : { height: 12 }
-            }
-            transition={{
-              duration: 0.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.1,
-            }}
-          />
-          <motion.div
-            className="beyond-sound-bar"
-            animate={
-              isHovered
-                ? { height: [10, 18, 10] }
-                : { height: 10 }
-            }
-            transition={{
-              duration: 0.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.2,
-            }}
-          />
-          <motion.div
-            className="beyond-sound-bar"
-            animate={
-              isHovered
-                ? { height: [14, 6, 14] }
-                : { height: 8 }
-            }
-            transition={{
-              duration: 0.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.3,
-            }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const BeyondTheCodeSection = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    const video = videoRef.current;
+    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const section = sectionRef.current;
-    const container = containerRef.current;
+    if (!("IntersectionObserver" in window)) {
+      void video.play().catch(() => undefined);
+      return;
+    }
 
-    if (!section || !container) return;
-
-    // Calculate the scroll distance needed
-    const getScrollAmount = () => {
-      const containerWidth = container.scrollWidth;
-      const viewportWidth = window.innerWidth;
-      return -(containerWidth - viewportWidth + 100); // Extra padding
-    };
-
-    // Create the horizontal scroll animation
-    const tween = gsap.to(container, {
-      x: getScrollAmount,
-      ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: () => `+=${container.scrollWidth - window.innerWidth}`,
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true,
-
-      },
-    });
-
-    // Handle resize
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      tween.kill();
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === section) {
-          trigger.kill();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          void video.play().catch(() => undefined);
+        } else {
+          video.pause();
         }
-      });
-    };
+      },
+      { rootMargin: "300px 0px" }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} className="beyond-section bg-[#F4F4F4]">
-      <div className="beyond-sticky">
-        {/* Header */}
-        <div className="beyond-header">
-          <motion.h2
-            initial={{ opacity: 0, y: 50 }}
+    <video
+      ref={videoRef}
+      src={src}
+      preload="none"
+      muted
+      loop
+      playsInline
+      aria-hidden="true"
+      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none"
+    />
+  );
+}
+
+const BeyondTheCodeSection = () => {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <section className="relative w-full bg-[#F4F4F4] px-4 py-10 text-[#1a1a1a] md:py-14">
+      <SectionTitle title="After Hours" align="left" className="mx-auto mb-0 w-full max-w-7xl" />
+
+      {/* Same hairline box grid as ProjectsSection, one row of four. */}
+      <ol className="mx-auto grid w-full max-w-7xl grid-cols-2 md:grid-cols-4">
+        {CLIPS.map((src, index) => (
+          <motion.li
+            key={src}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="font-mango font-extrabold uppercase text-[12vw] md:text-[10vw] lg:text-[8vw] leading-[0.9] text-black"
+            viewport={{ once: true, margin: "-90px" }}
+            transition={{
+              duration: 0.5,
+              ease: [0.22, 1, 0.36, 1],
+              delay: reduceMotion ? 0 : index * 0.08,
+            }}
+            className="group border-b border-l border-black/10 last:border-r even:border-r md:even:border-r-0 md:last:border-r"
           >
-            Beyond the Code
-          </motion.h2>
-        </div>
-
-        {/* Cards wrapper */}
-        <div className="beyond-cards-wrapper">
-          <div ref={containerRef} className="beyond-cards-container">
-            {clips.map((clip, index) => (
-              <VideoCard key={index} video={clip.video} />
-            ))}
-          </div>
-        </div>
-
-     
-      </div>
+            <div
+              data-loader-media="video-card"
+              className="relative aspect-[9/16] w-full overflow-hidden bg-neutral-200"
+            >
+              <ClipVideo src={src} />
+            </div>
+          </motion.li>
+        ))}
+      </ol>
     </section>
   );
 };

@@ -1,0 +1,148 @@
+[
+  {
+    "w": 390,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\" (18 elements in all)",
+      "Text clipped: \"AgroBasket\" cut by its container"
+    ],
+    "warns": [
+      "7 text elements at 11px: 11px \"01\"; 11px \"02\"; 11px \"03\"",
+      "7 small letter-spaced uppercase labels. An eyebrow over every section stops meaning anything.",
+      "No action in the first 390×844 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "89%",
+        "Bricolage Grotesque": "10%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        52,
+        48,
+        33.6,
+        28,
+        24,
+        18,
+        17,
+        16,
+        15,
+        13,
+        12,
+        11
+      ],
+      "body": 15,
+      "hues": [
+        210
+      ],
+      "boxes": 11,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 768,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\" (18 elements in all)"
+    ],
+    "warns": [
+      "7 text elements at 11px: 11px \"01\"; 11px \"02\"; 11px \"03\"",
+      "7 small letter-spaced uppercase labels. An eyebrow over every section stops meaning anything.",
+      "No action in the first 768×1024 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "60%",
+        "Bricolage Grotesque": "39%",
+        "jadynMaria": "1%"
+      },
+      "sizes": [
+        84,
+        44,
+        41.6,
+        24,
+        22,
+        18,
+        17,
+        13,
+        12,
+        11
+      ],
+      "body": 18,
+      "hues": [],
+      "boxes": 3,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 1280,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\" (18 elements in all)"
+    ],
+    "warns": [
+      "7 text elements at 11px: 11px \"01\"; 11px \"02\"; 11px \"03\"",
+      "7 small letter-spaced uppercase labels. An eyebrow over every section stops meaning anything.",
+      "No action in the first 1280×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "60%",
+        "Bricolage Grotesque": "39%",
+        "jadynMaria": "1%"
+      },
+      "sizes": [
+        84,
+        44,
+        41.6,
+        24,
+        22,
+        18,
+        17,
+        13,
+        12,
+        11
+      ],
+      "body": 18,
+      "hues": [],
+      "boxes": 3,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\" (18 elements in all)"
+    ],
+    "warns": [
+      "7 text elements at 11px: 11px \"01\"; 11px \"02\"; 11px \"03\"",
+      "7 small letter-spaced uppercase labels. An eyebrow over every section stops meaning anything.",
+      "No action in the first 1440×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "60%",
+        "Bricolage Grotesque": "39%",
+        "jadynMaria": "1%"
+      },
+      "sizes": [
+        84,
+        44,
+        41.6,
+        24,
+        22,
+        18,
+        17,
+        13,
+        12,
+        11
+      ],
+      "body": 18,
+      "hues": [],
+      "boxes": 3,
+      "cardGrids": 0,
+      "defaultIcons": 1,
+      "focusStops": 10
+    }
+  }
+]

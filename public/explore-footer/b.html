@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Footer B · Postcard</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: "Jadyn"; src: url("JadynMaria.otf") format("opentype"); font-display: swap; }
+  :root {
+    color-scheme: light;
+    --page: #F4F4F4;
+    --card: #FFFFFF;
+    --ink: #1A1A1A;
+    --muted: #6B6B73;
+    --rule: #D9D9DF;
+    --stamp: #E8590C;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--page); color: var(--ink); font-family: "Instrument Sans", system-ui, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  .lead { max-width: 72rem; margin: 0 auto; padding: 72px 24px 56px; color: var(--muted); font-size: 15px; }
+  footer { max-width: 72rem; margin: 0 auto; padding: 0 16px 24px; }
+  .card { background: var(--card); border-radius: 20px; box-shadow: 0 1px 0 rgb(0 0 0 / .04), 0 24px 48px -24px rgb(0 0 0 / .18); display: grid; grid-template-columns: 1fr; position: relative; transform: rotate(-0.6deg); }
+  @media (min-width: 900px) { .card { grid-template-columns: 1.15fr 1fr; } }
+  .msg { padding: 40px 28px; border-bottom: 1px dashed var(--rule); }
+  @media (min-width: 900px) { .msg { padding: 56px 48px; border-bottom: 0; border-right: 1px dashed var(--rule); } }
+  .msg h2 { font-size: clamp(26px, 3.2vw, 38px); line-height: 1.12; font-weight: 600; letter-spacing: -0.02em; max-width: 17ch; }
+  .msg p { margin-top: 16px; color: var(--muted); font-size: 16px; max-width: 40ch; line-height: 1.5; }
+  .sig { font-family: "Jadyn", cursive; font-size: clamp(56px, 7vw, 88px); line-height: 1; margin-top: 28px; color: var(--ink); clip-path: inset(0 100% 0 0); transition: clip-path 1.6s var(--ease) .3s; }
+  .card.in .sig { clip-path: inset(0 0 0 0); }
+  .addr { padding: 40px 28px 32px; position: relative; display: flex; flex-direction: column; }
+  @media (min-width: 900px) { .addr { padding: 56px 48px 40px; } }
+  .stamp { position: absolute; top: 24px; right: 24px; width: 92px; height: 112px; background: #FFF4EC; padding: 6px; border: 2px dashed var(--stamp); border-radius: 4px; display: grid; place-items: center; transform: rotate(4deg); }
+  .stamp img { width: 72px; height: 72px; object-fit: cover; border-radius: 50%; }
+  .stamp small { position: absolute; bottom: 6px; font-size: 11px; font-weight: 600; color: #B5410A; letter-spacing: .04em; }
+  .post { position: absolute; top: 44px; right: 82px; width: 112px; height: 112px; color: var(--stamp); opacity: 0; transform: scale(1.4) rotate(-30deg); transition: opacity .25s, transform .5s cubic-bezier(.3,1.6,.5,1) 1.4s; }
+  .card.in .post { opacity: .75; transform: scale(1) rotate(-12deg); transition-delay: 1.4s; }
+  .post text { font: 600 11px "Instrument Sans", sans-serif; letter-spacing: .12em; fill: currentColor; }
+  .to { font-size: 13px; color: var(--muted); margin-top: 128px; }
+  @media (min-width: 900px) { .to { margin-top: 112px; } }
+  .lines { list-style: none; margin-top: 8px; }
+  .lines li { border-bottom: 1px solid var(--rule); }
+  .lines a { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; text-decoration: none; color: var(--ink); font-size: 18px; min-height: 44px; }
+  .lines a span { color: var(--muted); font-size: 14px; }
+  .lines a:hover span, .lines a:focus-visible span { color: var(--stamp); }
+  :focus-visible { outline: 2px solid var(--stamp); outline-offset: 3px; border-radius: 4px; }
+  .base { display: flex; justify-content: space-between; padding: 24px 8px 0; font-size: 13px; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { .sig { clip-path: none; transition: none; } .post { opacity: .75; transform: rotate(-12deg); transition: none; } }
+</style>
+</head>
+<body>
+  <p class="lead">↑ end of Toolbox section</p>
+  <footer id="contact">
+    <div class="card">
+      <div class="msg">
+        <h2>Let's build something users actually enjoy using.</h2>
+        <p>Open to full-time roles and interesting side projects. I reply within a day or two.</p>
+        <div class="sig" aria-label="Signed, Rangel">Rangel</div>
+      </div>
+      <div class="addr">
+        <div class="stamp"><img src="avatar.png" alt=""><small>NYC · 2026</small></div>
+        <svg class="post" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="60" cy="60" r="40" fill="none" stroke="currentColor" stroke-width="1"/>
+          <defs><path id="arc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs>
+          <text><textPath href="#arc">NEW YORK · NY · OCT 2026 ·</textPath></text>
+          <text x="60" y="65" text-anchor="middle" style="font-size:14px">SENT</text>
+        </svg>
+        <p class="to">Write to me at</p>
+        <ul class="lines">
+          <li><a href="mailto:rangelkoli@gmail.com">rangelkoli@gmail.com <span>Email</span></a></li>
+          <li><a href="https://github.com/rangelkoli">github.com/rangelkoli <span>GitHub</span></a></li>
+          <li><a href="https://linkedin.com/in/rangelkoli">in/rangelkoli <span>LinkedIn</span></a></li>
+          <li><a href="https://x.com/rangelkoli">@rangelkoli <span>X</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="base"><span>Rangel Koli © 2026</span><span>New York, USA</span></div>
+  </footer>
+<script>
+  const card = document.querySelector('.card');
+  new IntersectionObserver(([e]) => e.isIntersecting && card.classList.add('in'), { threshold: 0.35 }).observe(card);
+</script>
+</body>
+</html>

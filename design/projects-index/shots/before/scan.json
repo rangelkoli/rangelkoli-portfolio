@@ -1,0 +1,102 @@
+[
+  {
+    "w": 390,
+    "fails": [
+      "4 type families in real use (bueno_regular, Bricolage Grotesque, Instrument Sans, mangoGrotesque). Two is a system, four is a ransom note.",
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\"; 4.40:1 18px \"Projects\"; 4.40:1 18px \"Technologies\"; 4.40:1 18px \"Passion\"; 1.13:1 96px \"01\" (11 elements in all)",
+      "Control label wraps onto two lines: \"View Details\"; \"Live Demo\". Give it room or shorten it.",
+      "Text clipped: \"Live Demo\" cut by its container",
+      "Text overlapping text: \"01\" / \"Orange Housing\"; \"02\" / \"HereAfter\"; \"03\" / \"Judgify\"; \"04\" / \"WalkSafe\"",
+      "Indigo/violet gradient x1 (div). The most recognisable AI-made tell on the web.",
+      "Large blurred blob x1: the ambient \"aurora\" orb behind the hero.",
+      "29 button(s)/link(s) with no accessible name (icon-only). Add aria-label."
+    ],
+    "warns": [
+      "Empty <title>.",
+      "No action in the first 390×844 screen (outside the nav). The one action should be visible without scrolling.",
+      "10 frosted-glass (backdrop-filter) surfaces. Glass on everything is 2021 Dribbble.",
+      "54 elements cast shadows. Depth from one or two layers, not every box.",
+      "41 stock outline icons at the default 2px stroke (Lucide/Feather/Heroicons). Match the stroke to the type weight, or use fewer."
+    ],
+    "facts": {
+      "fonts": {
+        "bueno_regular": "84%",
+        "Bricolage Grotesque": "6%",
+        "Instrument Sans": "5%",
+        "mangoGrotesque": "3%",
+        "Playfair Display": "1%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        156,
+        96,
+        52,
+        48,
+        28,
+        24,
+        20,
+        18,
+        17,
+        16,
+        14,
+        13
+      ],
+      "body": 17.9,
+      "hues": [],
+      "boxes": 11,
+      "cardGrids": 0,
+      "defaultIcons": 41
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [
+      "4 type families in real use (bueno_regular, Bricolage Grotesque, Instrument Sans, mangoGrotesque). Two is a system, four is a ransom note.",
+      "Contrast below WCAG AA: 1.10:1 24px \"Rangel\"; 4.40:1 18px \"Projects\"; 4.40:1 18px \"Technologies\"; 4.40:1 18px \"Passion\"; 1.13:1 128px \"01\" (11 elements in all)",
+      "Indigo/violet gradient x1 (div). The most recognisable AI-made tell on the web.",
+      "Large blurred blob x1: the ambient \"aurora\" orb behind the hero.",
+      "29 button(s)/link(s) with no accessible name (icon-only). Add aria-label."
+    ],
+    "warns": [
+      "Empty <title>.",
+      "14 distinct text sizes. A scale has 6 to 9 steps: 576, 128, 96, 84, 72, 44, 24, 22, 20, 18, 17, 16, 14, 13",
+      "No action in the first 1440×900 screen (outside the nav). The one action should be visible without scrolling.",
+      "10 frosted-glass (backdrop-filter) surfaces. Glass on everything is 2021 Dribbble.",
+      "54 elements cast shadows. Depth from one or two layers, not every box.",
+      "41 stock outline icons at the default 2px stroke (Lucide/Feather/Heroicons). Match the stroke to the type weight, or use fewer."
+    ],
+    "facts": {
+      "fonts": {
+        "bueno_regular": "84%",
+        "Bricolage Grotesque": "6%",
+        "Instrument Sans": "5%",
+        "mangoGrotesque": "3%",
+        "Playfair Display": "1%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        576,
+        128,
+        96,
+        84,
+        72,
+        44,
+        24,
+        22,
+        20,
+        18,
+        17,
+        16,
+        14,
+        13
+      ],
+      "body": 19.9,
+      "hues": [],
+      "boxes": 11,
+      "cardGrids": 0,
+      "centeredHero": true,
+      "defaultIcons": 41,
+      "focusStops": 12
+    }
+  }
+]

@@ -3,6 +3,21 @@
   display: flex;
   width: 100%;
   overflow: hidden;
+  /* Mask fades icons smoothly into the background */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--toolbox-edge-size, 80px),
+    black calc(100% - var(--toolbox-edge-size, 80px)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black var(--toolbox-edge-size, 80px),
+    black calc(100% - var(--toolbox-edge-size, 80px)),
+    transparent 100%
+  );
 }
 
 .marquee-content {
@@ -14,6 +29,7 @@
   height: 120px;
   justify-content: center;
   align-items: center;
+  will-change: transform;
 }
 
 @media (min-width: 768px) {

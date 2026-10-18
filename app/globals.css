@@ -1,21 +1,82 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@100..700&display=swap');
 @import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-instrument: "Instrument Sans", sans-serif;
+  --font-mango: var(--font-mango);
+  --font-playfair: var(--font-playfair);
+  --font-bricolage: var(--font-bricolage);
+}
+
+.font-instrument {
+  font-family: "Instrument Sans", sans-serif !important;
+}
 
 html {
   /* scroll-behavior: smooth; */
-  overflow-x: hidden;
+  overflow-x: clip;
+  color-scheme: light;
 }
 
 :root {
   --background: #F4F4F4;
   --foreground: #201D1D;
+  --surface: #FFFFFF;
+  --surface-muted: #F4F4F4;
+  --surface-subtle: #F8F9FA;
+  --surface-strong: #1A1A1A;
+  --nav-background: #1A1A1A;
+  --text-primary: #1A1A1A;
+  --text-secondary: #3F3F46;
+  --text-muted: #6B6B73;
+  --border: #D9D9DF;
+  --accent: #D1F8EF;
+  --site-max-width: 72rem;
+  /* Navbar items (nav surface stays dark in both themes, tokens keep
+     item text/hover/chip colors in sync with the active theme) */
+  --nav-item: #FFFFFF;
+  --nav-item-hover: #D1F8EF;
+  --nav-item-muted: #B4B4BC;
+  --nav-item-surface: rgb(255 255 255 / 0.1);
+  --nav-item-surface-hover: rgb(255 255 255 / 0.2);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #F4F4F4;
-    --foreground: #201D1D;
-  }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #1A1A1A;
+  --foreground: #F4F5F8;
+  --surface: #191B22;
+  --surface-muted: #14161C;
+  --surface-subtle: #1E212A;
+  --surface-strong: #08090C;
+  --nav-background: #2A2D36;
+  --text-primary: #F4F5F8;
+  --text-secondary: #D1D3DC;
+  --text-muted: #9A9EAC;
+  --border: #343844;
+  --accent: #9FE7D7;
+  --nav-item: #F4F5F8;
+  --nav-item-hover: #9FE7D7;
+  --nav-item-muted: #9A9EAC;
+  --nav-item-surface: rgb(255 255 255 / 0.12);
+  --nav-item-surface-hover: rgb(255 255 255 / 0.22);
+}
+
+/* Smooth GPU-composited View Transitions for theme changes */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
 }
 
 body {
@@ -26,56 +87,170 @@ body {
   min-height: 100vh;
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
+  transition: background-color 500ms cubic-bezier(0.4, 0, 0.2, 1), color 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Animation classes for the header */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
+/* Keep theme-sensitive colors on a smooth transition when toggling (CSS fallback). */
+:root.theme-transitioning,
+:root.theme-transitioning body,
+:root.theme-transitioning header,
+:root.theme-transitioning nav,
+:root.theme-transitioning section,
+:root.theme-transitioning main,
+:root.theme-transitioning footer,
+:root.theme-transitioning div,
+:root.theme-transitioning p,
+:root.theme-transitioning h1,
+:root.theme-transitioning h2,
+:root.theme-transitioning h3,
+:root.theme-transitioning h4,
+:root.theme-transitioning span,
+:root.theme-transitioning a,
+:root.theme-transitioning button,
+:root.theme-transitioning svg,
+:root.theme-transitioning path {
+  transition:
+    background-color 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    fill 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke 500ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 500ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
 
+.site-shell {
+  width: min(calc(100% - 2rem), var(--site-max-width));
+  max-width: var(--site-max-width);
+  margin-inline: auto;
+}
+
+/* Existing sections use Tailwind color utilities. These tokens keep them in
+   sync when the theme changes, including project and case-study routes. */
+[data-theme="dark"] .bg-seashell,
+[data-theme="dark"] [class~="bg-[#F4F4F4]"] {
+  background-color: rgb(26 26 26 / 0.72) !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: var(--surface) !important;
+}
+
+[data-theme="dark"] [class~="bg-white/50"] {
+  background-color: rgb(255 255 255 / 0.05) !important;
+}
+
+[data-theme="dark"] [class~="bg-white/80"],
+[data-theme="dark"] [class~="bg-white/90"] {
+  background-color: rgb(25 27 34 / 0.9) !important;
+}
+
+[data-theme="dark"] .bg-black {
+  background-color: var(--surface-strong) !important;
+}
+
+[data-theme="dark"] .bg-gray-50 {
+  background-color: #1B1E26 !important;
+}
+
+[data-theme="dark"] .bg-gray-100 {
+  background-color: #242731 !important;
+}
+
+[data-theme="dark"] .bg-gray-200 {
+  background-color: #30343F !important;
+}
+
+[data-theme="dark"] .bg-gray-300 {
+  background-color: #424754 !important;
+}
+
+[data-theme="dark"] .bg-gray-800 {
+  background-color: #2A2E3B !important;
+}
+
+[data-theme="dark"] .bg-gray-900 {
+  background-color: #12141A !important;
+}
+
+/* Sections share the active page surface instead of painting their own. */
+:root[data-theme] section {
+  background-color: transparent !important;
+}
+
+[data-theme="dark"] .text-black {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] [class~="text-[#1a1a1a]"] {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .text-gray-800 {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .text-gray-700 {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .text-gray-600 {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .text-gray-500 {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .border-black {
+  border-color: var(--border) !important;
+}
+
+[data-theme="dark"] .border-gray-200,
+[data-theme="dark"] .border-gray-300 {
+  border-color: var(--border) !important;
+}
+
+/* Chip label on the accent CTA: accent stays light in both themes,
+   so the label must remain dark regardless of theme text tokens. */
+.text-on-accent {
+  color: #1a1a1a;
+}
+
+@keyframes experience-strip {
   to {
-    opacity: 1;
+    transform: translateX(-50%);
   }
 }
 
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+/* Judgify case study: the assignment draw */
+.jd-lines { clip-path: inset(0 0 0 0); animation: jd-sweep 1.4s cubic-bezier(.2,.7,.2,1) .2s both; }
+.jd-edge, .jd-conflict { fill: none; vector-effect: non-scaling-stroke; transition: stroke 200ms, stroke-width 200ms, opacity 200ms; }
+.jd-edge { stroke: #F76900; stroke-width: 1.25; }
+.jd-conflict { stroke: var(--text-muted); stroke-width: 1.25; stroke-dasharray: 4 4; animation: jd-fade .4s ease-out 1.5s both; }
+.jd-draw[data-focus] .jd-edge { opacity: .18; }
+.jd-draw[data-focus] .jd-edge[data-on] { opacity: 1; stroke-width: 2.5; }
+.jd-row { transition: opacity 200ms; cursor: default; }
+.jd-draw[data-focus] .jd-row { opacity: .4; }
+.jd-draw[data-focus] .jd-row[data-on] { opacity: 1; }
+@keyframes jd-sweep { from { clip-path: inset(0 100% 0 0); } }
+@keyframes jd-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .jd-lines, .jd-conflict { animation: none; }
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+/* /projects preview: the next project rises in from the bottom, like the row's blue. */
+@keyframes project-wipe {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0 0 0 0); }
 }
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
+.project-wipe {
+  animation: project-wipe 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-wipe { animation: none; }
 }

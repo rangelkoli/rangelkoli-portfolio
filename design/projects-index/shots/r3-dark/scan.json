@@ -1,0 +1,73 @@
+[
+  {
+    "w": 390,
+    "fails": [],
+    "warns": [
+      "14 small letter-spaced uppercase labels. An eyebrow over every section stops meaning anything.",
+      "7 numbered uppercase labels (\"01 —\"). Numbered mono eyebrows are the anti-slop house style; see slop.md \"The overcorrection\".",
+      "No action in the first 390×844 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "89%",
+        "Bricolage Grotesque": "10%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        52,
+        36,
+        32,
+        28,
+        24,
+        18,
+        17,
+        16,
+        15,
+        13,
+        12
+      ],
+      "body": 15,
+      "hues": [
+        180,
+        210
+      ],
+      "boxes": 12,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [],
+    "warns": [
+      "7 small letter-spaced uppercase labels. An eyebrow over every section stops meaning anything.",
+      "No action in the first 1440×900 screen (outside the nav). The one action should be visible without scrolling."
+    ],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "60%",
+        "Bricolage Grotesque": "39%",
+        "jadynMaria": "1%"
+      },
+      "sizes": [
+        84,
+        44,
+        41.6,
+        24,
+        22,
+        18,
+        17,
+        13,
+        12
+      ],
+      "body": 18,
+      "hues": [
+        180
+      ],
+      "boxes": 4,
+      "cardGrids": 0,
+      "defaultIcons": 1,
+      "focusStops": 30
+    }
+  }
+]

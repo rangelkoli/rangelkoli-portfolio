@@ -1,0 +1,123 @@
+[
+  {
+    "w": 390,
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "90%",
+        "Bricolage Grotesque": "10%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        52,
+        28,
+        24,
+        22,
+        18,
+        17,
+        16,
+        13
+      ],
+      "body": 16.9,
+      "hues": [
+        210,
+        240
+      ],
+      "boxes": 21,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 768,
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "90%",
+        "Bricolage Grotesque": "10%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        84,
+        44,
+        24,
+        22,
+        18,
+        17,
+        16,
+        13
+      ],
+      "body": 17,
+      "hues": [
+        210,
+        240
+      ],
+      "boxes": 21,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 1280,
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "90%",
+        "Bricolage Grotesque": "10%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        84,
+        44,
+        24,
+        22,
+        18,
+        17,
+        16,
+        13
+      ],
+      "body": 17,
+      "hues": [
+        210,
+        240
+      ],
+      "boxes": 21,
+      "cardGrids": 0,
+      "defaultIcons": 1
+    }
+  },
+  {
+    "w": 1440,
+    "fails": [],
+    "warns": [],
+    "facts": {
+      "fonts": {
+        "Instrument Sans": "90%",
+        "Bricolage Grotesque": "10%",
+        "jadynMaria": "0%"
+      },
+      "sizes": [
+        84,
+        44,
+        24,
+        22,
+        18,
+        17,
+        16,
+        13
+      ],
+      "body": 17,
+      "hues": [
+        210,
+        240
+      ],
+      "boxes": 21,
+      "cardGrids": 0,
+      "defaultIcons": 1,
+      "focusStops": 37
+    }
+  }
+]

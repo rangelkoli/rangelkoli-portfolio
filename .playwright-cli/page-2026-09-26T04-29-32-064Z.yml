@@ -1,0 +1,273 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic: 0%
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Rangel Koli home" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - link "Rangel" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e8]: Rangel
+      - generic [ref=e9]:
+        - button "Switch to dark theme" [ref=e10]:
+          - img [ref=e11]
+        - button "Open menu" [ref=e13]:
+          - img [ref=e14]
+          - generic [ref=e16]: Menu
+  - main [ref=e19]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - heading "Hey, I'm Rangel — NYC software developer." [level=1] [ref=e23]:
+          - text: Hey, I'm Rangel —
+          - text: NYC software developer.
+        - paragraph [ref=e24]: I've built everything from end-to-end web platforms to AI-powered applications, working across the entire stack with JavaScript, Python, and modern frameworks. Open to freelance projects and full-time opportunities where I can make a meaningful impact.
+      - generic [ref=e27]: Loading contributions...
+    - generic [ref=e28]:
+      - generic [ref=e30]:
+        - heading "Projects" [level=2] [ref=e32]
+        - link "View all projects" [ref=e34] [cursor=pointer]:
+          - /url: /projects
+          - generic [ref=e35]: View all projects
+          - generic [ref=e36]: →
+      - generic [ref=e38]:
+        - link "Judgify 01 / Featured Next.js, Flask, Python, Full-stack Web Application Judgify This project streamlines the process of assigning judges to research posters, collecting and displaying poster scores, and generating a final ranking. Next.js React TypeScript Tailwind CSS" [ref=e39] [cursor=pointer]:
+          - /url: /projects/judgifysu
+          - generic [ref=e40]:
+            - img "Judgify" [ref=e42]
+            - generic:
+              - generic: 01 / Featured
+              - generic:
+                - img
+          - generic [ref=e43]:
+            - generic [ref=e44]:
+              - paragraph [ref=e45]: Next.js, Flask, Python, Full-stack Web Application
+              - heading "Judgify" [level=3] [ref=e46]
+            - paragraph [ref=e47]: This project streamlines the process of assigning judges to research posters, collecting and displaying poster scores, and generating a final ranking.
+            - generic [ref=e48]:
+              - generic "Next.js" [ref=e49]:
+                - img [ref=e50]
+                - generic [ref=e52]: Next.js
+              - generic "React" [ref=e53]:
+                - img [ref=e54]
+                - generic [ref=e56]: React
+              - generic "TypeScript" [ref=e57]:
+                - img [ref=e58]
+                - generic [ref=e60]: TypeScript
+              - generic "Tailwind CSS" [ref=e61]:
+                - img [ref=e62]
+                - generic [ref=e64]: Tailwind CSS
+        - link "02 / Featured React Native, Mobile Application WalkSafe WalkSafe, your ultimate companion for ensuring the safety of your loved ones while navigating through the city. WalkSafe is a comprehensive mobile application built with React Native, designed to provide real-time tracking, route optimization, and safety alerts to keep you and your family secure at all times. React Native Node.js MongoDB Express" [ref=e65] [cursor=pointer]:
+          - /url: /projects/walksafe
+          - generic [ref=e66]:
+            - generic:
+              - generic: 02 / Featured
+              - generic:
+                - img
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - paragraph [ref=e70]: React Native, Mobile Application
+              - heading "WalkSafe" [level=3] [ref=e71]
+            - paragraph [ref=e72]: WalkSafe, your ultimate companion for ensuring the safety of your loved ones while navigating through the city. WalkSafe is a comprehensive mobile application built with React Native, designed to provide real-time tracking, route optimization, and safety alerts to keep you and your family secure at all times.
+            - generic [ref=e73]:
+              - generic "React Native" [ref=e74]:
+                - img [ref=e75]
+                - generic [ref=e77]: React Native
+              - generic "Node.js" [ref=e78]:
+                - img [ref=e79]
+                - generic [ref=e81]: Node.js
+              - generic "MongoDB" [ref=e82]:
+                - img [ref=e83]
+                - generic [ref=e85]: MongoDB
+              - generic "Express" [ref=e86]:
+                - img [ref=e87]
+                - generic [ref=e89]: Express
+        - link "FindX 03 / Featured Python, Django, Full-stack Web Application FindX FindX is a comprehensive web-based platform that leverages machine learning and facial recognition technology to help locate missing persons. The system provides a dual interface for both citizens and police authorities to collaborate in finding missing individuals. React Firebase Material UI Redux" [ref=e90] [cursor=pointer]:
+          - /url: /projects/findx
+          - generic [ref=e91]:
+            - img "FindX" [ref=e93]
+            - generic:
+              - generic: 03 / Featured
+              - generic:
+                - img
+          - generic [ref=e94]:
+            - generic [ref=e95]:
+              - paragraph [ref=e96]: Python, Django, Full-stack Web Application
+              - heading "FindX" [level=3] [ref=e97]
+            - paragraph [ref=e98]: FindX is a comprehensive web-based platform that leverages machine learning and facial recognition technology to help locate missing persons. The system provides a dual interface for both citizens and police authorities to collaborate in finding missing individuals.
+            - generic [ref=e99]:
+              - generic "React" [ref=e100]:
+                - img [ref=e101]
+                - generic [ref=e103]: React
+              - generic "Firebase" [ref=e104]:
+                - img [ref=e105]
+                - generic [ref=e107]: Firebase
+              - generic "Material UI" [ref=e108]:
+                - img [ref=e109]
+                - generic [ref=e111]: Material UI
+              - generic "Redux" [ref=e112]:
+                - img [ref=e113]
+                - generic [ref=e115]: Redux
+    - generic [ref=e117]:
+      - generic [ref=e120]:
+        - generic [ref=e122]: Selected work
+        - heading "Experience" [level=2] [ref=e123]
+        - paragraph [ref=e124]: Roles where I’ve helped take ambitious ideas from architecture to launch.
+      - generic [ref=e125]:
+        - article [ref=e126]:
+          - generic [ref=e128]:
+            - link "View Orange Housing case study" [ref=e129] [cursor=pointer]:
+              - /url: /projects/orange-housing
+              - img "Orange Housing preview" [ref=e130]
+              - generic:
+                - generic: 01 / Experience
+                - generic:
+                  - img
+            - generic [ref=e131]:
+              - generic [ref=e132]:
+                - paragraph [ref=e133]: Next.js 16, Supabase, Full-Stack Marketplace
+                - generic [ref=e134]: "2026"
+              - heading "Orange Housing" [level=3] [ref=e135]
+              - paragraph [ref=e136]: Full-Stack Engineer & Architect
+              - paragraph [ref=e137]: A student and residential rental-listings marketplace for Syracuse, NY. Engineered with Next.js 16 App Router, self-hosted Supabase with Deno Edge Functions, PostgreSQL, Stripe payments, landlord listing management, and automated scraping workflows.
+              - list "Technologies used" [ref=e138]:
+                - listitem [ref=e139]: Next.js
+                - listitem [ref=e140]: React
+                - listitem [ref=e141]: TypeScript
+                - listitem [ref=e142]: Tailwind CSS
+                - listitem [ref=e143]: Supabase
+                - listitem [ref=e144]: PostgreSQL
+                - listitem [ref=e145]: Stripe
+              - link "Explore Orange Housing" [ref=e146] [cursor=pointer]:
+                - /url: /projects/orange-housing
+                - text: Explore Orange Housing
+                - generic [ref=e147]: →
+        - article [ref=e148]:
+          - generic [ref=e150]:
+            - link "View HereAfter case study" [ref=e151] [cursor=pointer]:
+              - /url: /projects/hereafter
+              - img "HereAfter preview" [ref=e152]
+              - generic:
+                - generic: 02 / Experience
+                - generic:
+                  - img
+            - generic [ref=e153]:
+              - generic [ref=e154]:
+                - paragraph [ref=e155]: Expo React Native, Mobile Application
+                - generic [ref=e156]: "2026"
+              - heading "HereAfter" [level=3] [ref=e157]
+              - paragraph [ref=e158]: Lead Mobile Engineer
+              - paragraph [ref=e159]: A cross-platform, map-based social app I built with Expo and React Native. Users create location-based drops—notes, photos, videos, and voice notes—then discover, interact with, and save memories tied to real places.
+              - list "Technologies used" [ref=e160]:
+                - listitem [ref=e161]: Expo
+                - listitem [ref=e162]: React Native
+                - listitem [ref=e163]: TypeScript
+                - listitem [ref=e164]: Mapbox
+                - listitem [ref=e165]: Supabase
+                - listitem [ref=e166]: Zustand
+              - link "Explore HereAfter" [ref=e167] [cursor=pointer]:
+                - /url: /projects/hereafter
+                - text: Explore HereAfter
+                - generic [ref=e168]: →
+    - generic [ref=e170]:
+      - heading "After Hours" [level=2] [ref=e174]
+      - generic [ref=e176]:
+        - generic [ref=e177]:
+          - generic "Unmute" [ref=e181] [cursor=pointer]:
+            - img [ref=e182]
+          - generic "Unmute" [ref=e187] [cursor=pointer]:
+            - img [ref=e188]
+        - generic [ref=e190]:
+          - generic "Unmute" [ref=e194] [cursor=pointer]:
+            - img [ref=e195]
+          - generic "Unmute" [ref=e200] [cursor=pointer]:
+            - img [ref=e201]
+    - generic [ref=e203]:
+      - generic [ref=e207]:
+        - generic [ref=e209]: 02 — Capabilities
+        - heading "Toolbox" [level=2] [ref=e210]
+        - paragraph [ref=e211]: The technologies I use to bring ideas to life.
+      - generic [ref=e213]:
+        - generic [ref=e214]:
+          - generic "HTML5" [ref=e215]:
+            - img "HTML5" [ref=e216]
+          - generic "JavaScript" [ref=e217]:
+            - img "JavaScript" [ref=e218]
+          - generic "Git" [ref=e219]:
+            - img "Git" [ref=e220]
+          - generic "Java" [ref=e221]:
+            - img "Java" [ref=e222]
+          - generic "Python" [ref=e223]:
+            - img "Python" [ref=e224]
+          - generic "TypeScript" [ref=e225]:
+            - img "TypeScript" [ref=e226]
+          - generic "AWS" [ref=e227]:
+            - img "AWS" [ref=e228]
+          - generic "CSS3" [ref=e229]:
+            - img "CSS3" [ref=e230]
+          - generic "Sass" [ref=e231]:
+            - img "Sass" [ref=e232]
+          - generic "Next.js" [ref=e233]:
+            - img "Next.js" [ref=e234]
+          - generic "Tailwind CSS" [ref=e235]:
+            - img "Tailwind CSS" [ref=e236]
+          - generic "Node.js" [ref=e237]:
+            - img "Node.js" [ref=e238]
+          - generic "React" [ref=e239]:
+            - img "React" [ref=e240]
+          - generic "PostgreSQL" [ref=e241]:
+            - img "PostgreSQL" [ref=e242]
+        - generic [ref=e243]:
+          - img [ref=e245]
+          - img [ref=e247]
+          - img [ref=e249]
+          - img [ref=e251]
+          - img [ref=e253]
+          - img [ref=e255]
+          - img [ref=e257]
+          - img [ref=e259]
+          - img [ref=e261]
+          - img [ref=e263]
+          - img [ref=e265]
+          - img [ref=e267]
+          - img [ref=e269]
+          - img [ref=e271]
+    - generic [ref=e273]:
+      - generic [ref=e275]:
+        - generic [ref=e276]:
+          - heading "Let's build something users actually enjoy using." [level=2] [ref=e277]
+          - link "Connect" [ref=e279] [cursor=pointer]:
+            - /url: mailto:rangelkoli@gmail.com
+            - generic [ref=e280]: Connect
+            - img [ref=e281]
+        - generic [ref=e283]:
+          - heading "Explore" [level=3] [ref=e284]
+          - list [ref=e285]:
+            - listitem [ref=e286]:
+              - link "Home" [ref=e287] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e288]:
+              - link "About Me" [ref=e289] [cursor=pointer]:
+                - /url: "#about"
+        - generic [ref=e290]:
+          - heading "Follow Me" [level=3] [ref=e291]
+          - generic [ref=e292]:
+            - link "LinkedIn" [ref=e293] [cursor=pointer]:
+              - /url: https://linkedin.com/in/rangelkoli
+              - img [ref=e294]
+              - generic [ref=e296]: LinkedIn
+            - link "Github" [ref=e297] [cursor=pointer]:
+              - /url: https://github.com/rangelkoli
+              - img [ref=e298]
+              - generic [ref=e300]: Github
+            - link "X" [ref=e301] [cursor=pointer]:
+              - /url: https://x.com/rangelkoli
+              - img [ref=e302]
+              - generic [ref=e304]: X
+      - generic:
+        - heading "rangelkoli" [level=1]
+    - generic [ref=e307]:
+      - paragraph [ref=e308]: Rangel Koli © 2026
+      - paragraph [ref=e309]: New York, USA
+  - button "Open Next.js Dev Tools" [ref=e315] [cursor=pointer]:
+    - img [ref=e316]
+  - alert [ref=e319]
