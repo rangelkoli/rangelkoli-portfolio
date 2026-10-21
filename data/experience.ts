@@ -33,8 +33,10 @@ export interface ExperienceItem {
   images: string[];
   video?: string;
   mediaCaption: string;
-  telemetry: TelemetryMetric;
-  architectureNodes: ArchitectureNode[];
+  // Engineering roles carry metrics; teaching roles list courses instead.
+  telemetry?: TelemetryMetric;
+  architectureNodes?: ArchitectureNode[];
+  courses?: string[];
 }
 
 export interface EducationItem {
@@ -95,13 +97,15 @@ export const experienceItems: ExperienceItem[] = [
     mediaCaption:
       "Orange Housing search engine, multi-parameter rent filters, and self-service landlord listing wizard.",
     telemetry: {
-      label: "Client query latency (React Query + Supabase realtime vs legacy polling)",
+      label:
+        "Client query latency (React Query + Supabase realtime vs legacy polling)",
       beforeLabel: "35.8ms legacy poll",
       afterLabel: "5.6ms realtime query",
       beforePct: 100,
       afterPct: 16,
       headlineDelta: "35.8ms → 5.6ms",
-      subLabel: "84% reduction in UI query latency · 60% fewer reported defects",
+      subLabel:
+        "84% reduction in UI query latency · 60% fewer reported defects",
     },
     architectureNodes: [
       {
@@ -122,8 +126,26 @@ export const experienceItems: ExperienceItem[] = [
     ],
   },
   {
-    id: "hereafter",
+    id: "occ",
     index: "02",
+    company: "Onondaga Community College",
+    shortName: "OCC",
+    role: "Adjunct Professor",
+    type: "Part-time",
+    period: "Aug 2026 – Present",
+    yearRange: "2026",
+    location: "Syracuse, NY",
+    summary:
+      "Teaching CSC 111 Fundamentals of Computing I in the Computer & Information Science department.",
+    highlights: [],
+    technologies: [],
+    courses: ["CSC 111 Fundamentals of Computing I"],
+    images: [],
+    mediaCaption: "Computer & Information Science · Onondaga Community College",
+  },
+  {
+    id: "hereafter",
+    index: "03",
     company: "HereAfter Inc.",
     shortName: "HereAfter",
     role: "Founding Software Engineer",
@@ -158,7 +180,8 @@ export const experienceItems: ExperienceItem[] = [
     mediaCaption:
       "HereAfter live Mapbox social feed, 100m radius geofence trigger, and multi-format memory composer.",
     telemetry: {
-      label: "Six-week visitor engagement & beta retention after full-stack rebuild",
+      label:
+        "Six-week visitor engagement & beta retention after full-stack rebuild",
       beforeLabel: "1.00x pre-rebuild baseline",
       afterLabel: "1.40x visitor engagement",
       beforePct: 68,
@@ -186,7 +209,7 @@ export const experienceItems: ExperienceItem[] = [
   },
   {
     id: "delet",
-    index: "03",
+    index: "04",
     company: "Delet",
     shortName: "Delet",
     role: "Software Engineer Intern",
@@ -206,7 +229,8 @@ export const experienceItems: ExperienceItem[] = [
     mediaCaption:
       "Delet mobile migration & AWS EC2/S3 real-time video streaming pipeline.",
     telemetry: {
-      label: "Media stream load time & API contract latency after React Native + AWS rebuild",
+      label:
+        "Media stream load time & API contract latency after React Native + AWS rebuild",
       beforeLabel: "1.00x legacy web stream",
       afterLabel: "0.60x AWS EC2/S3 stream",
       beforePct: 100,
@@ -234,7 +258,7 @@ export const experienceItems: ExperienceItem[] = [
   },
   {
     id: "grip",
-    index: "04",
+    index: "05",
     company: "GRIP – The Sparks Foundation",
     shortName: "GRIP Foundation",
     role: "Software Engineer Intern",
@@ -253,13 +277,15 @@ export const experienceItems: ExperienceItem[] = [
     mediaCaption:
       "GRIP Stripe donation funnel & responsive accessibility architecture.",
     telemetry: {
-      label: "Donor checkout cart abandonment after Stripe funnel simplification",
+      label:
+        "Donor checkout cart abandonment after Stripe funnel simplification",
       beforeLabel: "1.00x baseline checkout drop-off",
       afterLabel: "0.75x A/B-tested Stripe flow",
       beforePct: 100,
       afterPct: 75,
       headlineDelta: "-25% abandonment",
-      subLabel: "16% longer session duration · 9% increase in completed donations",
+      subLabel:
+        "16% longer session duration · 9% increase in completed donations",
     },
     architectureNodes: [
       {

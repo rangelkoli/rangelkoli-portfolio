@@ -245,3 +245,8 @@ export const projects: Project[] = [
     ]
   },
 ];
+
+// Orange Housing and HereAfter are shown under Experience; their case study pages stay live.
+export const listedProjects = projects.filter(
+  (project) => !["orange-housing", "hereafter"].includes(project.slug)
+);

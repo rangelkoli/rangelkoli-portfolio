@@ -3,37 +3,28 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { experienceItems } from "@/data/experience";
 import { projects } from "@/data/projects";
 import { techIconMap } from "@/data/techIcons";
 import SectionTitle from "./SectionTitle";
 
-// Resume details; slugged entries pull title, copy, tech, and screenshots from their project page.
+// Role, period, and location come from data/experience.ts; slugged entries pull
+// title, copy, tech, and screenshots from their project page.
 const experienceEntries: Array<{
+  id: string;
   slug?: string;
-  title?: string;
   description?: string;
   technologies?: string[];
-  role: string;
-  period: string;
-  location: string;
 }> = [
+  { id: "orange-housing", slug: "orange-housing" },
   {
-    slug: "orange-housing",
-    role: "Software Engineer",
-    period: "Jan 2026 – Present",
-    location: "Syracuse, NY",
+    id: "occ",
+    description:
+      "Adjunct Professor in the Computer & Information Science department at Onondaga Community College in Syracuse, NY, teaching CSC 111 Fundamentals of Computing I, the introductory course that gives students their foundation in programming and computational thinking.",
   },
+  { id: "hereafter", slug: "hereafter" },
   {
-    slug: "hereafter",
-    role: "Founding Software Engineer",
-    period: "Aug 2025 – Dec 2025",
-    location: "New York, NY",
-  },
-  {
-    title: "Delet",
-    role: "Software Engineering Intern",
-    period: "Jun 2024 – Aug 2024",
-    location: "San Francisco, CA",
+    id: "delet",
     description:
       "Migrated a legacy website to a React Native app, cutting latency 25%, and built real-time video streaming on AWS EC2 & S3 for 10,000+ concurrent users.",
     technologies: ["React Native", "AWS"],
@@ -47,19 +38,21 @@ const onBlue =
 export default function ExperienceSection() {
   const reduceMotion = useReducedMotion();
   const experiences = experienceEntries.map((entry) => {
+    const item = experienceItems.find((e) => e.id === entry.id)!;
     const project = projects.find((p) => p.slug === entry.slug);
     return {
-      key: entry.slug ?? entry.title!,
+      key: entry.id,
       href: project && `/projects/${project.slug}`,
-      title: project?.title ?? entry.title!,
+      title: project?.title ?? item.shortName,
       description: project
         ? (project.caseStudy?.lead ?? project.description)
-        : entry.description!,
+        : (entry.description ?? item.summary),
       technologies: project?.technologies ?? entry.technologies ?? [],
+      courses: item.courses,
       images: project?.image ?? [],
-      role: entry.role,
-      period: entry.period,
-      location: entry.location,
+      role: item.role,
+      period: item.period,
+      location: item.location,
     };
   });
 
@@ -111,32 +104,38 @@ export default function ExperienceSection() {
                       <span>{experience.location}</span>
                     </p>
                     <ul
-                      aria-label="Technologies used"
+                      aria-label={
+                        experience.courses
+                          ? "Courses taught"
+                          : "Technologies used"
+                      }
                       className="-ml-1.5 mt-3 flex flex-wrap items-center gap-1"
                     >
-                      {experience.technologies.map((technology) => {
-                        const TechIcon = techIconMap[technology];
+                      {(experience.courses ?? experience.technologies).map(
+                        (technology) => {
+                          const TechIcon = techIconMap[technology];
 
-                        return (
-                          <li
-                            key={technology}
-                            title={technology}
-                            className="rounded-md p-1.5 font-instrument text-xs text-neutral-500 transition-colors duration-300 group-hover:bg-white/10 group-hover:text-white group-hover:ring-1 group-hover:ring-inset group-hover:ring-white/20 group-focus-visible:bg-white/10 group-focus-visible:text-white group-focus-visible:ring-1 group-focus-visible:ring-inset group-focus-visible:ring-white/20 motion-reduce:transition-none dark:text-neutral-400"
-                          >
-                            {TechIcon ? (
-                              <>
-                                <TechIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">{technology}</span>
-                              </>
-                            ) : (
-                              technology
-                            )}
-                          </li>
-                        );
-                      })}
+                          return (
+                            <li
+                              key={technology}
+                              title={technology}
+                              className="rounded-md p-1.5 font-instrument text-xs text-neutral-500 transition-colors duration-300 group-hover:bg-white/10 group-hover:text-white group-hover:ring-1 group-hover:ring-inset group-hover:ring-white/20 group-focus-visible:bg-white/10 group-focus-visible:text-white group-focus-visible:ring-1 group-focus-visible:ring-inset group-focus-visible:ring-white/20 motion-reduce:transition-none dark:text-neutral-400"
+                            >
+                              {TechIcon ? (
+                                <>
+                                  <TechIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                  <span className="sr-only">{technology}</span>
+                                </>
+                              ) : (
+                                technology
+                              )}
+                            </li>
+                          );
+                        },
+                      )}
                     </ul>
                   </div>
 

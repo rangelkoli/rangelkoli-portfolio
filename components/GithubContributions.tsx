@@ -22,6 +22,10 @@ interface GithubContributionsProps {
 // Served by app/api/github-contributions, which caches the upstream response.
 const url = "/api/github-contributions";
 
+// Survives client-side navigation, so returning to the home page doesn't refetch.
+// ponytail: lives until full page reload; the API route handles freshness.
+let cached: Activity[] | null = null;
+
 export default function GithubContributions({
   className = "",
 }: GithubContributionsProps) {
@@ -29,11 +33,12 @@ export default function GithubContributions({
 
   const { theme } = useTheme();
   const { holdLoader } = useLoader();
-  const [data, setData] = useState<Activity[] | null>(null);
+  const [data, setData] = useState<Activity[] | null>(cached);
   const [failed, setFailed] = useState(false);
 
   // Fetch here instead of via <GitHubCalendar> so the page loader can wait on it.
   useEffect(() => {
+    if (cached) return;
     const release = holdLoader();
     const controller = new AbortController();
 
@@ -42,7 +47,10 @@ export default function GithubContributions({
         if (!response.ok) throw new Error(`GitHub contributions: ${response.status}`);
         return response.json();
       })
-      .then((json: { contributions: Activity[] }) => setData(json.contributions))
+      .then((json: { contributions: Activity[] }) => {
+        cached = json.contributions;
+        setData(cached);
+      })
       .catch((error) => {
         if (error.name !== "AbortError") setFailed(true);
       })
@@ -52,7 +60,7 @@ export default function GithubContributions({
       controller.abort();
       release();
     };
-  }, [url, holdLoader]);
+  }, [holdLoader]);
 
   return (
     <div

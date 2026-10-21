@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { FiArrowUpRight, FiGithub } from "react-icons/fi";
-import { projects, type Project } from "@/data/projects";
+import { listedProjects as projects, type Project } from "@/data/projects";
 import { techIconMap } from "@/data/techIcons";
 
 // Same rule as the homepage cards: text flips to white while the row is blue.
