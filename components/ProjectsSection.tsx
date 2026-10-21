@@ -6,7 +6,8 @@ import { useEffect, useRef } from "react";
 import { projects } from "@/data/projects";
 import SectionTitle from "./SectionTitle";
 import { techIconMap } from "@/data/techIcons";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useLoader } from "@/context/LoaderContext";
 
 // Same as ExperienceSection: text flips to white while the tile is blue.
 const onBlue =
@@ -59,6 +60,11 @@ function ViewportVideo({ src, poster, className }: { src: string; poster?: strin
 
 export default function ProjectsSection() {
   const reduceMotion = useReducedMotion();
+  const { phase } = useLoader();
+  const listRef = useRef<HTMLOListElement>(null);
+  const listInView = useInView(listRef, { once: true, margin: "-90px" });
+  // Hold the entrance until the loader starts lifting, otherwise it plays unseen.
+  const revealed = listInView && phase !== "loading";
   const featuredProjects = projects.filter((project) =>
     ["judgifysu", "walksafe", "findx"].includes(project.slug)
   );
@@ -87,18 +93,18 @@ export default function ProjectsSection() {
 
       <div className="relative mx-auto w-full max-w-7xl">
         {/* Columns instead of Experience's rows; same rising-blue hover language. */}
-        <ol className="grid grid-cols-1 md:grid-cols-3">
+        <ol ref={listRef} className="grid grid-cols-1 md:grid-cols-3">
           {featuredProjects.map((project, index) => (
             <motion.li
               key={project.slug}
               data-loader-box="project-card"
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-90px" }}
+              // No resting offset: the loader's blueprint boxes measure these cards.
+              initial={reduceMotion ? false : { opacity: 0 }}
+              animate={revealed && !reduceMotion ? { opacity: 1, y: [20, 0] } : undefined}
               transition={{
-                duration: 0.5,
-                ease: [0.22, 1, 0.36, 1],
-                delay: reduceMotion ? 0 : index * 0.08,
+                duration: 0.7,
+                ease: [0.16, 1, 0.3, 1],
+                delay: 0.15 + index * 0.08,
               }}
               className="border-x border-b border-black/10 dark:border-white/15 md:border-r-0 md:last:border-r"
             >

@@ -2,11 +2,12 @@
 
 import { useLayoutEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useLoader } from "@/context/LoaderContext";
+import { useLoader, useLoaderProgress } from "@/context/LoaderContext";
 import styles from "./Loader.module.css";
 
 const Loader = () => {
-  const { phase, progress, completeLoaderExit } = useLoader();
+  const { phase, completeLoaderExit } = useLoader();
+  const progress = useLoaderProgress();
   const prefersReducedMotion = useReducedMotion();
   const mirrorLayerRef = useRef<HTMLDivElement>(null);
   const mirrorNodesRef = useRef(new Map<HTMLElement, HTMLElement>());
@@ -24,8 +25,11 @@ const Loader = () => {
     if (!mirrorLayer) return;
 
     let scheduledFrame: number | undefined;
-    let syncFrameCount = 0;
     let cancelled = false;
+
+    // Sweep top-to-bottom so the blueprint draws in reading order.
+    const revealDelay = (top: number) =>
+      `${(Math.min(Math.max(top / window.innerHeight, 0), 1) * 0.32).toFixed(3)}s`;
 
     const visibleRect = (element: HTMLElement) => {
       const rect = element.getBoundingClientRect();
@@ -87,7 +91,6 @@ const Loader = () => {
         "[data-loader-box], [data-loader-media], main img, main video"
       );
 
-      let frameIndex = 0;
       frames.forEach((element) => {
         if (
           (element.tagName === "IMG" || element.tagName === "VIDEO") &&
@@ -117,7 +120,7 @@ const Loader = () => {
           frame = document.createElement("div");
           frame.className = frameClass;
           frame.setAttribute("aria-hidden", "true");
-          frame.style.animationDelay = `${Math.min(frameIndex * 0.035, 0.35)}s`;
+          frame.style.animationDelay = revealDelay(rect.top);
           mirrorLayer.append(frame);
           mirrorNodes.set(source, frame);
         } else if (frame.className !== frameClass) {
@@ -130,7 +133,6 @@ const Loader = () => {
         setStyle(frame, "width", `${rect.width}px`);
         setStyle(frame, "height", `${rect.height}px`);
         setStyle(frame, "border-radius", computed.borderRadius);
-        frameIndex += 1;
       });
 
       const textElements = document.querySelectorAll<HTMLElement>(
@@ -168,7 +170,7 @@ const Loader = () => {
           frame = document.createElement("div");
           frame.className = `${styles.mirrorFrame} ${styles.mirrorText}`;
           frame.setAttribute("aria-hidden", "true");
-          frame.style.animationDelay = `${Math.min(frameIndex * 0.035, 0.35)}s`;
+          frame.style.animationDelay = revealDelay(rect.top);
           mirrorLayer.append(frame);
           mirrorNodes.set(source, frame);
         } else if (
@@ -190,10 +192,7 @@ const Loader = () => {
         setStyle(frame, "left", `${rect.left}px`);
         setStyle(frame, "top", `${rect.top}px`);
         setStyle(frame, "height", `${rect.height}px`);
-        setStyle(frame, "--full-width", `${rect.width}px`);
-        setStyle(frame, "--text-width", `${targetWidth}px`);
         setStyle(frame, "width", `${targetWidth}px`);
-        frameIndex += 1;
       });
 
       const glyphs = document.querySelectorAll<HTMLElement>(
@@ -230,7 +229,7 @@ const Loader = () => {
             element.removeAttribute("rel");
             element.removeAttribute("tabindex");
           });
-          glyph.style.animationDelay = "0.04s";
+          glyph.style.animationDelay = revealDelay(rect.top);
           mirrorLayer.append(glyph);
           mirrorNodes.set(source, glyph);
         }
@@ -260,7 +259,6 @@ const Loader = () => {
         setStyle(glyph, "pointer-events", "none");
         setStyle(glyph, "transform", "none");
         setStyle(glyph, "translate", "none");
-        frameIndex += 1;
       });
 
       mirrorNodes.forEach((mirror, source) => {
@@ -271,23 +269,39 @@ const Loader = () => {
       });
     };
 
-    const followPageLayout = () => {
-      if (cancelled) return;
-
-      syncFrameCount += 1;
-      if (syncFrameCount % 2 === 0) syncPageOutline();
-      scheduledFrame = window.requestAnimationFrame(followPageLayout);
+    // Re-measure only when layout can actually move (fonts, media, resize,
+    // scroll), coalesced to one pass per frame instead of polling every frame.
+    const scheduleSync = () => {
+      if (scheduledFrame !== undefined) return;
+      scheduledFrame = window.requestAnimationFrame(() => {
+        scheduledFrame = undefined;
+        syncPageOutline();
+      });
     };
 
     syncPageOutline();
-    scheduledFrame = window.requestAnimationFrame(followPageLayout);
-    document.fonts?.ready.then(syncPageOutline);
+    document.fonts?.ready.then(scheduleSync);
+
+    const resizeObserver = new ResizeObserver(scheduleSync);
+    document
+      .querySelectorAll("main, header, [data-loader-box], [data-loader-media]")
+      .forEach((element) => resizeObserver.observe(element));
+    // load/error don't bubble, so listen in the capture phase.
+    document.addEventListener("load", scheduleSync, true);
+    document.addEventListener("error", scheduleSync, true);
+    window.addEventListener("resize", scheduleSync);
+    window.addEventListener("scroll", scheduleSync, { passive: true });
 
     return () => {
       cancelled = true;
       if (scheduledFrame !== undefined) {
         window.cancelAnimationFrame(scheduledFrame);
       }
+      resizeObserver.disconnect();
+      document.removeEventListener("load", scheduleSync, true);
+      document.removeEventListener("error", scheduleSync, true);
+      window.removeEventListener("resize", scheduleSync);
+      window.removeEventListener("scroll", scheduleSync);
     };
   }, [phase]);
 

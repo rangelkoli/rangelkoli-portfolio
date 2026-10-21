@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type ReactNode,
@@ -14,13 +15,14 @@ type LoaderPhase = "loading" | "exiting" | "loaded";
 
 interface LoaderContextType {
   phase: LoaderPhase;
-  progress: number;
   completeLoaderExit: () => void;
   // Keeps the loader up until the returned release() is called.
   holdLoader: () => () => void;
 }
 
 const LoaderContext = createContext<LoaderContextType | undefined>(undefined);
+// Separate so the per-frame progress tick only re-renders the loader itself.
+const LoaderProgressContext = createContext(0);
 
 const PROGRESS_DURATION_MS = 1500;
 const COMPLETE_HOLD_MS = 350;
@@ -51,7 +53,8 @@ export function LoaderProvider({ children }: { children: ReactNode }) {
       }
 
       const fraction = Math.min((now - startedAt) / PROGRESS_DURATION_MS, 1);
-      setProgress(fraction * 100);
+      // Integer steps let React skip renders when the readout wouldn't change.
+      setProgress(Math.round(fraction * 100));
 
       if (fraction < 1) {
         animationFrame = window.requestAnimationFrame(updateProgress);
@@ -125,11 +128,16 @@ export function LoaderProvider({ children }: { children: ReactNode }) {
     return () => releases.forEach((release) => release?.());
   }, [holdLoader]);
 
+  const value = useMemo(
+    () => ({ phase, completeLoaderExit, holdLoader }),
+    [phase, completeLoaderExit, holdLoader]
+  );
+
   return (
-    <LoaderContext.Provider
-      value={{ phase, progress, completeLoaderExit, holdLoader }}
-    >
-      {children}
+    <LoaderContext.Provider value={value}>
+      <LoaderProgressContext.Provider value={progress}>
+        {children}
+      </LoaderProgressContext.Provider>
     </LoaderContext.Provider>
   );
 }
@@ -140,4 +148,8 @@ export function useLoader() {
     throw new Error("useLoader must be used within a LoaderProvider");
   }
   return context;
+}
+
+export function useLoaderProgress() {
+  return useContext(LoaderProgressContext);
 }
