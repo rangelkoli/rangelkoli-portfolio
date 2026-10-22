@@ -29,8 +29,21 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deploy on Cloudflare
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This branch runs on Cloudflare Workers through [OpenNext](https://opennext.js.org/cloudflare).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run preview   # build and run in the local Workers runtime (http://localhost:8787)
+npm run deploy    # build and deploy (run `npx wrangler login` first)
+```
+
+Workers caps a single static asset at 25 MiB, so keep large media out of `public/`.
+
+### Analytics
+
+Cloudflare Web Analytics loads only when `NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN` is set at build time.
+Create a site under Cloudflare dashboard > Analytics & Logs > Web Analytics, copy the token from its JS snippet, and set it:
+
+- Local deploys: `NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN=<token> npm run deploy`
+- Workers Builds (Git-connected): add it under Settings > Build > Variables and secrets

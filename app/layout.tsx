@@ -9,9 +9,12 @@ import Header from "../components/Header";
 import Loader from "../components/Loader";
 import SmoothScroll from "../components/SmoothScroll";
 import localFont from "next/font/local";
-import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 import { LoaderProvider } from "@/context/LoaderContext";
 import { ThemeProvider } from "@/context/ThemeContext";
+
+// Token from Cloudflare dashboard > Web Analytics; inlined at build time.
+const cfBeaconToken = process.env.NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN;
 
 const bueno_regular = localFont({
   src: "../components/bueno-regular.otf",
@@ -98,7 +101,13 @@ export default function RootLayout({
         <ThemeProvider>
           <LoaderProvider>
             <SmoothScroll />
-            <Analytics />
+            {cfBeaconToken && (
+              <Script
+                src="https://static.cloudflareinsights.com/beacon.min.js"
+                data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+                strategy="afterInteractive"
+              />
+            )}
             <Loader />
             <Header />
             <div className="site-shell relative z-10">
