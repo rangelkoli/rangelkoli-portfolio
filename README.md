@@ -42,8 +42,5 @@ Workers caps a single static asset at 25 MiB, so keep large media out of `public
 
 ### Analytics
 
-Cloudflare Web Analytics loads only when `NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN` is set at build time.
-Create a site under Cloudflare dashboard > Analytics & Logs > Web Analytics, copy the token from its JS snippet, and set it:
-
-- Local deploys: `NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN=<token> npm run deploy`
-- Workers Builds (Git-connected): add it under Settings > Build > Variables and secrets
+Cloudflare Web Analytics is loaded in `app/layout.tsx` with the site token for `rangelkoli.com`.
+View traffic under Cloudflare dashboard > Analytics & Logs > Web Analytics.

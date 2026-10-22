@@ -13,8 +13,8 @@ import Script from "next/script";
 import { LoaderProvider } from "@/context/LoaderContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 
-// Token from Cloudflare dashboard > Web Analytics; inlined at build time.
-const cfBeaconToken = process.env.NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN;
+// Public Cloudflare Web Analytics site token for rangelkoli.com (not a secret).
+const cfBeaconToken = "b9796784d13a46fca3e2ad3a63895665";
 
 const bueno_regular = localFont({
   src: "../components/bueno-regular.otf",
@@ -101,13 +101,11 @@ export default function RootLayout({
         <ThemeProvider>
           <LoaderProvider>
             <SmoothScroll />
-            {cfBeaconToken && (
-              <Script
-                src="https://static.cloudflareinsights.com/beacon.min.js"
-                data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
-                strategy="afterInteractive"
-              />
-            )}
+            <Script
+              src="https://static.cloudflareinsights.com/beacon.min.js"
+              data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+              strategy="afterInteractive"
+            />
             <Loader />
             <Header />
             <div className="site-shell relative z-10">
